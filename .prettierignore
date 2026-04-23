@@ -1,0 +1,6 @@
+node_modules
+dist
+.tsbuild-node
+pnpm-lock.yaml
+docs
+plans
