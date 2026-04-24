@@ -1,12 +1,194 @@
 {
   "hero": {
-    "title": "Hà Phương & Hoàng Minh",
-    "subtitle": "Trân trọng kính mời",
-    "comingSoon": "Sắp ra mắt"
+    "eyebrow": "Trân trọng kính mời",
+    "personalGreeting": "Kính mời {{name}}",
+    "scrollHint": "Lướt xuống"
+  },
+  "countdown": {
+    "days_one": "ngày",
+    "days_other": "ngày",
+    "hours_one": "giờ",
+    "hours_other": "giờ",
+    "minutes_one": "phút",
+    "minutes_other": "phút",
+    "seconds_one": "giây",
+    "seconds_other": "giây",
+    "dayOf": "Hôm nay là ngày của chúng mình"
+  },
+  "story": {
+    "eyebrow": "Chuyện chúng mình",
+    "title": "Một hành trình"
+  },
+  "album": {
+    "eyebrow": "Khoảnh khắc",
+    "title": "Những bức ảnh yêu"
+  },
+  "video": {
+    "eyebrow": "Video cưới",
+    "title": "Chuyện phim của chúng mình",
+    "play": "Phát video"
+  },
+  "events": {
+    "eyebrow": "Ngày trọng đại",
+    "title": "Chương trình",
+    "openInMaps": "Mở trong Google Maps"
+  },
+  "event": {
+    "kind": {
+      "ceremony": "Lễ cưới",
+      "reception": "Tiệc cưới"
+    }
+  },
+  "calendar": {
+    "add": "Thêm vào lịch",
+    "google": "Google",
+    "apple": "Apple / .ics",
+    "outlook": "Outlook"
+  },
+  "rsvp": {
+    "eyebrow": "Hồi âm",
+    "title": "Xác nhận tham dự",
+    "attendance": {
+      "q": "Bạn có thể đến chung vui với chúng mình không?",
+      "yes": "Có, chắc chắn rồi",
+      "no": "Tiếc quá, không thể"
+    },
+    "fields": {
+      "fullName": "Tên đầy đủ",
+      "partySize": "Số người tham dự",
+      "dietary": "Ăn chay / dị ứng",
+      "dietaryPlaceholder": "Không có",
+      "song": "Bài hát muốn nghe?",
+      "songPlaceholder": "Tên bài hát · ca sĩ",
+      "message": "Lời nhắn cho cô dâu chú rể",
+      "messagePlaceholder": "Vài dòng chúc mừng…"
+    },
+    "buttons": {
+      "next": "Tiếp tục",
+      "back": "Quay lại",
+      "submit": "Gửi phản hồi",
+      "submitting": "Đang gửi…",
+      "edit": "Sửa",
+      "editResponse": "Cập nhật câu trả lời"
+    },
+    "confirm": {
+      "review": "Xem lại trước khi gửi",
+      "regret": "Tiếc quá!",
+      "miss": "Bọn mình sẽ rất nhớ bạn ở ngày đặc biệt này."
+    },
+    "success": {
+      "attending": "Cảm ơn bạn!",
+      "regret": "Đã ghi nhận, cảm ơn bạn",
+      "thanks": "Phản hồi của bạn đã được lưu."
+    },
+    "errors": {
+      "statusRequired": "Vui lòng chọn câu trả lời",
+      "nameTooShort": "Tên quá ngắn",
+      "nameTooLong": "Tên quá dài",
+      "submitFailed": "Không gửi được phản hồi"
+    }
+  },
+  "wishes": {
+    "eyebrow": "Lời chúc",
+    "title": "Sổ lưu niệm",
+    "placeholder": {
+      "name": "Tên của bạn",
+      "message": "Viết vài dòng chúc mừng…"
+    },
+    "submit": "Gửi lời chúc",
+    "sending": "Đang gửi…",
+    "sent": "Đã gửi ❤",
+    "showMore": "Xem thêm",
+    "showLess": "Thu gọn",
+    "empty": "Hãy là người đầu tiên chúc mừng"
+  },
+  "gift": {
+    "eyebrow": "Mừng cưới",
+    "title": "Gửi tới hai bạn",
+    "subtitle": "Sự hiện diện của bạn là món quà lớn nhất. Nếu muốn gửi tặng thêm, dưới đây là thông tin chuyển khoản.",
+    "scanHint": "Quét mã QR để chuyển khoản nhanh",
+    "bank": "Ngân hàng",
+    "accountNumber": "Số tài khoản",
+    "accountHolder": "Chủ tài khoản",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép",
+    "enlargeQr": "Phóng to mã QR",
+    "copyAriaLabel": "Sao chép số tài khoản {{number}}",
+    "tabsLabel": "Chọn tài khoản"
   },
   "common": {
     "rsvp": "Xác nhận tham dự",
     "switchLang": "EN",
     "toggleTheme": "Đổi giao diện"
+  },
+  "nav": {
+    "hero": "Trang chủ",
+    "backdrop": "Khoảnh khắc"
+  },
+  "share": {
+    "title": "Chia sẻ thiệp",
+    "subtitle": "Gửi tới bạn bè & người thân",
+    "copied": "Đã sao chép liên kết",
+    "copyFailed": "Không sao chép được",
+    "targets": {
+      "zalo": "Chia sẻ qua Zalo",
+      "whatsapp": "Chia sẻ qua WhatsApp",
+      "copy": "Sao chép liên kết",
+      "native": "Mở trình chia sẻ"
+    }
+  },
+  "floating": {
+    "share": "Chia sẻ thiệp",
+    "nav": "Chuyển đến mục",
+    "musicPlay": "Bật nhạc nền",
+    "musicPause": "Tắt nhạc nền"
+  },
+  "games": {
+    "eyebrow": "Vui chơi",
+    "title": "Trò chơi nhỏ",
+    "subtitle": "Vài phút thư giãn cùng cô dâu chú rể",
+    "play": "Chơi",
+    "playAgain": "Chơi lại",
+    "close": "Đóng",
+    "complete": "Hoàn thành",
+    "scoreLabel": "Điểm",
+    "memory": {
+      "title": "Tìm cặp ký ức",
+      "tagline": "Lật bài tìm cặp giống nhau",
+      "subtitle": "12 cặp · ít lượt + nhanh = điểm cao",
+      "moves_one": "{{count}} lượt",
+      "moves_other": "{{count}} lượt"
+    },
+    "quiz": {
+      "title": "Đố vui đôi mình",
+      "tagline": "8 câu hỏi về cô dâu chú rể",
+      "resultLine": "Đúng {{correct}}/{{total}} câu",
+      "q1": { "question": "Hà Phương và Hoàng Minh gặp nhau lần đầu vào năm nào?", "opt_a": "2018", "opt_b": "2019", "opt_c": "2020", "opt_d": "2021" },
+      "q2": { "question": "Sở thích chung của họ là gì?", "opt_a": "Du lịch", "opt_b": "Nấu ăn", "opt_c": "Xem phim", "opt_d": "Nghe nhạc" },
+      "q3": { "question": "Họ đã đi du lịch cùng nhau ở đâu đầu tiên?", "opt_a": "Đà Lạt", "opt_b": "Sapa", "opt_c": "Phú Quốc", "opt_d": "Nha Trang" },
+      "q4": { "question": "Món ăn yêu thích của Hoàng Minh là gì?", "opt_a": "Phở", "opt_b": "Bún bò", "opt_c": "Cơm tấm", "opt_d": "Mì Quảng" },
+      "q5": { "question": "Hà Phương thích màu gì nhất?", "opt_a": "Đỏ", "opt_b": "Xanh dương", "opt_c": "Tím", "opt_d": "Vàng" },
+      "q6": { "question": "Họ đã hẹn hò bao nhiêu năm trước khi đính hôn?", "opt_a": "2 năm", "opt_b": "3 năm", "opt_c": "4 năm", "opt_d": "5 năm" },
+      "q7": { "question": "Bộ phim yêu thích của cả hai là gì?", "opt_a": "La La Land", "opt_b": "Your Name", "opt_c": "Spirited Away", "opt_d": "Parasite" },
+      "q8": { "question": "Họ muốn tổ chức lễ cưới ở đâu?", "opt_a": "Sài Gòn", "opt_b": "Đà Nẵng", "opt_c": "Hà Nội", "opt_d": "Đà Lạt" }
+    },
+    "bouquet": {
+      "title": "Bắt hoa cưới",
+      "tagline": "Bắt hoa rơi trong 30 giây",
+      "subtitle": "Chạm để bắt · hoa vàng x3 điểm",
+      "instructions": "Chạm vào những bông hoa rơi xuống. Bỏ lỡ bị trừ điểm.",
+      "summary": "Bắt được {{caught}} · vàng {{golden}} · lỡ {{missed}}"
+    },
+    "leaderboard": {
+      "title": "Bảng xếp hạng",
+      "loading": "Đang tải…",
+      "empty": "Chưa có ai chơi. Hãy là người đầu tiên!"
+    },
+    "toast": {
+      "newRecord": "🎉 Kỷ lục mới!",
+      "scoreSaved": "Đã lưu điểm",
+      "needGuest": "Hãy mở thiệp qua liên kết riêng để được lưu điểm",
+      "submitFailed": "Không lưu được điểm, thử lại nhé"
+    }
   }
 }

@@ -2,23 +2,26 @@
 
 Premium single-page wedding invitation website for Hà Phương & Hoàng Minh. A cinematic, modern, minimal digital experience celebrating their love story with personalized guest invitations, RSVP management, and interactive features.
 
-## Features
+## Features (Phases 0–3 Complete)
 
-- **Cinematic Hero** — Full-screen video background with countdown timer
+- **Cinematic Hero** — Full-screen video background with countdown timer (Phase 1)
+- **Love Story Timeline** — Animated timeline of the couple's journey (Phase 2)
+- **Event Details** — Ceremony/reception info, map, add-to-calendar buttons (Phase 2)
+- **Photo Album** — Masonry grid with lightbox slideshow (Phase 3)
+- **Wedding Video** — YouTube nocookie facade with lazy-load (Phase 3)
+- **Cinematic Backdrop** — CSS scroll-snap slide deck with film grain (Phase 3)
+- **Bilingual** — Vietnamese/English toggle with localStorage persistence (Phase 1)
+- **Dark Mode** — Full dark mode support with pre-hydration (Phase 1)
+
+## Planned Features (Phase 4+)
+
 - **Personalized Invitations** — Auto-greet guests via unique URL (`?guest=NguyenVanA`)
-- **Love Story Timeline** — Animated timeline of the couple's journey
-- **Event Details** — Ceremony/reception info, map, add-to-calendar buttons
-- **Photo Album** — Masonry grid with lightbox slideshow
-- **Wedding Video** — Embedded video player
 - **Multi-Step RSVP** — Guest auto-fill, validation, Supabase submission
 - **Realtime Wishes Feed** — Live guest wishes with Supabase subscriptions
 - **Gift Coordination** — QR code + bank transfer info for gift money
 - **Mini-Games** — Love Memory, Quiz, Catch Bouquet with leaderboard
 - **Dynamic OG Images** — Per-guest share links with custom OG images
 - **Floating UI** — Music toggle, quick nav, RSVP CTA
-- **Bilingual** — Vietnamese/English toggle with localStorage persistence
-- **Dark Mode** — Full dark mode support
-- **Accessible** — WCAG AA compliant, keyboard navigation, screen reader support
 
 ## Tech Stack
 
@@ -43,11 +46,11 @@ Premium single-page wedding invitation website for Hà Phương & Hoàng Minh. A
 
 ```bash
 # Clone repository
-git clone https://github.com/your-org/wedding-invitation.git
+git clone https://github.com/weddinginvitationmp-art/mp.git
 cd wedding-invitation
 
-# Install dependencies
-npm install
+# Install dependencies (pnpm required)
+pnpm install
 
 # Create environment file
 cp .env.example .env.local
@@ -57,7 +60,7 @@ cp .env.example .env.local
 # VITE_SUPABASE_ANON_KEY=xxx
 
 # Start development server
-npm run dev
+pnpm dev
 
 # Open http://localhost:5173
 ```
@@ -66,10 +69,10 @@ npm run dev
 
 ```bash
 # Build for production
-npm run build
+pnpm build
 
 # Preview production build
-npm run preview
+pnpm preview
 
 # Deploy to Vercel (automatic on git push to main)
 git push origin main
@@ -208,11 +211,11 @@ See `./docs/deployment-guide.md` for detailed setup instructions.
 
 ## Roadmap
 
-**Phase 0:** Setup (Vite, React, TypeScript, Tailwind, Supabase)
-**Phase 1:** Hero + Countdown + i18n + Dark mode
-**Phase 2:** Our Story + Event Details + Add-to-calendar
-**Phase 3:** Album + Video + Cinematic backdrop
-**Phase 4:** RSVP + Personalized link + Guests table
+**Phase 0:** Setup (Vite, React, TypeScript, Tailwind, Supabase) ✓ Complete
+**Phase 1:** Hero + Countdown + i18n + Dark mode ✓ Complete
+**Phase 2:** Our Story + Event Details + Add-to-calendar ✓ Complete
+**Phase 3:** Album + Video + Cinematic backdrop ✓ Complete
+**Phase 4:** RSVP + Personalized link + Guests table (In Planning)
 **Phase 5:** Wishes + QR/Bank gift
 **Phase 6:** Mini-games + Leaderboard
 **Phase 7:** OG image + Share buttons + Floating UI

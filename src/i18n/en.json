@@ -1,12 +1,194 @@
 {
   "hero": {
-    "title": "Ha Phuong & Hoang Minh",
-    "subtitle": "Request the honour of your presence",
-    "comingSoon": "Coming soon"
+    "eyebrow": "Save the date",
+    "personalGreeting": "Dearly invited, {{name}}",
+    "scrollHint": "Scroll"
+  },
+  "countdown": {
+    "days_one": "day",
+    "days_other": "days",
+    "hours_one": "hour",
+    "hours_other": "hours",
+    "minutes_one": "minute",
+    "minutes_other": "minutes",
+    "seconds_one": "second",
+    "seconds_other": "seconds",
+    "dayOf": "Today is our day"
+  },
+  "story": {
+    "eyebrow": "Our story",
+    "title": "A journey"
+  },
+  "album": {
+    "eyebrow": "Moments",
+    "title": "Photographs"
+  },
+  "video": {
+    "eyebrow": "Wedding film",
+    "title": "Our story, on screen",
+    "play": "Play video"
+  },
+  "events": {
+    "eyebrow": "The big day",
+    "title": "Schedule",
+    "openInMaps": "Open in Google Maps"
+  },
+  "event": {
+    "kind": {
+      "ceremony": "Ceremony",
+      "reception": "Reception"
+    }
+  },
+  "calendar": {
+    "add": "Add to calendar",
+    "google": "Google",
+    "apple": "Apple / .ics",
+    "outlook": "Outlook"
+  },
+  "rsvp": {
+    "eyebrow": "RSVP",
+    "title": "Will you join us?",
+    "attendance": {
+      "q": "Will you be there to celebrate with us?",
+      "yes": "Yes, joyfully",
+      "no": "Sadly, no"
+    },
+    "fields": {
+      "fullName": "Full name",
+      "partySize": "Party size",
+      "dietary": "Dietary needs",
+      "dietaryPlaceholder": "None",
+      "song": "Song request",
+      "songPlaceholder": "Title · artist",
+      "message": "A note for the couple",
+      "messagePlaceholder": "Write something kind…"
+    },
+    "buttons": {
+      "next": "Next",
+      "back": "Back",
+      "submit": "Send",
+      "submitting": "Sending…",
+      "edit": "Edit",
+      "editResponse": "Update response"
+    },
+    "confirm": {
+      "review": "Review before sending",
+      "regret": "Sorry to hear",
+      "miss": "We'll miss you on our special day."
+    },
+    "success": {
+      "attending": "Thank you!",
+      "regret": "Noted, thank you",
+      "thanks": "Your response has been saved."
+    },
+    "errors": {
+      "statusRequired": "Please pick an answer",
+      "nameTooShort": "Name is too short",
+      "nameTooLong": "Name is too long",
+      "submitFailed": "Could not submit"
+    }
+  },
+  "wishes": {
+    "eyebrow": "Guestbook",
+    "title": "Leave a wish",
+    "placeholder": {
+      "name": "Your name",
+      "message": "Write something kind…"
+    },
+    "submit": "Send wish",
+    "sending": "Sending…",
+    "sent": "Wish sent ❤",
+    "showMore": "Show more",
+    "showLess": "Show less",
+    "empty": "Be the first to send your wishes"
+  },
+  "gift": {
+    "eyebrow": "Gift",
+    "title": "With love",
+    "subtitle": "Your presence is the greatest gift. If you'd like to share more, here are the details.",
+    "scanHint": "Scan QR to transfer",
+    "bank": "Bank",
+    "accountNumber": "Account number",
+    "accountHolder": "Account holder",
+    "copy": "Copy",
+    "copied": "Copied",
+    "enlargeQr": "Enlarge QR code",
+    "copyAriaLabel": "Copy account number {{number}}",
+    "tabsLabel": "Select account"
   },
   "common": {
     "rsvp": "RSVP",
     "switchLang": "VI",
     "toggleTheme": "Toggle theme"
+  },
+  "nav": {
+    "hero": "Home",
+    "backdrop": "Moments"
+  },
+  "share": {
+    "title": "Share invite",
+    "subtitle": "Send to friends & family",
+    "copied": "Link copied",
+    "copyFailed": "Couldn't copy link",
+    "targets": {
+      "zalo": "Share on Zalo",
+      "whatsapp": "Share on WhatsApp",
+      "copy": "Copy link",
+      "native": "Open share menu"
+    }
+  },
+  "floating": {
+    "share": "Share invite",
+    "nav": "Jump to section",
+    "musicPlay": "Play background music",
+    "musicPause": "Pause background music"
+  },
+  "games": {
+    "eyebrow": "Play",
+    "title": "Mini games",
+    "subtitle": "A light moment with the couple",
+    "play": "Play",
+    "playAgain": "Play again",
+    "close": "Close",
+    "complete": "Complete",
+    "scoreLabel": "Score",
+    "memory": {
+      "title": "Memory match",
+      "tagline": "Flip cards to find pairs",
+      "subtitle": "12 pairs · fewer moves + faster = higher score",
+      "moves_one": "{{count}} move",
+      "moves_other": "{{count}} moves"
+    },
+    "quiz": {
+      "title": "Couple trivia",
+      "tagline": "8 questions about the couple",
+      "resultLine": "{{correct}}/{{total}} correct",
+      "q1": { "question": "What year did Hà Phương and Hoàng Minh first meet?", "opt_a": "2018", "opt_b": "2019", "opt_c": "2020", "opt_d": "2021" },
+      "q2": { "question": "What's their shared hobby?", "opt_a": "Traveling", "opt_b": "Cooking", "opt_c": "Watching movies", "opt_d": "Listening to music" },
+      "q3": { "question": "Where did they go on their first trip together?", "opt_a": "Da Lat", "opt_b": "Sapa", "opt_c": "Phu Quoc", "opt_d": "Nha Trang" },
+      "q4": { "question": "Hoàng Minh's favorite food?", "opt_a": "Pho", "opt_b": "Bun bo", "opt_c": "Com tam", "opt_d": "Mi Quang" },
+      "q5": { "question": "Hà Phương's favorite color?", "opt_a": "Red", "opt_b": "Blue", "opt_c": "Purple", "opt_d": "Yellow" },
+      "q6": { "question": "How many years did they date before getting engaged?", "opt_a": "2 years", "opt_b": "3 years", "opt_c": "4 years", "opt_d": "5 years" },
+      "q7": { "question": "Their favorite movie?", "opt_a": "La La Land", "opt_b": "Your Name", "opt_c": "Spirited Away", "opt_d": "Parasite" },
+      "q8": { "question": "Where do they want to have their wedding?", "opt_a": "Ho Chi Minh City", "opt_b": "Da Nang", "opt_c": "Hanoi", "opt_d": "Da Lat" }
+    },
+    "bouquet": {
+      "title": "Catch the bouquet",
+      "tagline": "Catch falling bouquets in 30 seconds",
+      "subtitle": "Tap to catch · gold bouquet is 3x",
+      "instructions": "Tap the bouquets as they fall. Missed ones cost points.",
+      "summary": "Caught {{caught}} · gold {{golden}} · missed {{missed}}"
+    },
+    "leaderboard": {
+      "title": "Leaderboard",
+      "loading": "Loading…",
+      "empty": "No one has played yet. Be the first!"
+    },
+    "toast": {
+      "newRecord": "🎉 New record!",
+      "scoreSaved": "Score saved",
+      "needGuest": "Open the invite via your personal link to save scores",
+      "submitFailed": "Couldn't save your score — try again"
+    }
   }
 }

@@ -62,3 +62,12 @@ body {
   opacity: 0.06;
   mix-blend-mode: overlay;
 }
+
+/* Hide native scrollbars on elements that want a clean horizontal deck */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

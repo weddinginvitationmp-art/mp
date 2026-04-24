@@ -69,6 +69,30 @@ export interface Database {
         Insert: Omit<Database["public"]["Tables"]["games_leaderboard"]["Row"], "id" | "created_at">;
         Update: Partial<Database["public"]["Tables"]["games_leaderboard"]["Insert"]>;
       };
+      game_scores: {
+        Row: {
+          id: string;
+          guest_id: string;
+          game: "memory" | "quiz" | "bouquet";
+          score: number;
+          meta: Record<string, unknown>;
+          created_at: string;
+        };
+        Insert: Omit<Database["public"]["Tables"]["game_scores"]["Row"], "id" | "created_at" | "meta"> & {
+          meta?: Record<string, unknown>;
+        };
+        Update: Partial<Database["public"]["Tables"]["game_scores"]["Insert"]>;
+      };
+      guest_shares: {
+        Row: {
+          id: string;
+          guest_id: string | null;
+          target: "zalo" | "whatsapp" | "copy" | "native";
+          created_at: string;
+        };
+        Insert: Omit<Database["public"]["Tables"]["guest_shares"]["Row"], "id" | "created_at">;
+        Update: Partial<Database["public"]["Tables"]["guest_shares"]["Insert"]>;
+      };
     };
   };
 }
