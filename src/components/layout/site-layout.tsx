@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { LanguageToggle } from "@/components/common/language-toggle";
+import { ScrollProgress } from "@/components/common/scroll-progress";
 import { ThemeToggle } from "@/components/common/theme-toggle";
 import { Toast } from "@/components/common/toast";
 import { FloatingDock } from "@/components/floating/floating-dock";
@@ -12,6 +13,7 @@ import { FloatingDock } from "@/components/floating/floating-dock";
 export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div className="relative min-h-dvh">
+      <ScrollProgress />
       <header className="fixed z-40 flex gap-2"
         style={{ top: "calc(1.25rem + env(safe-area-inset-top))", right: "1.25rem" }}>
         <LanguageToggle />

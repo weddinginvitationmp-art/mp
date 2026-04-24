@@ -16,8 +16,8 @@ export function AttendanceStep({ form }: Props) {
 
   const cardBase =
     "rounded-soft border px-6 py-8 text-center transition cursor-pointer focus:outline-none focus:ring-2 focus:ring-muted-gold/40 min-h-[120px] touch-action-manipulation active:scale-[0.98]";
-  const cardSelected = "border-muted-gold bg-muted-gold/10";
-  const cardIdle = "border-ivory/20 bg-ivory/5 hover:border-ivory/40 dark:bg-ink/30";
+  const cardSelected = "border-muted-gold bg-accent/10";
+  const cardIdle = "border-border-subtle bg-surface-muted hover:border-border-subtle/40 dark:bg-surface/30";
 
   return (
     <fieldset className="grid gap-4 sm:grid-cols-2">

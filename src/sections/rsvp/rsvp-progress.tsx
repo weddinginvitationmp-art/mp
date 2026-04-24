@@ -20,10 +20,10 @@ export function RsvpProgress({ current, total }: Props) {
             aria-hidden="true"
             className={`rounded-pill transition-all ${
               active
-                ? "h-1 sm:h-1 w-10 bg-muted-gold sm:w-10"
+                ? "h-1 sm:h-1 w-10 bg-accent sm:w-10"
                 : done
-                  ? "h-1 w-6 bg-muted-gold/60"
-                  : "h-1 w-6 bg-ivory/20"
+                  ? "h-1 w-6 bg-accent/60"
+                  : "h-1 w-6 bg-surface-muted"
             }`}
           />
         );

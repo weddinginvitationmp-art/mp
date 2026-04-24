@@ -44,7 +44,7 @@ export function RsvpCtaPill() {
       pill
       aria-label={t("common.rsvp")}
       onClick={jump}
-      className="bg-muted-gold text-ink border-transparent hover:bg-muted-gold/90 hover:border-transparent font-display text-xs uppercase tracking-widest"
+      className="bg-accent text-on-accent border-transparent hover:bg-accent/90 hover:border-transparent font-display text-xs uppercase tracking-widest"
     >
       {t("common.rsvp")}
     </FabButton>

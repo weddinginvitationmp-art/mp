@@ -26,7 +26,7 @@ export function CopyButton({ value, label }: Props) {
       onClick={handle}
       aria-label={label}
       aria-live="polite"
-      className="rounded-pill border border-ivory/20 px-3 py-1 text-[10px] uppercase tracking-widest transition hover:bg-ivory/5"
+      className="rounded-pill border border-border-subtle px-3 py-1 text-[10px] uppercase tracking-widest transition hover:bg-surface-muted"
     >
       {copied ? t("gift.copied") : t("gift.copy")}
     </button>

@@ -17,9 +17,9 @@ export function WishItem({ wish }: Props) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <li className="border-b border-ivory/10 py-4 last:border-0">
+    <li className="border-b border-border-subtle py-4 last:border-0">
       <p className="flex items-baseline gap-3 text-sm">
-        <span className="font-display text-base text-muted-gold">{wish.guestName}</span>
+        <span className="font-display text-base text-accent">{wish.guestName}</span>
         <span className="text-[11px] opacity-50" title={absolute}>
           {formatRelative(wish.created_at, lang)}
         </span>
@@ -35,7 +35,7 @@ export function WishItem({ wish }: Props) {
         <button
           type="button"
           onClick={() => setExpanded((v) => !v)}
-          className="mt-1 text-[11px] uppercase tracking-widest text-muted-gold hover:opacity-80 touch-action-manipulation"
+          className="mt-1 text-[11px] uppercase tracking-widest text-accent hover:opacity-80 touch-action-manipulation"
         >
           {expanded ? t("wishes.showLess") : t("wishes.showMore")}
         </button>

@@ -29,7 +29,7 @@ export function VenueMap({ query, label }: Props) {
         href={view}
         target="_blank"
         rel="noreferrer"
-        className="mt-3 block text-center text-xs uppercase tracking-[0.3em] text-muted-gold underline-offset-4 hover:underline"
+        className="mt-3 block text-center text-xs uppercase tracking-[0.3em] text-accent underline-offset-4 hover:underline"
       >
         {t("events.openInMaps")}
       </a>

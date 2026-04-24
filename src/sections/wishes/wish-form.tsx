@@ -55,7 +55,7 @@ export function WishForm({ onSubmitted }: Props) {
         : "opacity-50";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3 rounded-soft border border-ivory/15 bg-ivory/5 p-5 dark:bg-ink/30">
+    <form onSubmit={handleSubmit} className="space-y-3 rounded-soft border border-border-subtle bg-surface-muted p-5 dark:bg-surface/30">
       <input
         type="text"
         placeholder={t("wishes.placeholder.name")}
@@ -82,7 +82,7 @@ export function WishForm({ onSubmitted }: Props) {
           <button
             type="submit"
             disabled={!canSubmit}
-            className="rounded-pill bg-muted-gold px-5 py-2 text-[11px] uppercase tracking-widest text-ink transition hover:bg-muted-gold/90 disabled:opacity-40"
+            className="rounded-pill bg-accent px-5 py-2 text-[11px] uppercase tracking-widest text-on-accent transition hover:bg-accent/90 disabled:opacity-40"
           >
             {submitting ? t("wishes.sending") : t("wishes.submit")}
           </button>

@@ -16,7 +16,7 @@ export function Wishes({ index }: { index?: number }) {
     <SectionShell id="wishes" index={index}>
       <SectionHeading eyebrowKey="wishes.eyebrow" titleKey="wishes.title" index={index} />
       {/* Sticky on mobile, static on md+ */}
-      <div className="sticky top-0 z-10 mb-6 bg-ivory/5 backdrop-blur-md md:static md:bg-transparent md:backdrop-blur-none">
+      <div className="sticky top-0 z-10 mb-6 bg-surface-muted backdrop-blur-md md:static md:bg-transparent md:backdrop-blur-none">
         <WishForm onSubmitted={addOptimistic} />
       </div>
       <WishFeed wishes={wishes} loading={loading} />

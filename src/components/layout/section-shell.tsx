@@ -20,10 +20,9 @@ export function SectionShell({ id, children, className = "", index }: Props) {
     <section id={id} className={`relative scroll-mt-20 px-6 py-24 sm:py-32 ${className}`}>
       <div className="mx-auto max-w-3xl">
         {index !== undefined && (
-          <div
-            aria-hidden="true"
-            className="mb-12 border-t border-muted-gold/15 dark:border-dark-accent/15"
-          />
+          <div aria-hidden="true" className="section-divider">
+            <span className="section-divider__line" />
+          </div>
         )}
         {children}
       </div>

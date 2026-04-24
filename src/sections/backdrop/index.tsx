@@ -40,11 +40,10 @@ export function Backdrop({ index }: { index?: number }) {
   return (
     <section id="backdrop" aria-label="Cinematic backdrop" className="relative">
       {index !== undefined && (
-        <div
-          aria-hidden="true"
-          className="mx-auto max-w-3xl px-6 pt-24 sm:pt-32"
-        >
-          <div className="border-t border-muted-gold/15 dark:border-dark-accent/15" />
+        <div aria-hidden="true" className="mx-auto max-w-3xl px-6 pt-24 sm:pt-32">
+          <div className="section-divider">
+            <span className="section-divider__line" />
+          </div>
         </div>
       )}
       <div

@@ -74,7 +74,7 @@ export function BottomSheet({ open, onClose, title, children }: BottomSheetProps
         <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center">
           {/* Backdrop */}
           <motion.div
-            className="absolute inset-0 bg-ink/60 backdrop-blur-md"
+            className="absolute inset-0 bg-surface/60 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -87,7 +87,7 @@ export function BottomSheet({ open, onClose, title, children }: BottomSheetProps
             role="dialog"
             aria-modal="true"
             aria-label={title}
-            className="relative z-10 w-full max-w-lg rounded-t-2xl bg-ink border border-ivory/10 px-6 pb-8 pt-4 sm:rounded-2xl sm:max-w-md"
+            className="glass relative z-10 w-full max-w-lg rounded-t-2xl px-6 pb-8 pt-4 sm:rounded-2xl sm:max-w-md"
             drag={reduced ? false : "y"}
             dragConstraints={{ top: 0, bottom: 0 }}
             dragElastic={{ top: 0, bottom: 0.3 }}
@@ -104,10 +104,10 @@ export function BottomSheet({ open, onClose, title, children }: BottomSheetProps
             {/* Drag handle */}
             <div
               aria-hidden="true"
-              className="mx-auto mb-4 h-1 w-10 rounded-full bg-ivory/20 sm:hidden"
+              className="mx-auto mb-4 h-1 w-10 rounded-full bg-surface-muted sm:hidden"
             />
             {title && (
-              <h2 className="mb-4 text-center font-display text-lg text-ivory">{title}</h2>
+              <h2 className="mb-4 text-center font-display text-lg text-on-surface">{title}</h2>
             )}
             {children}
           </motion.div>

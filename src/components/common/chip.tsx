@@ -14,7 +14,7 @@ interface ChipProps {
 export function Chip({ label, dotColor, children, className = "" }: ChipProps) {
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-pill border border-ivory/20 px-2.5 py-1 text-[10px] uppercase tracking-widest ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-pill border border-border-subtle px-2.5 py-1 text-[10px] uppercase tracking-widest ${className}`}
     >
       {dotColor && (
         <span

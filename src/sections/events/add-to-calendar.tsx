@@ -32,7 +32,7 @@ export function AddToCalendar({ event }: Props) {
   const filename = `haphuong-hoangminh-${event.kind}`;
 
   const btn =
-    "rounded-pill border border-ivory/20 px-3 py-1.5 text-[11px] uppercase tracking-widest transition hover:bg-ivory/5";
+    "rounded-pill border border-border-subtle px-3 py-1.5 text-[11px] uppercase tracking-widest transition hover:bg-surface-muted";
 
   return (
     <div className="mt-6 flex flex-col items-start gap-2 sm:flex-row sm:flex-wrap sm:items-center">

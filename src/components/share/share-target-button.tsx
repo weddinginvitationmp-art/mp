@@ -55,7 +55,7 @@ export function ShareTargetButton({ target, icon, onClose }: Props) {
     <button
       type="button"
       onClick={handleClick}
-      className="flex w-full items-center gap-3 rounded-soft border border-ivory/10 bg-ivory/5 px-4 py-3 text-left text-sm text-ivory transition hover:border-muted-gold/40 hover:bg-ivory/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-gold/40 active:scale-[0.99] touch-action-manipulation min-h-[48px]"
+      className="flex w-full items-center gap-3 rounded-soft border border-border-subtle bg-surface-muted px-4 py-3 text-left text-sm text-on-surface transition hover:border-muted-gold/40 hover:bg-surface-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-gold/40 active:scale-[0.99] touch-action-manipulation min-h-[48px]"
     >
       <span aria-hidden="true" className="text-xl">
         {icon}

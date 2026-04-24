@@ -19,12 +19,12 @@ export function Button({
   ...rest
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center rounded-pill font-display text-xs uppercase tracking-widest transition touch-action-manipulation active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-gold/40 disabled:opacity-40";
+    "inline-flex items-center justify-center rounded-pill font-display text-xs uppercase tracking-widest transition-all duration-200 touch-action-manipulation hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 disabled:opacity-40 disabled:hover:translate-y-0";
 
   const variants = {
-    primary: "bg-muted-gold text-ink hover:bg-muted-gold/90",
-    secondary: "border border-ivory/20 text-ivory hover:bg-ivory/5",
-    ghost: "text-ivory hover:bg-ivory/10",
+    primary: "bg-accent text-on-accent hover:bg-accent/90",
+    secondary: "border border-border-subtle text-on-surface hover:bg-surface-muted",
+    ghost: "text-on-surface hover:bg-surface-muted",
   };
 
   const sizes = {

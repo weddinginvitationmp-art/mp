@@ -17,7 +17,7 @@ export function Gift({ index }: { index?: number }) {
         subtitleKey="gift.subtitle"
         index={index}
       />
-      <p className="mb-8 text-center text-xs uppercase tracking-[0.3em] text-muted-gold">
+      <p className="mb-8 text-center text-xs uppercase tracking-[0.3em] text-accent">
         {t("gift.scanHint")}
       </p>
 

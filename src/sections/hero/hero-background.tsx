@@ -27,7 +27,8 @@ export function HeroBackground() {
         aria-hidden="true"
         className="absolute inset-0 size-full object-cover"
         // Tell the browser this is the LCP — already preloaded in index.html.
-        fetchPriority="high"
+        // React 18 doesn't recognize camelCase `fetchPriority`; lowercase lands as the real HTML attr.
+        {...({ fetchpriority: "high" } as Record<string, string>)}
         decoding="async"
         onError={(e) => {
           // Hide if the placeholder file is missing in dev.

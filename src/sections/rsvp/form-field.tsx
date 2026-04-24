@@ -27,4 +27,4 @@ export function FormField({ label, htmlFor, error, children }: Props) {
 }
 
 export const inputBaseClasses =
-  "w-full rounded-soft border border-ivory/20 bg-ivory/5 px-4 py-3 sm:py-3.5 text-base outline-none transition focus:border-muted-gold/60 focus:bg-ivory/10 dark:bg-ink/30";
+  "w-full rounded-soft border border-border-subtle bg-surface-muted px-4 py-3 sm:py-3.5 text-base outline-none transition focus:border-muted-gold/60 focus:bg-surface-muted dark:bg-surface/30";

@@ -16,7 +16,7 @@ export function Story({ index }: { index?: number }) {
         {/* Center spine — desktop only */}
         <div
           aria-hidden="true"
-          className="absolute left-5 top-0 bottom-0 w-px bg-muted-gold/20 md:left-1/2"
+          className="absolute left-5 top-0 bottom-0 w-px bg-accent/20 md:left-1/2"
         />
         <div className="space-y-12 md:space-y-16">
           {wedding.story.map((milestone, i) => (

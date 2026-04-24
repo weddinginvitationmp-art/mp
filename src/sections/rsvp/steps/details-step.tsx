@@ -39,8 +39,8 @@ export function DetailsStep({ form }: Props) {
               onClick={() => setValue("partySize", n, { shouldValidate: true })}
               className={`min-w-12 rounded-pill border px-4 py-2 text-sm transition ${
                 partySize === n
-                  ? "border-muted-gold bg-muted-gold/10"
-                  : "border-ivory/20 bg-ivory/5 hover:border-ivory/40"
+                  ? "border-muted-gold bg-accent/10"
+                  : "border-border-subtle bg-surface-muted hover:border-border-subtle/40"
               }`}
             >
               {n}

@@ -30,8 +30,8 @@ export function GiftCard({ account, memo }: Props) {
 
   return (
     <>
-      <article className="flex flex-col items-center rounded-soft border border-ivory/10 bg-ivory/5 p-6 text-center backdrop-blur-md dark:bg-ink/30">
-        <p className="text-[11px] uppercase tracking-[0.4em] text-muted-gold">
+      <article className="flex flex-col items-center rounded-soft border border-border-subtle bg-surface-muted p-6 text-center backdrop-blur-md dark:bg-surface/30">
+        <p className="text-[11px] uppercase tracking-[0.4em] text-accent">
           {account.name[lang]}
         </p>
 
@@ -72,10 +72,10 @@ export function GiftCard({ account, memo }: Props) {
                 type="button"
                 onClick={handleCopy}
                 aria-label={t("gift.copyAriaLabel", { number: account.accountNumber })}
-                className="inline-flex items-center gap-2 rounded-soft px-3 py-1.5 transition hover:bg-ivory/5 active:scale-[0.98] touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-gold/40 min-h-[44px]"
+                className="inline-flex items-center gap-2 rounded-soft px-3 py-1.5 transition hover:bg-surface-muted active:scale-[0.98] touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-gold/40 min-h-[44px]"
               >
                 <code className="font-mono text-lg tracking-wider">{account.accountNumber}</code>
-                <span className="rounded-pill border border-ivory/20 px-2.5 py-0.5 text-[10px] uppercase tracking-widest opacity-70">
+                <span className="rounded-pill border border-border-subtle px-2.5 py-0.5 text-[10px] uppercase tracking-widest opacity-70">
                   {t("gift.copy")}
                 </span>
               </button>

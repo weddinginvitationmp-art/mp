@@ -101,9 +101,9 @@ export function RsvpStepper({ form, onSuccess }: Props) {
       <div
         className="
           sticky bottom-0 -mx-6 mt-8
-          border-t border-ivory/10 bg-ivory/80 backdrop-blur-md
+          border-t border-border-subtle bg-surface/80 backdrop-blur-md
           px-6 py-4
-          dark:bg-ink/80
+          dark:bg-surface/80
           sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:backdrop-blur-none sm:pb-4
         "
         style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom))" }}
@@ -114,7 +114,7 @@ export function RsvpStepper({ form, onSuccess }: Props) {
               type="button"
               onClick={goPrev}
               disabled={submitting}
-              className="min-h-[44px] rounded-pill border border-ivory/20 px-5 py-2 text-xs uppercase tracking-widest transition hover:bg-ivory/5 disabled:opacity-30 touch-action-manipulation active:scale-[0.98]"
+              className="min-h-[44px] rounded-pill border border-border-subtle px-5 py-2 text-xs uppercase tracking-widest transition hover:bg-surface-muted disabled:opacity-30 touch-action-manipulation active:scale-[0.98]"
             >
               {t("rsvp.buttons.back")}
             </button>
@@ -126,7 +126,7 @@ export function RsvpStepper({ form, onSuccess }: Props) {
               type="button"
               onClick={goNext}
               disabled={!status && step === 0}
-              className="min-h-[44px] rounded-pill bg-muted-gold px-6 py-2 text-xs uppercase tracking-widest text-ink transition hover:bg-muted-gold/90 disabled:opacity-40 touch-action-manipulation active:scale-[0.98]"
+              className="min-h-[44px] rounded-pill bg-accent px-6 py-2 text-xs uppercase tracking-widest text-on-accent transition hover:bg-accent/90 disabled:opacity-40 touch-action-manipulation active:scale-[0.98]"
             >
               {t("rsvp.buttons.next")}
             </button>
@@ -135,7 +135,7 @@ export function RsvpStepper({ form, onSuccess }: Props) {
               type="button"
               onClick={handleSubmit}
               disabled={submitting}
-              className="min-h-[44px] rounded-pill bg-muted-gold px-6 py-2 text-xs uppercase tracking-widest text-ink transition hover:bg-muted-gold/90 disabled:opacity-40 touch-action-manipulation active:scale-[0.98]"
+              className="min-h-[44px] rounded-pill bg-accent px-6 py-2 text-xs uppercase tracking-widest text-on-accent transition hover:bg-accent/90 disabled:opacity-40 touch-action-manipulation active:scale-[0.98]"
             >
               {submitting ? t("rsvp.buttons.submitting") : t("rsvp.buttons.submit")}
             </button>

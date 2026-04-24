@@ -16,7 +16,7 @@ export function FabButton({ children, className = "", pill, ...rest }: Props) {
   return (
     <button
       type="button"
-      className={`flex h-12 ${shape} items-center justify-center border border-ivory/15 bg-ink/80 text-ivory shadow-lg backdrop-blur-md transition hover:border-muted-gold/50 hover:bg-ink/90 active:scale-[0.95] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-gold/50 touch-action-manipulation ${className}`}
+      className={`glass flex h-12 ${shape} items-center justify-center text-on-surface transition hover:border-accent/50 active:scale-[0.95] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/50 touch-action-manipulation ${className}`}
       {...rest}
     >
       {children}

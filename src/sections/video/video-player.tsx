@@ -42,15 +42,15 @@ export function VideoPlayer({ video }: Props) {
         decoding="async"
         className="size-full object-cover"
       />
-      <span className="absolute inset-0 grid place-items-center bg-ink/30 transition group-hover:bg-ink/40">
-        <span className="grid h-20 w-20 place-items-center rounded-full border border-ivory/40 bg-ink/20 backdrop-blur-md transition group-hover:scale-110">
+      <span className="absolute inset-0 grid place-items-center bg-surface/30 transition group-hover:bg-surface/40">
+        <span className="grid h-20 w-20 place-items-center rounded-full border border-border-subtle/40 bg-surface/20 backdrop-blur-md transition group-hover:scale-110">
           <svg
             width="22"
             height="26"
             viewBox="0 0 22 26"
             fill="currentColor"
             aria-hidden="true"
-            className="ml-1 text-ivory"
+            className="ml-1 text-on-surface"
           >
             <path d="M0 0v26l22-13z" />
           </svg>
