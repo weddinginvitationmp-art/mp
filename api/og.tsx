@@ -1,3 +1,4 @@
+import React from "react";
 import { ImageResponse } from "@vercel/og";
 
 export const config = {
@@ -50,9 +51,10 @@ export default async function handler(req: Request) {
       : "Save the date";
 
   return new ImageResponse(
-    (
-      <div
-        style={{
+    React.createElement(
+      "div",
+      {
+        style: {
           width: "100%",
           height: "100%",
           display: "flex",
@@ -66,25 +68,34 @@ export default async function handler(req: Request) {
           fontFamily: "serif",
           padding: 80,
           textAlign: "center",
-        }}
-      >
-        <div
-          style={{
+        },
+      },
+      React.createElement(
+        "div",
+        {
+          style: {
             fontSize: 22,
             letterSpacing: 8,
             textTransform: "uppercase",
             opacity: 0.7,
             marginBottom: 28,
-          }}
-        >
-          {invitee}
-        </div>
-        <div style={{ fontSize: 96, lineHeight: 1.1, fontWeight: 400, marginBottom: 24 }}>
-          {couple}
-        </div>
-        <div style={{ width: 120, height: 1, background: "#C9A876", opacity: 0.7, marginBottom: 24 }} />
-        <div style={{ fontSize: 28, letterSpacing: 4, opacity: 0.85 }}>{dateLabel}</div>
-      </div>
+          },
+        },
+        invitee,
+      ),
+      React.createElement(
+        "div",
+        { style: { fontSize: 96, lineHeight: 1.1, fontWeight: 400, marginBottom: 24 } },
+        couple,
+      ),
+      React.createElement("div", {
+        style: { width: 120, height: 1, background: "#C9A876", opacity: 0.7, marginBottom: 24 },
+      }),
+      React.createElement(
+        "div",
+        { style: { fontSize: 28, letterSpacing: 4, opacity: 0.85 } },
+        dateLabel,
+      ),
     ),
     {
       width: 1200,
