@@ -4,6 +4,9 @@ import { GuestProvider } from "@/contexts/guest-context";
 import { useDocumentMeta } from "@/hooks/use-document-meta";
 import { Hero } from "@/sections/hero";
 
+// Admin console — separate chunk; only loaded when visiting /admin*
+const AdminApp = lazy(() => import("@/admin"));
+
 // Below-fold sections: lazy-loaded so initial bundle ships only the hero.
 const Story = lazy(() => import("@/sections/story").then((m) => ({ default: m.Story })));
 const Backdrop = lazy(() =>
@@ -20,6 +23,16 @@ const Games = lazy(() => import("@/sections/games").then((m) => ({ default: m.Ga
 const SectionSkeleton = () => <div className="min-h-[60dvh]" aria-hidden="true" />;
 
 export function App() {
+  // Admin shortcut: pathname check happens before any guest provider mounts so
+  // the admin console doesn't pull in guest context, sections, or the floating dock.
+  if (typeof window !== "undefined" && window.location.pathname.startsWith("/admin")) {
+    return (
+      <Suspense fallback={<div className="min-h-dvh" />}>
+        <AdminApp />
+      </Suspense>
+    );
+  }
+
   return (
     <GuestProvider>
       <AppShell />
