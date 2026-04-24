@@ -1,11 +1,6 @@
 {
-  "framework": "vite",
-  "buildCommand": "npm run build",
+  "installCommand": "pnpm install",
+  "buildCommand": "pnpm build",
   "outputDirectory": "dist",
-  "functions": {
-    "api/og.tsx": {
-      "runtime": "edge"
-    }
-  },
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
