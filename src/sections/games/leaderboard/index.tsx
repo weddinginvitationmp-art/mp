@@ -1,6 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Tab, TabList, Tabs } from "@/components/common/tabs";
 import { useGuestContext } from "@/hooks/use-guest-context";
 import type { GameKind } from "../types";
 import { useGameScore } from "../use-game-score";
@@ -24,28 +25,20 @@ export function Leaderboard() {
         {t("games.leaderboard.title")}
       </h4>
 
-      <div
-        role="tablist"
-        aria-label={t("games.leaderboard.title")}
-        className="mb-4 flex justify-center gap-2"
+      <Tabs
+        value={active}
+        onChange={(v) => setActive(v as GameKind)}
+        label={t("games.leaderboard.title")}
+        className="mb-4 flex justify-center"
       >
-        {GAMES.map((g) => (
-          <button
-            key={g}
-            role="tab"
-            aria-selected={active === g}
-            type="button"
-            onClick={() => setActive(g)}
-            className={`min-h-[36px] rounded-pill px-4 py-1.5 text-xs uppercase tracking-widest transition touch-action-manipulation ${
-              active === g
-                ? "bg-muted-gold text-ink"
-                : "border border-ivory/15 text-ivory hover:bg-ivory/5"
-            }`}
-          >
-            {t(`games.${g}.title`)}
-          </button>
-        ))}
-      </div>
+        <TabList label={t("games.leaderboard.title")}>
+          {GAMES.map((g) => (
+            <Tab key={g} value={g}>
+              {t(`games.${g}.title`)}
+            </Tab>
+          ))}
+        </TabList>
+      </Tabs>
 
       {loading && (
         <p className="text-center text-sm opacity-50">{t("games.leaderboard.loading")}</p>

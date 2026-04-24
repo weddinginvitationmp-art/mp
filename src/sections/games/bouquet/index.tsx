@@ -63,11 +63,11 @@ export function BouquetGame({ onClose, onSubmit }: Props) {
         <div>
           <div className="mb-2 flex items-center justify-between text-xs uppercase tracking-widest opacity-80">
             <span>⏱ {seconds}s</span>
-            <span>{t("games.scoreLabel")}: <span className="text-muted-gold">{score}</span></span>
+            <span>{t("games.scoreLabel")}: <span className="text-accent">{score}</span></span>
           </div>
           <div
             ref={boardRef}
-            className="relative overflow-hidden rounded-soft border border-muted-gold/20 bg-ink/40"
+            className="relative overflow-hidden rounded-soft border border-muted-gold/20 bg-surface/40"
             style={{ height: BOARD_HEIGHT }}
             aria-label={t("games.bouquet.title")}
           >
@@ -81,14 +81,14 @@ export function BouquetGame({ onClose, onSubmit }: Props) {
       {status === "completed" && (
         <div
           role="status"
-          className="mt-4 rounded-soft border border-muted-gold/30 bg-muted-gold/10 p-3 text-center text-sm"
+          className="mt-4 rounded-soft border border-muted-gold/30 bg-accent/10 p-3 text-center text-sm"
         >
-          <p className="font-display text-lg text-muted-gold">{t("games.complete")}</p>
+          <p className="font-display text-lg text-accent">{t("games.complete")}</p>
           <p className="mt-1 opacity-80">
             {t("games.bouquet.summary", { caught, golden, missed })}
           </p>
           <p className="mt-1 opacity-80">
-            {t("games.scoreLabel")}: <span className="font-display text-ivory">{score}</span>
+            {t("games.scoreLabel")}: <span className="font-display text-on-surface">{score}</span>
           </p>
         </div>
       )}

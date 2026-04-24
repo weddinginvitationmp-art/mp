@@ -23,17 +23,17 @@ export function LeaderboardRowItem({ row, rank, isMe }: Props) {
       animate={{ opacity: 1, y: 0 }}
       className={`flex items-center gap-3 rounded-soft border px-3 py-2 text-sm ${
         isMe
-          ? "border-muted-gold/50 bg-muted-gold/10"
+          ? "border-muted-gold/50 bg-accent/10"
           : rank <= 3
-            ? "border-muted-gold/20 bg-ivory/5"
-            : "border-ivory/10"
+            ? "border-muted-gold/20 bg-surface-muted"
+            : "border-border-subtle"
       }`}
     >
-      <span className="w-8 text-center font-display text-base text-muted-gold">
+      <span className="w-8 text-center font-display text-base text-accent">
         {medal ?? rank}
       </span>
       <span className="flex-1 truncate">{row.guest_name}</span>
-      <span className="font-display text-ivory">{row.score}</span>
+      <span className="font-display text-on-surface">{row.score}</span>
       <span className="hidden sm:block w-20 text-right text-xs opacity-50">
         {formatRelative(row.created_at, lang)}
       </span>

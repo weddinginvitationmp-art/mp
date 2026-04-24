@@ -25,13 +25,13 @@ export function GamePicker({ onPick }: Props) {
           key={kind}
           type="button"
           onClick={() => onPick(kind)}
-          className="group relative overflow-hidden rounded-soft border border-muted-gold/20 bg-ivory/5 p-6 text-left transition hover:border-muted-gold/50 hover:bg-ivory/10 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-gold/40 min-h-[140px] touch-action-manipulation"
+          className="group relative overflow-hidden rounded-soft border border-muted-gold/20 bg-surface-muted p-6 text-left transition hover:border-muted-gold/50 hover:bg-surface-muted active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-gold/40 min-h-[140px] touch-action-manipulation"
           aria-label={t(`games.${kind}.title`)}
         >
-          <div className="mb-3 font-display text-3xl text-muted-gold opacity-70 group-hover:opacity-100">
+          <div className="mb-3 font-display text-3xl text-accent opacity-70 group-hover:opacity-100">
             {glyph}
           </div>
-          <p className="font-display text-lg text-ivory">{t(`games.${kind}.title`)}</p>
+          <p className="font-display text-lg text-on-surface">{t(`games.${kind}.title`)}</p>
           <p className="mt-1 text-xs opacity-60">{t(`games.${kind}.tagline`)}</p>
         </button>
       ))}

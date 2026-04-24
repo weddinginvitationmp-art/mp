@@ -48,7 +48,7 @@ export function QuizGame({ onClose, onSubmit }: Props) {
     >
       {phase !== "completed" && current && (
         <div>
-          <p className="mb-6 text-center font-display text-lg text-ivory">
+          <p className="mb-6 text-center font-display text-lg text-on-surface">
             {t(`games.quiz.${current.id}.question`)}
           </p>
           <div
@@ -62,11 +62,11 @@ export function QuizGame({ onClose, onSubmit }: Props) {
               const revealing = phase === "revealing";
               const stateClass = revealing
                 ? isCorrect
-                  ? "border-sage bg-sage/15 text-ivory"
+                  ? "border-sage bg-sage/15 text-on-surface"
                   : isSelected
-                    ? "border-blush bg-blush/15 text-ivory"
-                    : "border-ivory/10 opacity-50"
-                : "border-ivory/15 hover:border-muted-gold/50 hover:bg-ivory/5";
+                    ? "border-blush bg-blush/15 text-on-surface"
+                    : "border-border-subtle opacity-50"
+                : "border-border-subtle hover:border-muted-gold/50 hover:bg-surface-muted";
               return (
                 <button
                   key={opt}
@@ -89,14 +89,14 @@ export function QuizGame({ onClose, onSubmit }: Props) {
       {phase === "completed" && (
         <div
           role="status"
-          className="rounded-soft border border-muted-gold/30 bg-muted-gold/10 p-4 text-center"
+          className="rounded-soft border border-muted-gold/30 bg-accent/10 p-4 text-center"
         >
-          <p className="font-display text-xl text-muted-gold">{t("games.complete")}</p>
+          <p className="font-display text-xl text-accent">{t("games.complete")}</p>
           <p className="mt-2 text-sm opacity-80">
             {t("games.quiz.resultLine", { correct: correctCount, total })}
           </p>
           <p className="mt-1 text-sm opacity-80">
-            {t("games.scoreLabel")}: <span className="font-display text-ivory">{score}</span>
+            {t("games.scoreLabel")}: <span className="font-display text-on-surface">{score}</span>
           </p>
         </div>
       )}

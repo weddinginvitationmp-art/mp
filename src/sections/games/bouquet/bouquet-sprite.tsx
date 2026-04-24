@@ -36,7 +36,7 @@ export function BouquetSprite({ sprite, onCatch }: Props) {
     >
       <span
         className={`flex h-12 w-12 items-center justify-center rounded-full text-3xl ${
-          golden ? "text-muted-gold drop-shadow-[0_0_12px_rgba(201,168,118,0.6)]" : "text-blush"
+          golden ? "text-accent drop-shadow-[0_0_12px_rgba(201,168,118,0.6)]" : "text-blush"
         }`}
         aria-hidden="true"
       >

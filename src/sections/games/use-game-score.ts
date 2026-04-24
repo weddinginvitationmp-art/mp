@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useId, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import type { GameKind, LeaderboardRow, SubmitScoreInput } from "./types";
 
@@ -15,10 +15,17 @@ interface Api {
  * Fetch top-10 scores for a single game + subscribe to realtime inserts.
  * Also tracks the current guest's personal best for "new record" toast.
  */
-export function useGameScore(game: GameKind, guestId: string | null): Api {
+export function useGameScore(
+  game: GameKind,
+  guestId: string | null,
+  options: { subscribe?: boolean } = { subscribe: true },
+): Api {
   const [leaderboard, setLeaderboard] = useState<LeaderboardRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [myBest, setMyBest] = useState<number | null>(null);
+  // React-stable unique id; keeps each hook instance on its own realtime channel
+  // so multiple consumers (Games shell + Leaderboard) don't collide on the same name.
+  const instanceId = useId();
 
   const refetch = useCallback(async () => {
     const { data } = await supabase
@@ -46,8 +53,10 @@ export function useGameScore(game: GameKind, guestId: string | null): Api {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- subscribe pattern: initial fetch + realtime channel
     void refetch();
 
+    if (!options.subscribe) return;
+
     const channel = supabase
-      .channel(`game_scores:${game}`)
+      .channel(`game_scores:${game}:${instanceId}`)
       .on(
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "game_scores", filter: `game=eq.${game}` },
@@ -60,7 +69,7 @@ export function useGameScore(game: GameKind, guestId: string | null): Api {
     return () => {
       void supabase.removeChannel(channel);
     };
-  }, [game, refetch]);
+  }, [game, instanceId, options.subscribe, refetch]);
 
   // Personal best
   useEffect(() => {

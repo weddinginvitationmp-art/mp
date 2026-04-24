@@ -26,9 +26,9 @@ export function Games({ index }: Props) {
 
   // Re-use the submit primitive from one hook instance per active game.
   // We don't subscribe to leaderboard here — Leaderboard component owns its own.
-  const memory = useGameScore("memory", guest?.id ?? null);
-  const quiz = useGameScore("quiz", guest?.id ?? null);
-  const bouquet = useGameScore("bouquet", guest?.id ?? null);
+  const memory = useGameScore("memory", guest?.id ?? null, { subscribe: false });
+  const quiz = useGameScore("quiz", guest?.id ?? null, { subscribe: false });
+  const bouquet = useGameScore("bouquet", guest?.id ?? null, { subscribe: false });
 
   const handleSubmit = useCallback(
     async (input: { game: GameKind; score: number; meta: Record<string, unknown> }) => {

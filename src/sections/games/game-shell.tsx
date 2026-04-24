@@ -21,7 +21,7 @@ export function GameShell({ title, subtitle, onClose, onPlayAgain, children }: P
   return (
     <div className="flex flex-col gap-4">
       <header className="text-center">
-        <h3 className="font-display text-xl text-ivory">{title}</h3>
+        <h3 className="font-display text-xl text-on-surface">{title}</h3>
         {subtitle && <p className="mt-1 text-xs uppercase tracking-[0.3em] opacity-60">{subtitle}</p>}
       </header>
 
