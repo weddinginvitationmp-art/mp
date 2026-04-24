@@ -190,5 +190,73 @@
       "needGuest": "Open the invite via your personal link to save scores",
       "submitFailed": "Couldn't save your score — try again"
     }
+  },
+  "admin": {
+    "header": { "title": "Wedding admin", "signOut": "Sign out" },
+    "login": {
+      "eyebrow": "Private",
+      "title": "Sign in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "signingIn": "Signing in…"
+    },
+    "nav": {
+      "guests": "Guests",
+      "rsvp": "RSVP",
+      "wishes": "Wishes",
+      "leaderboard": "Leaderboard"
+    },
+    "common": {
+      "loading": "Loading…",
+      "saved": "Saved",
+      "deleted": "Deleted",
+      "error": "Error, try again",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "guests": {
+      "title": "Guests",
+      "add": "Add guest",
+      "addTitle": "Add guest",
+      "editTitle": "Edit guest",
+      "exportCsv": "Export CSV",
+      "searchPlaceholder": "Search by name or slug…",
+      "linkCopied": "Link copied",
+      "copyFailed": "Copy failed",
+      "copyLink": "Copy link",
+      "deleteConfirm": "Delete guest {{name}}? Their RSVP and wishes will be removed too.",
+      "col": { "name": "Name", "slug": "Slug", "lang": "Lang", "relationship": "Relationship" },
+      "form": {
+        "fullName": "Full name",
+        "slug": "Slug (URL)",
+        "phone": "Phone",
+        "email": "Email",
+        "relationship": "Relationship",
+        "language": "Invite language",
+        "save": "Save",
+        "saving": "Saving…",
+        "cancel": "Cancel"
+      }
+    },
+    "rsvp": {
+      "title": "RSVP responses",
+      "exportCsv": "Export CSV",
+      "filter": { "all": "All", "attending": "Attending", "not_attending": "Not attending", "pending": "Pending" },
+      "col": { "name": "Name", "status": "Status", "party": "Party", "dietary": "Dietary", "song": "Song", "submitted": "Submitted" }
+    },
+    "wishes": {
+      "title": "Guestbook",
+      "deleteConfirm": "Delete this wish?"
+    },
+    "leaderboard": {
+      "title": "Game leaderboard",
+      "resetGame": "Reset board",
+      "resetPrompt": "Type the game name ({{game}}) to confirm deleting all scores:",
+      "resetMismatch": "Name didn't match, cancelled",
+      "resetDone": "All scores wiped",
+      "deleteConfirm": "Delete this score?",
+      "col": { "name": "Name", "score": "Score", "time": "Played at" }
+    }
   }
 }

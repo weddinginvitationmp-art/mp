@@ -190,5 +190,73 @@
       "needGuest": "Hãy mở thiệp qua liên kết riêng để được lưu điểm",
       "submitFailed": "Không lưu được điểm, thử lại nhé"
     }
+  },
+  "admin": {
+    "header": { "title": "Quản trị thiệp cưới", "signOut": "Đăng xuất" },
+    "login": {
+      "eyebrow": "Khu vực riêng",
+      "title": "Đăng nhập quản trị",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "submit": "Đăng nhập",
+      "signingIn": "Đang đăng nhập…"
+    },
+    "nav": {
+      "guests": "Khách mời",
+      "rsvp": "Hồi âm",
+      "wishes": "Lời chúc",
+      "leaderboard": "BXH trò chơi"
+    },
+    "common": {
+      "loading": "Đang tải…",
+      "saved": "Đã lưu",
+      "deleted": "Đã xoá",
+      "error": "Có lỗi, thử lại",
+      "edit": "Sửa",
+      "delete": "Xoá"
+    },
+    "guests": {
+      "title": "Khách mời",
+      "add": "Thêm khách",
+      "addTitle": "Thêm khách mời",
+      "editTitle": "Sửa khách mời",
+      "exportCsv": "Xuất CSV",
+      "searchPlaceholder": "Tìm theo tên hoặc slug…",
+      "linkCopied": "Đã sao chép liên kết",
+      "copyFailed": "Không sao chép được",
+      "copyLink": "Sao chép link",
+      "deleteConfirm": "Xoá khách {{name}}? Toàn bộ RSVP & lời chúc liên quan sẽ mất.",
+      "col": { "name": "Họ tên", "slug": "Slug", "lang": "Ngôn ngữ", "relationship": "Quan hệ" },
+      "form": {
+        "fullName": "Họ tên",
+        "slug": "Slug (URL)",
+        "phone": "Số điện thoại",
+        "email": "Email",
+        "relationship": "Quan hệ",
+        "language": "Ngôn ngữ thiệp",
+        "save": "Lưu",
+        "saving": "Đang lưu…",
+        "cancel": "Huỷ"
+      }
+    },
+    "rsvp": {
+      "title": "Phản hồi RSVP",
+      "exportCsv": "Xuất CSV",
+      "filter": { "all": "Tất cả", "attending": "Tham dự", "not_attending": "Vắng", "pending": "Chờ" },
+      "col": { "name": "Họ tên", "status": "Trạng thái", "party": "Số người", "dietary": "Ăn kiêng", "song": "Bài hát", "submitted": "Lúc gửi" }
+    },
+    "wishes": {
+      "title": "Sổ lưu niệm",
+      "deleteConfirm": "Xoá lời chúc này?"
+    },
+    "leaderboard": {
+      "title": "BXH trò chơi",
+      "resetGame": "Reset BXH",
+      "resetPrompt": "Nhập tên game ({{game}}) để xác nhận xoá toàn bộ điểm:",
+      "resetMismatch": "Tên không khớp, đã huỷ",
+      "resetDone": "Đã xoá toàn bộ điểm",
+      "deleteConfirm": "Xoá lượt chơi này?",
+      "col": { "name": "Họ tên", "score": "Điểm", "time": "Lúc chơi" }
+    }
   }
 }
