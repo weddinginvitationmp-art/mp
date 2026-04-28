@@ -21,7 +21,7 @@ export function AttendanceStep({ form }: Props) {
 
   return (
     <fieldset className="grid gap-4 sm:grid-cols-2">
-      <legend className="mb-6 col-span-full text-center font-display text-2xl">
+      <legend className="mb-6 col-span-full text-center font-display text-xl sm:text-2xl leading-relaxed break-words">
         {t("rsvp.attendance.q")}
       </legend>
       <button
