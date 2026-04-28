@@ -1,6 +1,6 @@
 import { lazy, Suspense, useState } from "react";
 import { SiteLayout } from "@/components/layout/site-layout";
-import { OpeningOverlay, OPENING_SESSION_KEY } from "@/components/opening/opening-overlay";
+import { OpeningOverlay } from "@/components/opening/opening-overlay";
 import { GuestProvider } from "@/contexts/guest-context";
 import { useDocumentMeta } from "@/hooks/use-document-meta";
 import { Hero } from "@/sections/hero";
@@ -24,10 +24,7 @@ const Games = lazy(() => import("@/sections/games").then((m) => ({ default: m.Ga
 const SectionSkeleton = () => <div className="min-h-[60dvh]" aria-hidden="true" />;
 
 export function App() {
-  const [opened, setOpened] = useState(() => {
-    if (typeof window === "undefined") return true;
-    return sessionStorage.getItem(OPENING_SESSION_KEY) === "1";
-  });
+  const [opened, setOpened] = useState(false);
 
   if (typeof window !== "undefined" && window.location.pathname.startsWith("/admin")) {
     return (

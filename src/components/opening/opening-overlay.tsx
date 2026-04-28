@@ -1,9 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { OrnamentalFrame, GoldDivider } from "./opening-ornaments";
-
-export const OPENING_SESSION_KEY = "wi.opened";
-const AUTO_DISMISS_MS = 5000;
 
 const EASE_CINEMATIC = [0.22, 1, 0.36, 1] as const;
 
@@ -16,20 +13,9 @@ const fadeUp = (delay: number) => ({
 export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
   const [visible, setVisible] = useState(true);
 
-  const reducedMotion =
-    typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
   const dismiss = useCallback(() => {
     setVisible(false);
-    sessionStorage.setItem(OPENING_SESSION_KEY, "1");
   }, []);
-
-  useEffect(() => {
-    const ms = reducedMotion ? 800 : AUTO_DISMISS_MS;
-    const id = setTimeout(dismiss, ms);
-    return () => clearTimeout(id);
-  }, [dismiss, reducedMotion]);
 
   return (
     <AnimatePresence onExitComplete={onComplete}>
@@ -43,7 +29,6 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
           }}
           exit={{ opacity: 0, y: -60 }}
           transition={{ duration: 0.6, ease: EASE_CINEMATIC }}
-          onClick={dismiss}
           role="dialog"
           aria-modal="true"
           aria-label="Thiệp mời cưới"
