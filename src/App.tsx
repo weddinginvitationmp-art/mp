@@ -1,5 +1,6 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import { SiteLayout } from "@/components/layout/site-layout";
+import { OpeningOverlay, OPENING_SESSION_KEY } from "@/components/opening/opening-overlay";
 import { GuestProvider } from "@/contexts/guest-context";
 import { useDocumentMeta } from "@/hooks/use-document-meta";
 import { Hero } from "@/sections/hero";
@@ -23,8 +24,11 @@ const Games = lazy(() => import("@/sections/games").then((m) => ({ default: m.Ga
 const SectionSkeleton = () => <div className="min-h-[60dvh]" aria-hidden="true" />;
 
 export function App() {
-  // Admin shortcut: pathname check happens before any guest provider mounts so
-  // the admin console doesn't pull in guest context, sections, or the floating dock.
+  const [opened, setOpened] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return sessionStorage.getItem(OPENING_SESSION_KEY) === "1";
+  });
+
   if (typeof window !== "undefined" && window.location.pathname.startsWith("/admin")) {
     return (
       <Suspense fallback={<div className="min-h-dvh" />}>
@@ -35,6 +39,11 @@ export function App() {
 
   return (
     <GuestProvider>
+      {!opened && (
+        <OpeningOverlay
+          onComplete={() => setOpened(true)}
+        />
+      )}
       <AppShell />
     </GuestProvider>
   );

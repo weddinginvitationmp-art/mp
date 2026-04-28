@@ -125,6 +125,20 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .section-divider__line { animation: none; }
+  .opening-shimmer { animation: none; }
+}
+
+/* ── Opening overlay ── */
+@keyframes gold-shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.opening-shimmer {
+  background: linear-gradient(90deg, #C9A876 0%, #F7E7CE 40%, #D4AF37 60%, #C9A876 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gold-shimmer 3s ease-in-out infinite;
 }
 
 /* Film grain overlay — opt-in on cinematic sections */
