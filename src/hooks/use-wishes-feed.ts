@@ -27,7 +27,7 @@ export function useWishesFeed(): WishesFeedApi {
     void (async () => {
       const { data } = await supabase
         .from("wishes")
-        .select("id, message, created_at, guests(full_name)")
+        .select("id, message, created_at, is_pinned, guests(full_name)")
         .order("created_at", { ascending: false })
         .limit(50);
       if (cancelled) return;
@@ -35,6 +35,7 @@ export function useWishesFeed(): WishesFeedApi {
         id: r.id as string,
         message: r.message as string,
         created_at: r.created_at as string,
+        is_pinned: r.is_pinned as boolean,
         guestName: (r.guests?.full_name as string | undefined) ?? "Khách",
       }));
       setWishes(mapped);
@@ -52,6 +53,7 @@ export function useWishesFeed(): WishesFeedApi {
             guest_id: string;
             message: string;
             created_at: string;
+            is_pinned: boolean;
           };
           const { data: guest } = await supabase
             .from("guests")
@@ -65,6 +67,7 @@ export function useWishesFeed(): WishesFeedApi {
                 id: row.id,
                 message: row.message,
                 created_at: row.created_at,
+                is_pinned: row.is_pinned ?? false,
                 guestName: ((guest as { full_name?: string } | null)?.full_name) ?? "Khách",
               },
               ...prev,

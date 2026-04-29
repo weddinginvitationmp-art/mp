@@ -18,9 +18,15 @@ export function WishFeed({ wishes, loading }: Props) {
     return <p className="py-8 text-center text-sm opacity-50">{t("wishes.empty")}</p>;
   }
 
+  const sorted = [...wishes].sort((a, b) => {
+    if (a.is_pinned && !b.is_pinned) return -1;
+    if (!a.is_pinned && b.is_pinned) return 1;
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+  });
+
   return (
     <ul className="mt-8 max-h-[560px] overflow-y-auto pr-2">
-      {wishes.map((w) => (
+      {sorted.map((w) => (
         <WishItem key={w.id} wish={w} />
       ))}
     </ul>

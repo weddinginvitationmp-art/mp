@@ -1,4 +1,8 @@
 {
+  "opening": {
+    "personalGreeting": "Kính mời {{name}}",
+    "genericGreeting": "Thiệp Mời"
+  },
   "hero": {
     "eyebrow": "Trân trọng kính mời",
     "personalGreeting": "Kính mời {{name}}",
@@ -37,7 +41,10 @@
     "kind": {
       "ceremony": "Lễ cưới",
       "reception": "Tiệc cưới"
-    }
+    },
+    "dressCode": "Dress code",
+    "parking": "Bãi đỗ xe",
+    "arriveEarly": "Đến sớm 15 phút check-in"
   },
   "calendar": {
     "add": "Thêm vào lịch",
@@ -93,7 +100,7 @@
     "title": "Sổ lưu niệm",
     "placeholder": {
       "name": "Tên của bạn",
-      "message": "Viết vài dòng chúc mừng…"
+      "message": "Bạn nhớ gì về tụi mình? Một lời chúc bá đạo cũng được 😄"
     },
     "submit": "Gửi lời chúc",
     "sending": "Đang gửi…",
@@ -114,7 +121,11 @@
     "copied": "Đã sao chép",
     "enlargeQr": "Phóng to mã QR",
     "copyAriaLabel": "Sao chép số tài khoản {{number}}",
-    "tabsLabel": "Chọn tài khoản"
+    "tabsLabel": "Chọn tài khoản",
+    "promptAttending": "Cảm ơn bạn đã xác nhận. Nếu muốn gửi lời chúc, bạn có thể làm điều đó ở phần Sổ Lưu Bút bên dưới 💛",
+    "promptNotAttending": "Cảm ơn bạn đã phản hồi. Nếu vẫn muốn gửi lời chúc, bạn vẫn có thể mừng cưới bất cứ lúc nào 💛",
+    "promptNoRsvp": "Vui lòng xác nhận tham dự trước để nhận thông tin mừng cưới",
+    "ctaRsvp": "Xác nhận tham dự"
   },
   "common": {
     "rsvp": "Xác nhận tham dự",
@@ -247,7 +258,11 @@
     },
     "wishes": {
       "title": "Sổ lưu niệm",
-      "deleteConfirm": "Xoá lời chúc này?"
+      "deleteConfirm": "Xoá lời chúc này?",
+      "pin": "Ghim",
+      "unpin": "Bỏ ghim",
+      "pinned": "Đã ghim lời chúc",
+      "unpinned": "Đã bỏ ghim"
     },
     "leaderboard": {
       "title": "BXH trò chơi",

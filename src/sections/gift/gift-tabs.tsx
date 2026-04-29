@@ -12,7 +12,7 @@ type TabId = "bride" | "groom";
  * Mobile: one card at a time with sliding pill tabs.
  * Desktop: side-by-side grid (hidden above md, grid is in parent).
  */
-export function GiftTabs() {
+export function GiftTabs({ compact = false }: { compact?: boolean }) {
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("vi") ? "vi" : "en";
   const [active, setActive] = useState<TabId>("bride");
@@ -33,10 +33,10 @@ export function GiftTabs() {
 
       <Tabs value={active} onChange={(v) => setActive(v as TabId)} label={t("gift.tabsLabel")}>
         <TabPanel value="bride">
-          <GiftCard account={wedding.gift.bride} memo={memo} />
+          <GiftCard account={wedding.gift.bride} memo={memo} compact={compact} />
         </TabPanel>
         <TabPanel value="groom">
-          <GiftCard account={wedding.gift.groom} memo={memo} />
+          <GiftCard account={wedding.gift.groom} memo={memo} compact={compact} />
         </TabPanel>
       </Tabs>
     </div>

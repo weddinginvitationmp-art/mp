@@ -9,6 +9,7 @@ export interface FeedWish {
   message: string;
   created_at: string;
   guestName: string;
+  is_pinned: boolean;
 }
 
 export interface SubmitWishInput {
@@ -40,7 +41,7 @@ export async function submitWish(
     .single();
   if (error || !data) return { ok: false, error: error?.message ?? "wish insert failed" };
 
-  const row = data as WishRow;
+  const row = data as WishRow & { is_pinned?: boolean };
   return {
     ok: true,
     wish: {
@@ -48,6 +49,7 @@ export async function submitWish(
       message: row.message,
       created_at: row.created_at,
       guestName: input.fullName,
+      is_pinned: row.is_pinned ?? false,
     },
   };
 }

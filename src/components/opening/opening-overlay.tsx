@@ -1,5 +1,7 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { useGuestContext } from "@/hooks/use-guest-context";
 import { OrnamentalFrame, GoldDivider } from "./opening-ornaments";
 
 const EASE_CINEMATIC = [0.22, 1, 0.36, 1] as const;
@@ -12,10 +14,16 @@ const fadeUp = (delay: number) => ({
 
 export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
   const [visible, setVisible] = useState(true);
+  const { t } = useTranslation();
+  const { guest } = useGuestContext();
 
   const dismiss = useCallback(() => {
     setVisible(false);
   }, []);
+
+  const subtitle = guest
+    ? t("opening.personalGreeting", { name: guest.full_name })
+    : t("opening.genericGreeting");
 
   return (
     <AnimatePresence onExitComplete={onComplete}>
@@ -46,7 +54,7 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
               {...fadeUp(0.5)}
               className="font-sans text-xs tracking-[0.35em] uppercase text-[#C9A876]/70"
             >
-              Thiệp Mời
+              {subtitle}
             </motion.p>
 
             <GoldDivider />

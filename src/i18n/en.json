@@ -1,4 +1,8 @@
 {
+  "opening": {
+    "personalGreeting": "Dear {{name}}",
+    "genericGreeting": "Wedding Invitation"
+  },
   "hero": {
     "eyebrow": "Save the date",
     "personalGreeting": "Dearly invited, {{name}}",
@@ -37,7 +41,10 @@
     "kind": {
       "ceremony": "Ceremony",
       "reception": "Reception"
-    }
+    },
+    "dressCode": "Dress code",
+    "parking": "Parking",
+    "arriveEarly": "Arrive 15 min early for check-in"
   },
   "calendar": {
     "add": "Add to calendar",
@@ -93,7 +100,7 @@
     "title": "Leave a wish",
     "placeholder": {
       "name": "Your name",
-      "message": "Write something kind…"
+      "message": "What do you remember about us? A wild wish is also welcome 😄"
     },
     "submit": "Send wish",
     "sending": "Sending…",
@@ -114,7 +121,11 @@
     "copied": "Copied",
     "enlargeQr": "Enlarge QR code",
     "copyAriaLabel": "Copy account number {{number}}",
-    "tabsLabel": "Select account"
+    "tabsLabel": "Select account",
+    "promptAttending": "Thank you for confirming. If you'd like to leave a wish, you can do so in the Guestbook below 💛",
+    "promptNotAttending": "Thanks for your response. If you'd still like to send a gift, you're welcome to do so anytime 💛",
+    "promptNoRsvp": "Please confirm your attendance first to see gift details",
+    "ctaRsvp": "Confirm Attendance"
   },
   "common": {
     "rsvp": "RSVP",
@@ -247,7 +258,11 @@
     },
     "wishes": {
       "title": "Guestbook",
-      "deleteConfirm": "Delete this wish?"
+      "deleteConfirm": "Delete this wish?",
+      "pin": "Pin",
+      "unpin": "Unpin",
+      "pinned": "Wish pinned",
+      "unpinned": "Wish unpinned"
     },
     "leaderboard": {
       "title": "Game leaderboard",

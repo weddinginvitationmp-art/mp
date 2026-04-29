@@ -4,6 +4,11 @@
  */
 export type EventKind = "ceremony" | "reception";
 
+export interface TimelineItem {
+  time: string;
+  label: { vi: string; en: string };
+}
+
 export interface WeddingEvent {
   kind: EventKind;
   start: Date;
@@ -11,6 +16,11 @@ export interface WeddingEvent {
   venue: { vi: string; en: string };
   address: { vi: string; en: string };
   mapQuery: string;
+  dressCode?: string;
+  parkingNote?: string;
+  venueDetail?: string;
+  note?: string;
+  timeline?: TimelineItem[];
 }
 
 export interface StoryMilestone {

@@ -10,9 +10,10 @@ import { showToast } from "@/hooks/use-toast";
 interface Props {
   account: BankAccount;
   memo: string;
+  compact?: boolean;
 }
 
-export function GiftCard({ account, memo }: Props) {
+export function GiftCard({ account, memo, compact = false }: Props) {
   const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("vi") ? "vi" : "en";
   const qrUrl = buildVietQrUrl(account, { memo });
@@ -30,7 +31,7 @@ export function GiftCard({ account, memo }: Props) {
 
   return (
     <>
-      <article className="flex flex-col items-center rounded-soft border border-border-subtle bg-surface-muted p-6 text-center backdrop-blur-md dark:bg-surface/30">
+      <article className={`flex flex-col items-center rounded-soft border text-center backdrop-blur-md ${compact ? "border-border-subtle/50 bg-surface-muted/50 p-4" : "border-border-subtle bg-surface-muted p-6"}`}>
         <p className="text-[11px] uppercase tracking-[0.4em] text-accent">
           {account.name[lang]}
         </p>
@@ -40,13 +41,13 @@ export function GiftCard({ account, memo }: Props) {
           type="button"
           onClick={() => setQrOpen(true)}
           aria-label={t("gift.enlargeQr")}
-          className="mt-5 overflow-hidden rounded-soft bg-ivory p-3 transition active:scale-[0.98] touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-gold/40"
+          className={`mt-5 overflow-hidden rounded-soft bg-ivory p-3 transition active:scale-[0.98] touch-action-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-gold/40 ${compact ? "max-w-40" : ""}`}
         >
           <img
             src={qrUrl}
             alt={`QR ${t("gift.scanHint")} — ${account.accountHolder}`}
-            width={240}
-            height={240}
+            width={compact ? 160 : 240}
+            height={compact ? 160 : 240}
             loading="lazy"
             decoding="async"
             className="size-full max-w-56"
@@ -58,7 +59,7 @@ export function GiftCard({ account, memo }: Props) {
             <dt className="text-[10px] uppercase tracking-widest opacity-60">{t("gift.bank")}</dt>
             <dd className="mt-0.5 flex items-center justify-center gap-2">
               <span className="font-display text-lg">{account.bankName}</span>
-              <Chip label={account.bankName} dotColor={bankColor} className="hidden sm:inline-flex" />
+              {!compact && <Chip label={account.bankName} dotColor={bankColor} className="hidden sm:inline-flex" />}
             </dd>
           </div>
 
@@ -82,12 +83,14 @@ export function GiftCard({ account, memo }: Props) {
             </dd>
           </div>
 
-          <div>
-            <dt className="text-[10px] uppercase tracking-widest opacity-60">
-              {t("gift.accountHolder")}
-            </dt>
-            <dd className="mt-0.5 text-sm opacity-80">{account.accountHolder}</dd>
-          </div>
+          {!compact && (
+            <div>
+              <dt className="text-[10px] uppercase tracking-widest opacity-60">
+                {t("gift.accountHolder")}
+              </dt>
+              <dd className="mt-0.5 text-sm opacity-80">{account.accountHolder}</dd>
+            </div>
+          )}
         </dl>
       </article>
 
