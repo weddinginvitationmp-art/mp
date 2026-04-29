@@ -40,7 +40,7 @@ export function HeroContent() {
         {t("hero.eyebrow")}
       </motion.p>
 
-      <h1 className="font-display font-light leading-[1] max-w-[90vw]">
+      <h1 className="font-script font-light leading-[1] max-w-[90vw]">
         <motion.span
           className="block text-[clamp(2.75rem,8vw,5.5rem)]"
           variants={childVariants}

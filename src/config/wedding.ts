@@ -58,9 +58,9 @@ export const wedding = {
   bride: { name: "Hà Phương" },
   groom: { name: "Hoàng Minh" },
   // Saigon time, ICT (UTC+7).
-  date: new Date("2026-12-12T17:00:00+07:00"),
-  dateDisplay: { vi: "12 · 12 · 2026", en: "12 · 12 · 2026" },
-  city: { vi: "Sài Gòn", en: "Saigon" },
+  date: new Date("2026-07-03T17:00:00+07:00"),
+  dateDisplay: { vi: "03 · 07 · 2026", en: "12 · 12 · 2026" },
+  city: { vi: "Hà Nội", en: "Hanoi" },
   venue: { vi: "TBD", en: "TBD" },
   hashtag: "#HaPhuongHoangMinh2026",
 
@@ -69,8 +69,8 @@ export const wedding = {
       kind: "ceremony",
       start: new Date("2026-12-12T10:00:00+07:00"),
       end: new Date("2026-12-12T11:30:00+07:00"),
-      venue: { vi: "Nhà thờ TBD", en: "Church TBD" },
-      address: { vi: "Địa chỉ TBD, Sài Gòn", en: "Address TBD, Saigon" },
+      venue: { vi: "Khách sạn Petro", en: "Petro Hotel" },
+      address: { vi: "Đường Lê Lợi, tỉnh Thái Bình", en: "Le Loi Street, Thai Binh" },
       mapQuery: "Notre+Dame+Saigon",
     },
     {

@@ -62,12 +62,12 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
             {/* Couple names */}
             <motion.h1
               {...fadeUp(1.2)}
-              className="font-display text-4xl leading-tight font-light sm:text-5xl"
+              className="font-script text-4xl leading-tight font-light sm:text-5xl"
             >
               <span className="opening-shimmer">Hà Phương</span>
               <motion.span
                 {...fadeUp(1.5)}
-                className="my-1 block font-display text-lg text-[#C9A876]/60"
+                className="my-1 block font-script text-lg text-[#C9A876]/60"
               >
                 &amp;
               </motion.span>

@@ -22,6 +22,7 @@
 
   /* Typography */
   --font-display: "Cormorant Garamond", "Noto Serif Display", serif;
+  --font-script: "Great Vibes", cursive;
   --font-sans: "Inter", "Be Vietnam Pro", system-ui, sans-serif;
 
   /* Motion */
@@ -165,4 +166,9 @@ body {
 }
 .no-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* Script font for elegant couple names */
+.font-script {
+  font-family: var(--font-script);
 }

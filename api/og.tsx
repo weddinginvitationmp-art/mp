@@ -63,7 +63,7 @@ export default async function handler(req: Request) {
           backgroundSize: "cover",
           backgroundPosition: "center",
           color: "#F7E7CE",
-          fontFamily: "serif",
+          fontFamily: "great-vibes, serif",
           padding: 80,
           textAlign: "center",
         },
