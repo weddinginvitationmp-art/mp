@@ -125,7 +125,8 @@
     "promptAttending": "Thank you for confirming. If you'd like to leave a wish, you can do so in the Guestbook below 💛",
     "promptNotAttending": "Thanks for your response. If you'd still like to send a gift, you're welcome to do so anytime 💛",
     "promptNoRsvp": "Please confirm your attendance first to see gift details",
-    "ctaRsvp": "Confirm Attendance"
+    "ctaRsvp": "Confirm Attendance",
+    "envelopeHint": "Tap to open"
   },
   "common": {
     "rsvp": "RSVP",

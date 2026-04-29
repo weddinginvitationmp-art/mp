@@ -1,15 +1,19 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { SectionHeading } from "@/components/layout/section-heading";
 import { SectionShell } from "@/components/layout/section-shell";
 import { useGuestContext } from "@/hooks/use-guest-context";
 import { wedding } from "@/config/wedding";
 import { GiftCard } from "./gift-card";
+import { GiftEnvelope } from "./gift-envelope";
 import { GiftTabs } from "./gift-tabs";
 
 export function Gift({ index }: { index?: number }) {
   const { t } = useTranslation();
   const { guest, rsvpStatus } = useGuestContext();
   const memo = `Mung cuoi ${wedding.bride.name} & ${wedding.groom.name}`;
+  const [envelopeOpen, setEnvelopeOpen] = useState(false);
 
   const hasGuest = !!guest;
   const showFull = !hasGuest || rsvpStatus === "attending";
@@ -42,32 +46,29 @@ export function Gift({ index }: { index?: number }) {
         </div>
       )}
 
-      {(showFull || showCompact) && (
-        <>
+      {(showFull || showCompact) && !envelopeOpen && (
+        <GiftEnvelope
+          onOpen={() => setEnvelopeOpen(true)}
+          compact={showCompact}
+        />
+      )}
+
+      {(showFull || showCompact) && envelopeOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
           <p className="mb-8 text-center text-xs uppercase tracking-[0.3em] text-accent">
             {showCompact ? t("gift.promptNotAttending") : t("gift.scanHint")}
           </p>
 
-          {showFull && (
-            <>
-              <GiftTabs />
-              <div className="hidden gap-6 md:grid md:grid-cols-2">
-                <GiftCard account={wedding.gift.bride} memo={memo} />
-                <GiftCard account={wedding.gift.groom} memo={memo} />
-              </div>
-            </>
-          )}
-
-          {showCompact && (
-            <>
-              <GiftTabs compact />
-              <div className="hidden gap-6 md:grid md:grid-cols-2">
-                <GiftCard account={wedding.gift.bride} memo={memo} compact />
-                <GiftCard account={wedding.gift.groom} memo={memo} compact />
-              </div>
-            </>
-          )}
-        </>
+          <GiftTabs compact={showCompact} />
+          <div className="hidden gap-6 md:grid md:grid-cols-2">
+            <GiftCard account={wedding.gift.bride} memo={memo} compact={showCompact} />
+            <GiftCard account={wedding.gift.groom} memo={memo} compact={showCompact} />
+          </div>
+        </motion.div>
       )}
     </SectionShell>
   );

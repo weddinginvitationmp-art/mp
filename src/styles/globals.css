@@ -127,6 +127,16 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .section-divider__line { animation: none; }
   .opening-shimmer { animation: none; }
+  .envelope-wobble { animation: none; }
+}
+
+/* ── Gift envelope wobble ── */
+@keyframes envelope-wobble {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+.envelope-wobble {
+  animation: envelope-wobble 1.2s ease-in-out infinite;
 }
 
 /* ── Opening overlay ── */
