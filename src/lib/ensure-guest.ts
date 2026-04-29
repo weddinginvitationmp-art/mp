@@ -11,8 +11,17 @@ export async function ensureGuestId(
   knownGuestId: string | null,
   slug: string | null,
   fullName: string,
-): Promise<{ guestId: string } | { error: string }> {
-  if (knownGuestId) return { guestId: knownGuestId };
+): Promise<{ guestId: string; guestSlug: string } | { error: string }> {
+  if (knownGuestId && slug) return { guestId: knownGuestId, guestSlug: slug };
+
+  if (knownGuestId) {
+    const { data } = await supabase
+      .from("guests")
+      .select("guest_slug")
+      .eq("id", knownGuestId)
+      .maybeSingle();
+    return { guestId: knownGuestId, guestSlug: (data as { guest_slug: string } | null)?.guest_slug ?? slugify(fullName) };
+  }
 
   const finalSlug = slug ?? slugify(fullName);
   const { data, error } = await supabase
@@ -22,5 +31,5 @@ export async function ensureGuestId(
     .select("id")
     .single();
   if (error || !data) return { error: error?.message ?? "guest insert failed" };
-  return { guestId: (data as { id: string }).id };
+  return { guestId: (data as { id: string }).id, guestSlug: finalSlug };
 }

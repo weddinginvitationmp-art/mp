@@ -5,6 +5,24 @@ import type { RsvpFormValues } from "@/sections/rsvp/rsvp-schema";
 
 type RsvpRow = Database["public"]["Tables"]["rsvp"]["Row"];
 
+const GUEST_SLUG_KEY = "wi.guestSlug";
+
+export function getSavedGuestSlug(): string | null {
+  try {
+    return localStorage.getItem(GUEST_SLUG_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function saveGuestSlug(slug: string): void {
+  try {
+    localStorage.setItem(GUEST_SLUG_KEY, slug);
+  } catch {
+    // localStorage unavailable
+  }
+}
+
 export interface SubmitContext {
   guestId: string | null;
   slug: string | null;
@@ -26,6 +44,8 @@ export async function submitRsvp(
   const gr = await ensureGuestId(ctx.guestId, ctx.slug, values.fullName);
   if ("error" in gr) return { ok: false, error: gr.error };
   const guestId = gr.guestId;
+
+  saveGuestSlug(gr.guestSlug);
 
   const { data: rsvp, error } = await supabase
     .from("rsvp")

@@ -1,6 +1,6 @@
 import { createContext, useMemo, useEffect, useState, type ReactNode } from "react";
 import { useGuest } from "@/hooks/use-guest";
-import { fetchRsvpForGuest } from "@/lib/rsvp";
+import { fetchRsvpForGuest, getSavedGuestSlug } from "@/lib/rsvp";
 import type { Database } from "@/types/database";
 
 type Guest = Database["public"]["Tables"]["guests"]["Row"];
@@ -24,7 +24,7 @@ export const GuestContext = createContext<GuestContextValue | undefined>(undefin
 export function GuestProvider({ children }: { children: ReactNode }) {
   const slug = useMemo(() => {
     if (typeof window === "undefined") return null;
-    return new URLSearchParams(window.location.search).get("guest");
+    return new URLSearchParams(window.location.search).get("guest") ?? getSavedGuestSlug();
   }, []);
 
   const { guest, loading } = useGuest(slug);
