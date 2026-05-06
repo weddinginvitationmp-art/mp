@@ -34,6 +34,13 @@ export interface BackdropSlide {
   quote: { vi: string; en: string };
 }
 
+export interface InvitationConfig {
+  groomParents: { father: string; mother: string };
+  brideParents: { father: string; mother: string };
+  lunarDate: { vi: string; en: string };
+  invitationText: { vi: string; en: string };
+}
+
 export interface AlbumPhoto {
   src: string;
   width: number;
@@ -117,6 +124,16 @@ export const wedding = {
       },
     },
   ] satisfies ReadonlyArray<StoryMilestone>,
+
+  invitation: {
+    groomParents: { father: "Ông [Tên cha chú rể]", mother: "Bà [Tên mẹ chú rể]" },
+    brideParents: { father: "Ông [Tên cha cô dâu]", mother: "Bà [Tên mẹ cô dâu]" },
+    lunarDate: { vi: "Ngày ... tháng ... năm Bính Ngọ", en: "... day, ... month, Year of the Horse" },
+    invitationText: {
+      vi: "Trân trọng kính mời quý khách đến dự buổi lễ Thành Hôn của con chúng tôi",
+      en: "We cordially invite you to the wedding celebration of our children",
+    },
+  } satisfies InvitationConfig,
 
   // Cinematic horizontal scroll-snap deck (Phase 3.2).
   // Quotes intentionally short — they overlay full-bleed photography.

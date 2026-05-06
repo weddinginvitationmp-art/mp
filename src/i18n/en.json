@@ -23,6 +23,16 @@
     "eyebrow": "Our story",
     "title": "A journey"
   },
+  "invitation": {
+    "eyebrow": "Invitation",
+    "title": "Wedding Invitation",
+    "groomFamily": "Groom's Family",
+    "brideFamily": "Bride's Family",
+    "cordially": "Cordially invite you",
+    "toAttend": "to the wedding celebration of",
+    "lunarDate": "Lunar calendar",
+    "openCta": "Open invitation ✦"
+  },
   "album": {
     "eyebrow": "Moments",
     "title": "Photographs"

@@ -37,46 +37,50 @@ export function OrnamentalFrame() {
         variants={DRAW}
         transition={{ ...TRANSITION, delay: 0.3 }}
       />
-      {/* Corner ornaments — top-left */}
+      {/* Cloud scroll — top-left */}
       <motion.path
-        d="M30 40 Q40 30 50 40 M30 40 Q40 50 50 40"
+        d="M30 35 C35 28 42 28 48 32 C52 28 58 28 62 35 M30 35 C28 40 32 44 38 42"
         stroke="#D4AF37"
         strokeWidth="0.75"
         variants={DRAW}
-        transition={{ ...TRANSITION, delay: 0.6 }}
+        transition={{ ...TRANSITION, delay: 0.5 }}
       />
-      {/* Corner ornaments — top-right */}
+      {/* Cloud scroll — top-right */}
       <motion.path
-        d="M270 40 Q280 30 290 40 M270 40 Q280 50 290 40"
+        d="M290 35 C285 28 278 28 272 32 C268 28 262 28 258 35 M290 35 C292 40 288 44 282 42"
         stroke="#D4AF37"
         strokeWidth="0.75"
         variants={DRAW}
-        transition={{ ...TRANSITION, delay: 0.6 }}
+        transition={{ ...TRANSITION, delay: 0.5 }}
       />
-      {/* Corner ornaments — bottom-left */}
+      {/* Cloud scroll — bottom-left */}
       <motion.path
-        d="M30 380 Q40 370 50 380 M30 380 Q40 390 50 380"
+        d="M30 385 C35 392 42 392 48 388 C52 392 58 392 62 385 M30 385 C28 380 32 376 38 378"
         stroke="#D4AF37"
         strokeWidth="0.75"
         variants={DRAW}
-        transition={{ ...TRANSITION, delay: 0.6 }}
+        transition={{ ...TRANSITION, delay: 0.5 }}
       />
-      {/* Corner ornaments — bottom-right */}
+      {/* Cloud scroll — bottom-right */}
       <motion.path
-        d="M270 380 Q280 370 290 380 M270 380 Q280 390 290 380"
+        d="M290 385 C285 392 278 392 272 388 C268 392 262 392 258 385 M290 385 C292 380 288 376 282 378"
         stroke="#D4AF37"
         strokeWidth="0.75"
         variants={DRAW}
-        transition={{ ...TRANSITION, delay: 0.6 }}
+        transition={{ ...TRANSITION, delay: 0.5 }}
       />
-      {/* Center lotus silhouette */}
+      {/* Lotus — 5 petals */}
       <motion.path
-        d="M160 185 Q150 170 160 155 Q170 170 160 185 M160 185 Q145 175 140 160 Q155 170 160 185 M160 185 Q175 175 180 160 Q165 170 160 185"
+        d="M160 180 Q155 165 160 150 Q165 165 160 180
+           M160 180 Q148 170 142 155 Q155 168 160 180
+           M160 180 Q172 170 178 155 Q165 168 160 180
+           M160 180 Q140 178 135 165 Q150 172 160 180
+           M160 180 Q180 178 185 165 Q170 172 160 180"
         stroke="#D4AF37"
         strokeWidth="0.5"
-        opacity={0.5}
+        opacity={0.6}
         variants={DRAW}
-        transition={{ ...TRANSITION, delay: 0.9 }}
+        transition={{ ...TRANSITION, delay: 0.8 }}
       />
     </motion.svg>
   );

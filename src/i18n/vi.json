@@ -23,6 +23,16 @@
     "eyebrow": "Chuyện chúng mình",
     "title": "Một hành trình"
   },
+  "invitation": {
+    "eyebrow": "Lời mời",
+    "title": "Thiệp Mời",
+    "groomFamily": "Nhà trai",
+    "brideFamily": "Nhà gái",
+    "cordially": "Trân trọng kính mời",
+    "toAttend": "đến dự buổi lễ Thành Hôn của con chúng tôi",
+    "lunarDate": "Âm lịch",
+    "openCta": "Mở thiệp ✦"
+  },
   "album": {
     "eyebrow": "Khoảnh khắc",
     "title": "Những bức ảnh yêu"

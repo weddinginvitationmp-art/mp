@@ -9,7 +9,7 @@ import { Hero } from "@/sections/hero";
 const AdminApp = lazy(() => import("@/admin"));
 
 // Below-fold sections: lazy-loaded so initial bundle ships only the hero.
-const Story = lazy(() => import("@/sections/story").then((m) => ({ default: m.Story })));
+const Invitation = lazy(() => import("@/sections/invitation").then((m) => ({ default: m.Invitation })));
 const Backdrop = lazy(() =>
   import("@/sections/backdrop").then((m) => ({ default: m.Backdrop })),
 );
@@ -52,7 +52,7 @@ function AppShell() {
     <SiteLayout>
       <Hero />
       <Suspense fallback={<SectionSkeleton />}>
-        <Story index={1} />
+        <Invitation index={1} />
         <Backdrop index={2} />
         <Album index={3} />
         <Video index={4} />

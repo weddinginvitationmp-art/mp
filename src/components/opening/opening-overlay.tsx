@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useGuestContext } from "@/hooks/use-guest-context";
 import { OrnamentalFrame, GoldDivider } from "./opening-ornaments";
+import { DoubleHappiness, PhoenixDragon } from "./opening-motifs";
 
 const EASE_CINEMATIC = [0.22, 1, 0.36, 1] as const;
 
@@ -47,12 +48,18 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
           {/* Ornamental frame */}
           <OrnamentalFrame />
 
+          {/* Phoenix & Dragon flanking */}
+          <PhoenixDragon delay={0.6} />
+
           {/* Content stack */}
           <div className="relative z-10 flex flex-col items-center px-8 text-center">
+            {/* Double Happiness */}
+            <DoubleHappiness delay={0.4} />
+
             {/* Subtitle */}
             <motion.p
-              {...fadeUp(0.5)}
-              className="font-sans text-xs tracking-[0.35em] uppercase text-[#C9A876]/70"
+              {...fadeUp(1.0)}
+              className="mt-4 font-sans text-xs tracking-[0.35em] uppercase text-[#C9A876]/70"
             >
               {subtitle}
             </motion.p>
@@ -61,12 +68,12 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
 
             {/* Couple names */}
             <motion.h1
-              {...fadeUp(1.2)}
+              {...fadeUp(1.8)}
               className="font-script text-4xl leading-tight font-light sm:text-5xl"
             >
               <span className="opening-shimmer">Hà Phương</span>
               <motion.span
-                {...fadeUp(1.5)}
+                {...fadeUp(2.1)}
                 className="my-1 block font-script text-lg text-[#C9A876]/60"
               >
                 &amp;
@@ -78,7 +85,7 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
 
             {/* Date */}
             <motion.p
-              {...fadeUp(2.5)}
+              {...fadeUp(2.8)}
               className="font-sans text-sm tracking-[0.25em] text-[#E5D4B7]/70"
             >
               12 · 12 · 2026
@@ -86,14 +93,14 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
 
             {/* CTA */}
             <motion.button
-              {...fadeUp(3.0)}
+              {...fadeUp(3.2)}
               className="mt-8 rounded-full border border-[#D4AF37]/40 px-6 py-2.5 font-sans text-xs tracking-[0.2em] uppercase text-[#D4AF37] transition-colors hover:border-[#D4AF37]/70 hover:text-[#F7E7CE]"
               onClick={(e) => {
                 e.stopPropagation();
                 dismiss();
               }}
             >
-              Mở thiệp ✦
+              {t("invitation.openCta")}
             </motion.button>
           </div>
         </motion.div>

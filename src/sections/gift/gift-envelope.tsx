@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
@@ -8,7 +8,6 @@ interface Props {
 }
 
 const EASE_CINEMATIC = [0.22, 1, 0.36, 1] as const;
-const AUTO_OPEN_MS = 8000;
 
 export function GiftEnvelope({ onOpen, compact = false }: Props) {
   const { t } = useTranslation();
@@ -19,11 +18,6 @@ export function GiftEnvelope({ onOpen, compact = false }: Props) {
     setState("opening");
     setTimeout(onOpen, 700);
   }, [state, onOpen]);
-
-  useEffect(() => {
-    const id = setTimeout(handleOpen, AUTO_OPEN_MS);
-    return () => clearTimeout(id);
-  }, [handleOpen]);
 
   const size = compact ? "w-32" : "w-44 sm:w-48";
 
