@@ -1,9 +1,10 @@
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { useGuestContext } from "@/hooks/use-guest-context";
 import { OrnamentalFrame, GoldDivider } from "./opening-ornaments";
 import { DoubleHappiness, PhoenixDragon } from "./opening-motifs";
+import { ConfettiCelebration } from "./confetti-celebration";
 
 const EASE_CINEMATIC = [0.22, 1, 0.36, 1] as const;
 
@@ -15,6 +16,7 @@ const fadeUp = (delay: number) => ({
 
 export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
   const [visible, setVisible] = useState(true);
+  const [celebrating, setCelebrating] = useState(false);
   const { t } = useTranslation();
   const { guest } = useGuestContext();
 
@@ -36,12 +38,21 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
             background:
               "radial-gradient(ellipse at 50% 40%, #6B1515 0%, #3A0808 60%, #1A0303 100%)",
           }}
-          exit={{ opacity: 0, y: -60 }}
+          exit={{ opacity: 0, y: -70 }}
           transition={{ duration: 0.6, ease: EASE_CINEMATIC }}
           role="dialog"
           aria-modal="true"
           aria-label="Thiệp mời cưới"
         >
+          {/* Celebration particles */}
+          <ConfettiCelebration
+            run={celebrating}
+            onDone={() => {
+              setCelebrating(false);
+              dismiss();
+            }}
+          />
+
           {/* Film grain texture */}
           <div className="film-grain pointer-events-none absolute inset-0" />
 
@@ -59,7 +70,7 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
             {/* Subtitle */}
             <motion.p
               {...fadeUp(1.0)}
-              className="mt-4 font-sans text-xs tracking-[0.35em] uppercase text-[#C9A876]/70"
+              className="mt-2 sm:mt-4 font-sans text-xs tracking-[0.35em] uppercase text-[#C9A876]/70"
             >
               {subtitle}
             </motion.p>
@@ -74,7 +85,7 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
               <span className="opening-shimmer">Hà Phương</span>
               <motion.span
                 {...fadeUp(2.1)}
-                className="my-1 block font-script text-lg text-[#C9A876]/60"
+                className="my-0.5 sm:my-1 block font-script text-lg text-[#C9A876]/60"
               >
                 &amp;
               </motion.span>
@@ -94,10 +105,10 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
             {/* CTA */}
             <motion.button
               {...fadeUp(3.2)}
-              className="mt-8 rounded-full border border-[#D4AF37]/40 px-6 py-2.5 font-sans text-xs tracking-[0.2em] uppercase text-[#D4AF37] transition-colors hover:border-[#D4AF37]/70 hover:text-[#F7E7CE]"
+              className="mt-5 sm:mt-8 rounded-full border border-[#D4AF37]/40 px-6 py-2.5 font-sans text-xs tracking-[0.2em] uppercase text-[#D4AF37] transition-colors hover:border-[#D4AF37]/70 hover:text-[#F7E7CE]"
               onClick={(e) => {
                 e.stopPropagation();
-                dismiss();
+                setCelebrating(true);
               }}
             >
               {t("invitation.openCta")}
@@ -108,3 +119,4 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
     </AnimatePresence>
   );
 }
+

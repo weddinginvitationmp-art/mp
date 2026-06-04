@@ -50,7 +50,12 @@
   "event": {
     "kind": {
       "ceremony": "Lễ cưới",
-      "reception": "Tiệc cưới"
+      "reception": "Tiệc cưới",
+      "an_hoi": "Lễ ăn hỏi",
+      "tiec_nha_gai": "Tiệc cưới nhà gái",
+      "vu_quy": "Lễ vu quy",
+      "thanh_hon": "Lễ thành hôn",
+      "tiec_nha_trai": "Tiệc cưới nhà trai"
     },
     "dressCode": "Dress code",
     "parking": "Bãi đỗ xe",
@@ -122,8 +127,8 @@
   "gift": {
     "eyebrow": "Mừng cưới",
     "title": "Gửi tới hai bạn",
-    "subtitle": "Sự hiện diện của bạn là món quà lớn nhất. Nếu muốn gửi tặng thêm, dưới đây là thông tin chuyển khoản.",
-    "scanHint": "Quét mã QR để chuyển khoản nhanh",
+    "subtitle": "Sự hiện diện của bạn là món quà lớn nhất 💛",
+    "scanHint": "Quét mã QR để mừng cưới",
     "bank": "Ngân hàng",
     "accountNumber": "Số tài khoản",
     "accountHolder": "Chủ tài khoản",
@@ -243,6 +248,9 @@
       "addTitle": "Thêm khách mời",
       "editTitle": "Sửa khách mời",
       "exportCsv": "Xuất CSV",
+      "importCsv": "Nhập CSV",
+      "importSuccess": "Đã nhập thành công {{count}} khách mời!",
+      "importFailed": "Nhập danh sách thất bại: {{error}}",
       "searchPlaceholder": "Tìm theo tên hoặc slug…",
       "linkCopied": "Đã sao chép liên kết",
       "copyFailed": "Không sao chép được",

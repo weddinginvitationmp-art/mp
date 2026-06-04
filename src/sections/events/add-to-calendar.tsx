@@ -42,12 +42,12 @@ export function AddToCalendar({ event }: Props) {
       <a className={btn} href={buildGoogleCalendarUrl(spec)} target="_blank" rel="noreferrer">
         {t("calendar.google")}
       </a>
-      <a className={btn} href={buildOutlookCalendarUrl(spec)} target="_blank" rel="noreferrer">
+      {/* <a className={btn} href={buildOutlookCalendarUrl(spec)} target="_blank" rel="noreferrer">
         {t("calendar.outlook")}
-      </a>
-      <button type="button" className={btn} onClick={() => downloadIcs(spec, filename)}>
+      </a> */}
+      <a className={btn} onClick={() => downloadIcs(spec, filename)} >
         {t("calendar.apple")}
-      </button>
+      </a>
     </div>
   );
 }

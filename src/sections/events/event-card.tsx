@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import type { WeddingEvent } from "@/config/wedding";
 import { formatLongDate, formatTimeRange } from "@/lib/format-date";
@@ -30,6 +31,7 @@ interface Props {
 
 export function EventCard({ event }: Props) {
   const { t, i18n } = useTranslation();
+  const [showMap, setShowMap] = useState(false);
   const reduced = useReducedMotion();
   const lang = i18n.language.startsWith("vi") ? "vi" : "en";
 
@@ -49,7 +51,7 @@ export function EventCard({ event }: Props) {
 
       {/* Kind label with icon */}
       <div className="flex items-center gap-2">
-        {event.kind === "ceremony" ? <CeremonyIcon /> : <ReceptionIcon />}
+        {["ceremony", "an_hoi", "vu_quy", "thanh_hon"].includes(event.kind) ? <CeremonyIcon /> : <ReceptionIcon />}
         <p className="text-[11px] uppercase tracking-[0.4em] text-accent">
           {t(`event.kind.${event.kind}`)}
         </p>
@@ -100,6 +102,49 @@ export function EventCard({ event }: Props) {
           ))}
         </div>
       )}
+
+      {/* Map button and inline iframe */}
+      <div className="mt-5 flex flex-col gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setShowMap(!showMap)}
+            className="rounded-pill border border-border-subtle px-3 py-1.5 text-[11px] uppercase tracking-widest transition hover:bg-surface-muted min-h-[32px] inline-flex items-center cursor-pointer font-sans"
+          >
+            {showMap
+              ? (lang === "vi" ? "Ẩn bản đồ ▴" : "Hide Map ▴")
+              : (lang === "vi" ? "Xem bản đồ ▾" : "View Map ▾")}
+          </button>
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.mapQuery)}`}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-pill border border-border-subtle px-3 py-1.5 text-[11px] uppercase tracking-widest transition hover:bg-surface-muted min-h-[32px] inline-flex items-center cursor-pointer font-sans"
+          >
+            {t("events.openInMaps")}
+          </a>
+        </div>
+
+        <AnimatePresence>
+          {showMap && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 220 }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="overflow-hidden rounded-soft ring-1 ring-accent/20 w-full mt-2"
+            >
+              <iframe
+                src={`https://www.google.com/maps?q=${encodeURIComponent(event.mapQuery)}&output=embed`}
+                title={event.venue[lang]}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="size-full border-0"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       <AddToCalendar event={event} />
     </motion.article>

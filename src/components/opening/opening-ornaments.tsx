@@ -9,7 +9,7 @@ export function OrnamentalFrame() {
       viewBox="0 0 320 420"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="pointer-events-none absolute inset-0 m-auto h-[85%] w-[85%] max-w-[320px] opacity-40"
+      className="pointer-events-none absolute inset-0 m-auto h-[90%] w-[90%] max-w-[380px] opacity-40"
       initial="hidden"
       animate="visible"
     >
@@ -71,11 +71,11 @@ export function OrnamentalFrame() {
       />
       {/* Lotus — 5 petals */}
       <motion.path
-        d="M160 180 Q155 165 160 150 Q165 165 160 180
-           M160 180 Q148 170 142 155 Q155 168 160 180
-           M160 180 Q172 170 178 155 Q165 168 160 180
-           M160 180 Q140 178 135 165 Q150 172 160 180
-           M160 180 Q180 178 185 165 Q170 172 160 180"
+        d="M160 210 Q155 195 160 180 Q165 195 160 210
+           M160 210 Q148 200 142 185 Q155 198 160 210
+           M160 210 Q172 200 178 185 Q165 198 160 210
+           M160 210 Q140 208 135 195 Q150 202 160 210
+           M160 210 Q180 208 185 195 Q170 202 160 210"
         stroke="#D4AF37"
         strokeWidth="0.5"
         opacity={0.6}
@@ -89,7 +89,7 @@ export function OrnamentalFrame() {
 export function GoldDivider() {
   return (
     <motion.div
-      className="mx-auto my-4 flex items-center gap-3"
+      className="mx-auto my-2 sm:my-4 flex items-center gap-3"
       initial={{ opacity: 0, scaleX: 0 }}
       animate={{ opacity: 1, scaleX: 1 }}
       transition={{ duration: 0.8, delay: 2.2, ease: [0.22, 1, 0.36, 1] }}

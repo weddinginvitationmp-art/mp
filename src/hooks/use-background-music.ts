@@ -10,7 +10,9 @@ const FADE_OUT_MS = 400;
 interface Api {
   playing: boolean;
   toggle: () => void;
+  audioEl: HTMLAudioElement | null;
 }
+
 
 /**
  * Lazily constructs an HTMLAudioElement on first user interaction.
@@ -21,6 +23,7 @@ interface Api {
  */
 export function useBackgroundMusic(): Api {
   const [playing, setPlaying] = useState(false);
+
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const fadeRef = useRef<number | null>(null);
 
@@ -110,5 +113,5 @@ export function useBackgroundMusic(): Api {
     };
   }, []);
 
-  return { playing, toggle };
+  return { playing, toggle, audioEl: audioRef.current };
 }

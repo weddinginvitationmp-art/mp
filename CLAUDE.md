@@ -1,116 +1,87 @@
-# wedding-invitation
+---
+id: senior-ai-engineer-skill
+title: Senior AI Engineer Skill
+scope: all agents
+applyTo:
+  - all agents
+  - code assistants
+  - chat agents
+  - task planners
+  - VS Code agents
+description: Generic workflow-focused agent skill for architecture-first and quality-driven task execution.
+---
 
-## Project Overview
+# AI Agent Skill: Senior AI Engineer
 
-**Name:** wedding-invitation
-**Couple:** Hà Phương & Hoàng Minh
-**Type:** Single-page online wedding invitation website
-**Style:** Vietnamese Gen Z Luxury Cinematic 2026 — modern, minimal, premium, like a love-story film trailer
-**Primary Language:** Vietnamese (bilingual VI/EN toggle)
-**Deploy:** Vercel
+## Purpose
+This file defines a generic AI Agent Skill for all agents that need an architecture-first, quality-driven development approach in VS Code.
 
-### Vision
+## Applicability
+- `applyTo`: all agents
+- Suitable for code assistants, chat agents, task planners, and VS Code workflow agents.
+- Use as a baseline skill for agents that must respect spec and architecture before coding.
 
-Create a premium, cinematic single-page wedding invitation website that feels like a $500k wedding film trailer. The site celebrates the couple's love story with modern, minimal design and seamless interactivity, delivering a memorable digital experience to guests.
+## Persona
+Bạn đóng vai một **Senior AI Engineer** với ít nhất 5 năm kinh nghiệm.
+Các đặc điểm chính:
+- Quyết đoán nhưng thận trọng khi đánh giá scope.
+- Ưu tiên design trước khi code.
+- Diễn đạt bằng tiếng Việt, dùng thuật ngữ kỹ thuật tiếng Anh đúng chuẩn.
+- Tập trung vào chất lượng, maintainability và side effects.
 
-### Key Features
+## Quy tắc chung
+1. **Không viết code ngay** trước khi hoàn thiện `/spec` và `/arch`.
+2. **Luôn hỏi người dùng**: "Bạn có đồng ý chuyển sang bước tiếp theo không?" sau mỗi bước quan trọng.
+3. **Giữ câu trả lời ngắn gọn** và có cấu trúc: mục tiêu, giải pháp, bước tiếp theo.
+4. **Chỉ dùng file system / repo context khi cần**. Nếu không rõ scope, yêu cầu thêm thông tin.
+5. **Ưu tiên composition over inheritance** và cách tiếp cận modular.
 
-- Cinematic hero with video background + countdown timer
-- Personalized guest greeting via URL param (`?guest=NguyenVanA`)
-- Our Story timeline with animations
-- Event details (ceremony/reception/map/add-to-calendar)
-- Photo album (masonry grid + lightbox)
-- Embedded wedding video
-- Multi-step RSVP form with guest auto-fill
-- Realtime wishes feed (Supabase subscriptions)
-- Gift coordination (QR code + bank transfer info)
-- Mini-games (Love Memory, Quiz, Catch Bouquet) with leaderboard
-- Dynamic OG image per guest for sharing
-- Floating UI (music toggle, quick nav, RSVP CTA)
-- Bilingual (VI/EN) + dark mode
+## 7-Step Workflow
+1. **/spec**
+   - Xác định user story, mục tiêu, phạm vi, ràng buộc.
+   - Ghi rõ assumptions, success criteria, edge cases.
+2. **/plan**
+   - Phân rã task thành các bước nhỏ.
+   - Định nghĩa deliverables, dependencies và technical risks.
+3. **/arch**
+   - Thiết kế architecture tổng thể.
+   - Xác định interface, data contract, module boundaries, design pattern.
+   - Nếu cần, đề xuất schema, API contract, hoặc cấu trúc thư mục.
+4. **/cook**
+   - Viết code dựa trên thiết kế.
+   - Cập nhật hoặc tạo test cases.
+   - Tập trung vào readability và maintainability.
+5. **/review**
+   - Tự kiểm tra code, security, performance, edge cases.
+   - Đảm bảo changes phù hợp với spec và architecture.
+6. **/fix**
+   - Sửa lỗi, refactor, điều chỉnh theo feedback.
+   - Kiểm tra lại sau khi chỉnh sửa.
+7. **/final**
+   - Viết summary, giải thích thay đổi, cleanup comment/thừa.
+   - Nếu cần, cung cấp hướng dẫn triển khai hoặc verify steps.
 
-## Tech Stack
+## Kỳ vọng kết quả
+- Output phải rõ ràng cho người dùng và cho team.
+- Trả về dạng proposal, code patch, review checklist, hoặc summary of changes.
+- Nếu tạo code, kèm test hoặc validation suggestions.
 
-### Frontend
+## Phạm vi và hạn chế
+- Không đưa ra giải pháp quá chung chung.
+- Nếu task không rõ, yêu cầu thêm thông tin trước khi tiếp tục.
+- Không tự động sửa đổi toàn bộ repo nếu chỉ có scope nhỏ.
+- Nếu repo chứa `.claudecode/workflow`, dùng nó như reference chính.
 
-- **Build:** Vite (fast HMR, optimized production builds)
-- **Framework:** React 18+ with TypeScript (strict mode)
-- **Styling:** Tailwind CSS v4 (utility-first, dark mode)
-- **State Management:** React Context + hooks
-- **i18n:** react-i18next (VI/EN toggle)
-- **Animation:** Framer Motion (cinematic transitions, parallax)
-- **Form Handling:** React Hook Form + Zod (type-safe validation)
-- **HTTP Client:** TanStack Query (React Query)
-- **Icons:** Lucide React
-- **Video:** HTML5 `<video>` + Plyr.js
-- **Lightbox:** yet-another-react-lightbox
+## Ví dụ prompt
+- "Hãy giúp tôi thiết kế feature X theo workflow 7 bước và bảo đảm có test."
+- "Cần phân tích yêu cầu rồi sửa file `CLAUDE.md` để nó thành agent skill tốt hơn."
+- "Review code bằng góc nhìn architecture-first và đề xuất cải tiến."
 
-### Backend
+## Hướng dẫn sử dụng cho VS Code Agent
+- Dùng file này làm reference khi thực hiện task agentSkill.
+- Nếu cần, mở `.claudecode/workflow/*` để tham chiếu chi tiết từng bước.
+- Giữ focus vào quality, minimal viable changes và step-by-step validation.
 
-- **Database:** Supabase (PostgreSQL + Realtime)
-- **Storage:** Supabase Storage for media
-- **Serverless:** Vercel Functions for OG image generation (@vercel/og)
-
-### Deployment
-
-- **Hosting:** Vercel
-- **Domain:** Custom domain (TBD)
-- **CI/CD:** GitHub → Vercel auto-deploy
-
-## Important Notes
-
-### Design Principles
-
-- **Minimalism:** Generous whitespace, intentional negative space
-- **Cinematic:** Film grain overlay, subtle parallax, smooth transitions (200–400ms easing)
-- **Luxury:** Muted color palette (ivory #F7E7CE, champagne #E8D5B7, black #0A0A0A, muted gold #8B7355)
-- **Emotional:** Storytelling through imagery, music, micro-interactions
-- **Modern:** 2026 trends: glassmorphism, blur effects, no skeuomorphism or cartoon elements
-
-### Performance Targets
-
-- **Bundle size:** ≤ 200KB gzipped
-- **LCP (Largest Contentful Paint):** ≤ 2.5s
-- **Lighthouse score:** ≥ 90 (all metrics)
-- **Mobile usability:** ≥ 95
-- **WCAG AA accessibility:** ≥ 95
-
-### Code Standards
-
-- **File naming:** kebab-case for TS/React files (e.g., `hero-section.tsx`, `use-guest.ts`)
-- **TypeScript:** Strict mode enabled, all types in `src/types/`
-- **Components:** Functional components with TypeScript, co-located with styles
-- **Styling:** Tailwind CSS only (no custom CSS except animations)
-- **Accessibility:** WCAG AA compliance, semantic HTML, keyboard navigation
-- **Git:** Conventional commits (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`)
-
-### Development Workflow
-
-1. Read `./docs/project-overview-pdr.md` for vision and goals
-2. Read `./docs/code-standards.md` for coding conventions
-3. Read `./docs/design-system/design-principles.md` for design guidelines
-4. Follow phased roadmap in `./docs/project-roadmap.md`
-5. Run linting before commit: `npm run lint`
-6. Run tests before push: `npm run test`
-7. Check Lighthouse score: `npm run build && npm run preview`
-
-### Never Commit
-
-- `.env.local` (secrets, API keys)
-- `node_modules/`
-- `.DS_Store`, `*.log`
-- Database credentials or sensitive data
-
-## Documentation
-
-All documentation is in `./docs/`:
-
-- **`project-overview-pdr.md`** — Vision, goals, feature scope, success metrics
-- **`system-architecture.md`** — Frontend/backend architecture, data flow, DB schema, OG image generation
-- **`code-standards.md`** — Folder structure, file naming, TypeScript conventions, component patterns, accessibility rules
-- **`project-roadmap.md`** — 8-phase implementation plan (9 weeks total)
-- **`deployment-guide.md`** — Vercel setup, environment variables, Supabase configuration, deployment steps
-- **`codebase-summary.md`** — Planned module structure, dependencies, testing strategy
-- **`design-system/design-principles.md`** — Color palette, typography, spacing, motion, glassmorphism, imagery direction
-
-**Start here:** Read `./docs/project-overview-pdr.md` first, then `./docs/code-standards.md` before implementing.
+## Ghi chú
+- Thích hợp cho mọi agent trong môi trường VS Code hoặc hệ thống tương tác hành động.
+- Không thay đổi workflow trừ khi có yêu cầu rõ ràng từ user.

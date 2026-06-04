@@ -13,6 +13,6 @@ export function buildVietQrUrl(
     accountName: account.accountHolder,
     addInfo: opts.memo ?? "Mung cuoi",
   });
-  if (opts.amount) params.set("amount", String(opts.amount));
+  // if (opts.amount) params.set("amount", String(opts.amount));
   return `https://img.vietqr.io/image/${account.bankBin}-${account.accountNumber}-compact2.png?${params.toString()}`;
 }

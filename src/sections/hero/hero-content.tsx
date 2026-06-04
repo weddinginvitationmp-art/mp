@@ -25,14 +25,7 @@ export function HeroContent() {
       animate="show"
       variants={variants}
     >
-      {guest && (
-        <motion.p
-          className="mb-2 text-xs uppercase tracking-[0.4em] text-muted-gold"
-          variants={childVariants}
-        >
-          {t("hero.personalGreeting", { name: guest.full_name })}
-        </motion.p>
-      )}
+
       <motion.p
         className="mb-6 text-xs uppercase tracking-[0.4em] opacity-70"
         variants={childVariants}

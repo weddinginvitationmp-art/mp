@@ -42,25 +42,46 @@ export function GiftEnvelope({ onOpen, compact = false }: Props) {
             transition={{ duration: 0.5, ease: EASE_CINEMATIC }}
           >
             <div
-              className="relative aspect-[3/4] overflow-hidden rounded-lg shadow-xl"
+              className="relative aspect-[3/4] overflow-hidden rounded-lg shadow-xl [perspective:900px]"
               style={{
                 background:
                   "linear-gradient(180deg, #C41E3A 0%, #8B1A1A 100%)",
+                transformStyle: "preserve-3d" as any,
               }}
             >
-              {/* Gold flap */}
+              {/* Inner card (placeholder: QR/mã) */}
               <motion.div
-                className="absolute inset-x-0 top-0 h-[35%] origin-top rounded-t-lg"
+                className="absolute inset-x-0 top-[18%] mx-auto h-[62%] w-[86%] rounded-md border border-[#D4AF37]/25 bg-black/20"
+                style={{
+                  transformStyle: "preserve-3d",
+                  backfaceVisibility: "hidden",
+                }}
+                animate={
+                  state === "opening"
+                    ? { y: -22, opacity: 1 }
+                    : { y: 8, opacity: 0 }
+                }
+                transition={{ duration: 0.55, ease: EASE_CINEMATIC }}
+              />
+
+              {/* Gold flap (real 3D rotate) */}
+              <motion.div
+                className="absolute inset-x-0 top-0 h-[38%] origin-top rounded-t-lg"
                 style={{
                   background:
                     "linear-gradient(180deg, #D4AF37 0%, #B8935A 100%)",
                   borderBottom: "1px solid #C9A876",
+                  transformStyle: "preserve-3d",
+                  backfaceVisibility: "hidden",
                 }}
                 animate={
-                  state === "opening" ? { rotateX: -180 } : {}
+                  state === "opening"
+                    ? { rotateX: -180 }
+                    : { rotateX: 0 }
                 }
-                transition={{ duration: 0.4, ease: EASE_CINEMATIC }}
+                transition={{ duration: 0.48, ease: EASE_CINEMATIC }}
               />
+
 
               {/* Flap triangle decoration */}
               <div

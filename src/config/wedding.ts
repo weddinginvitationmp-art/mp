@@ -2,7 +2,14 @@
  * Single source of truth for couple/event facts.
  * No env vars — these are intentionally public.
  */
-export type EventKind = "ceremony" | "reception";
+export type EventKind =
+  | "ceremony"
+  | "reception"
+  | "an_hoi"
+  | "tiec_nha_gai"
+  | "vu_quy"
+  | "thanh_hon"
+  | "tiec_nha_trai";
 
 export interface TimelineItem {
   time: string;
@@ -65,82 +72,101 @@ export const wedding = {
   bride: { name: "Hà Phương" },
   groom: { name: "Hoàng Minh" },
   // Saigon time, ICT (UTC+7).
-  date: new Date("2026-07-03T17:00:00+07:00"),
-  dateDisplay: { vi: "03 · 07 · 2026", en: "12 · 12 · 2026" },
-  city: { vi: "Hà Nội", en: "Hanoi" },
-  venue: { vi: "TBD", en: "TBD" },
+  date: new Date("2026-07-05T08:00:00+07:00"),
+  dateDisplay: { vi: "05 · 07 · 2026", en: "05 · 07 · 2026" },
+  city: { vi: "Thái Bình", en: "Thai Binh" },
+  venue: { vi: "Nam Định", en: "Nam Dinh" },
   hashtag: "#HaPhuongHoangMinh2026",
 
   events: [
     {
-      kind: "ceremony",
-      start: new Date("2026-12-12T10:00:00+07:00"),
-      end: new Date("2026-12-12T11:30:00+07:00"),
-      venue: { vi: "Khách sạn Petro", en: "Petro Hotel" },
-      address: { vi: "Đường Lê Lợi, tỉnh Thái Bình", en: "Le Loi Street, Thai Binh" },
-      mapQuery: "Notre+Dame+Saigon",
+      kind: "an_hoi",
+      start: new Date("2026-07-04T08:30:00+07:00"),
+      end: new Date("2026-07-04T10:00:00+07:00"),
+      venue: { vi: "Tư gia nhà gái", en: "Bride's Residence" },
+      address: { vi: "6/161 Trường Chinh, Nam Định", en: "161 Truong Chinh, Nam Dinh" },
+      mapQuery: "161+Truong+Chinh+Nam+Dinh",
     },
     {
-      kind: "reception",
-      start: new Date("2026-12-12T17:00:00+07:00"),
-      end: new Date("2026-12-12T21:00:00+07:00"),
-      venue: { vi: "Nhà hàng TBD", en: "Venue TBD" },
-      address: { vi: "Địa chỉ TBD, Sài Gòn", en: "Address TBD, Saigon" },
-      mapQuery: "Notre+Dame+Saigon",
+      kind: "tiec_nha_gai",
+      start: new Date("2026-07-04T10:30:00+07:00"),
+      end: new Date("2026-07-04T14:00:00+07:00"),
+      venue: { vi: "Lễ vu quy", en: "Bride's Reception" },
+      address: { vi: "Khách sạn Sơn Nam - 26 Lê Hồng Phong, phường Nam Định, tỉnh Ninh Bình", en: "Son Nam Hotel - 26 Le Hong Phong, Nam Dinh, Ninh Binh Province" },
+      mapQuery: "Son+Nam+Hotel",
+    },
+    {
+      kind: "thanh_hon",
+      start: new Date("2026-07-05T08:00:00+07:00"),
+      end: new Date("2026-07-05T10:00:00+07:00"),
+      venue: { vi: "Tư gia nhà trai", en: "Groom's Residence" },
+      address: { vi: "06 ngõ 555 Lý Thái Tổ, phường Trần Hưng Đạo, tỉnh Hưng Yên", en: "06 Ngõ 555 Ly Thai To, Tran Hung Dao Ward, Hung Yen Province" },
+      mapQuery: "555+Ly+Thai+To+Hung+Yen",
+    },
+    {
+      kind: "tiec_nha_trai",
+      start: new Date("2026-07-05T10:30:00+07:00"),
+      end: new Date("2026-07-05T14:00:00+07:00"),
+      venue: { vi: "Lễ thành hôn", en: "Wedding Ceremony" },
+      address: { vi: "Khách sạn Petro - 458 Lý Bôn, Trần Hưng Đạo, Hưng Yên", en: "Petro Hotel - 458 Ly Bon, Tran Hung Dao, Hung Yen" },
+      mapQuery: "Petro+Hotel+Thai+Binh",
     },
   ] satisfies ReadonlyArray<WeddingEvent>,
 
   story: [
-    {
-      date: new Date("2021-06-01"),
-      title: { vi: "Chạm mặt lần đầu", en: "First meeting" },
-      body: {
-        vi: "Một buổi chiều Sài Gòn, hai người lạ gặp nhau trong quán cà phê quen thuộc. Không ai biết đây là khởi đầu.",
-        en: "A Saigon afternoon, two strangers crossing paths in a familiar café. Neither knew it was the beginning.",
-      },
+    
+  {
+    date: new Date("2018-08-30"),
+    title: { vi: "Lần đầu gặp gỡ", en: "First Meeting" },
+    body: {
+      vi: "Mình đã gặp Phương lần đầu trên giảng đường đại học",
+      en: "I first met Phuong on the university campus.",
     },
-    {
-      date: new Date("2022-02-14"),
-      title: { vi: "Hẹn hò chính thức", en: "Officially dating" },
-      body: {
-        vi: "Ngày Valentine đầu tiên cùng nhau. Một cái gật đầu, và câu chuyện bắt đầu thật.",
-        en: "Our first Valentine's together. One yes, and the story truly began.",
-      },
+  },
+
+  {
+    date: new Date("2022-09-20"),
+    title: { vi: "Bắt đầu hẹn hò", en: "Officially Dating" },
+    body: {
+      vi: "Sau một thời gian tìm hiểu, chúng mình quyết định đồng hành cùng nhau. Không có điều gì quá đặc biệt, chỉ là cảm thấy phù hợp và muốn dành nhiều thời gian hơn cho đối phương.",
+      en: "After getting to know each other, we decided to start this journey together. Nothing dramatic—just a feeling that we were right for one another.",
     },
-    {
-      date: new Date("2024-08-01"),
-      title: { vi: "Về chung một nhà", en: "Moving in together" },
-      body: {
-        vi: "Căn hộ nhỏ giữa thành phố lớn. Bữa sáng chung, cà phê chung, tiếng cười chung.",
-        en: "A small apartment in a big city. Shared breakfasts, shared coffee, shared laughter.",
-      },
+  },
+
+  {
+    date: new Date("2023-08-01"),
+    title: { vi: "Cùng xây dựng tổ ấm", en: "Building a Home Together" },
+    body: {
+      vi: "Chúng mình bước vào cuộc sống của nhau, học cách chia sẻ từ những điều nhỏ nhất trong cuộc sống hằng ngày và dần trở thành một phần quen thuộc của nhau.",
+      en: "We moved in together, learning to share everyday moments and becoming an important part of each other's daily life.",
     },
-    {
-      date: new Date("2026-03-15"),
-      title: { vi: "Ngỏ lời", en: "The proposal" },
-      body: {
-        vi: "Một buổi hoàng hôn, một chiếc nhẫn, một câu hỏi đã đợi rất lâu — và câu trả lời là mãi mãi.",
-        en: "A sunset, a ring, a question long overdue — and an answer that means forever.",
-      },
+  },
+
+  {
+    date: new Date("2026-03-14"),
+    title: { vi: "Lời cầu hôn", en: "The Proposal" },
+    body: {
+      vi: "Sau những năm tháng đồng hành, chúng mình quyết định bước sang một chặng đường mới. Một lời hỏi, một lời đồng ý, và một kế hoạch cho tương lai chung.",
+      en: "After years of growing together, we decided to take the next step. One question, one answer, and a shared future ahead.",
     },
+  },
+
   ] satisfies ReadonlyArray<StoryMilestone>,
 
   invitation: {
-    groomParents: { father: "Ông [Tên cha chú rể]", mother: "Bà [Tên mẹ chú rể]" },
-    brideParents: { father: "Ông [Tên cha cô dâu]", mother: "Bà [Tên mẹ cô dâu]" },
-    lunarDate: { vi: "Ngày ... tháng ... năm Bính Ngọ", en: "... day, ... month, Year of the Horse" },
+    groomParents: { father: "Ông Nguyễn Xuân Toàn", mother: "Bà Hoàng Thị Hoa" },
+    brideParents: { father: "Ông Nguyễn Ngọc Tuấn", mother: "Bà Đào Thị Thu Hà" },
+    lunarDate: { vi: "Ngày 20 tháng 5 năm Bính Ngọ", en: "May 20, Year of the Horse" },
     invitationText: {
       vi: "Trân trọng kính mời quý khách đến dự buổi lễ Thành Hôn của con chúng tôi",
       en: "We cordially invite you to the wedding celebration of our children",
     },
   } satisfies InvitationConfig,
 
-  // Cinematic horizontal scroll-snap deck (Phase 3.2).
-  // Quotes intentionally short — they overlay full-bleed photography.
   backdropSlides: [
     {
       image: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=80",
-      quote: { vi: "Trăm năm hạnh phúc.", en: "A hundred years of happiness." },
+      quote: { vi: "Tháng năm hạnh phúc.", en: "A time of happiness." },
     },
     {
       image: "https://images.unsplash.com/photo-1525258801-c69ea2d57749?w=1920&q=80",
@@ -148,49 +174,39 @@ export const wedding = {
     },
     {
       image: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1920&q=80",
-      quote: { vi: "Mãi mãi bắt đầu từ hôm nay.", en: "Forever starts today." },
+      quote: { vi: "Bắt đầu từ hôm nay.", en: "Forever starts today." },
     },
   ] satisfies ReadonlyArray<BackdropSlide>,
 
-  // Album masonry — Unsplash placeholders. Mix of aspect ratios for visual rhythm.
-  // Replace `src`s with real wedding shots before launch.
   album: [
     { src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&q=80", width: 1200, height: 1600, alt: { vi: "Khoảnh khắc 1", en: "Moment 1" } },
     { src: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 2", en: "Moment 2" } },
-    { src: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80", width: 1200, height: 1200, alt: { vi: "Khoảnh khắc 3", en: "Moment 3" } },
-    { src: "https://images.unsplash.com/photo-1525258801-c69ea2d57749?w=1200&q=80", width: 1200, height: 1500, alt: { vi: "Khoảnh khắc 4", en: "Moment 4" } },
-    { src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 5", en: "Moment 5" } },
-    { src: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1200&q=80", width: 1200, height: 1200, alt: { vi: "Khoảnh khắc 6", en: "Moment 6" } },
-    { src: "https://images.unsplash.com/photo-1502635385003-ee1e6a1a742d?w=1200&q=80", width: 1200, height: 1600, alt: { vi: "Khoảnh khắc 7", en: "Moment 7" } },
-    { src: "https://images.unsplash.com/photo-1513278974582-3e1b4a4fa21e?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 8", en: "Moment 8" } },
-    { src: "https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=1200&q=80", width: 1200, height: 1500, alt: { vi: "Khoảnh khắc 9", en: "Moment 9" } },
-    { src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&q=80", width: 1200, height: 1200, alt: { vi: "Khoảnh khắc 10", en: "Moment 10" } },
-    { src: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 11", en: "Moment 11" } },
-    { src: "https://images.unsplash.com/photo-1545232979-8bf68ee9b1af?w=1200&q=80", width: 1200, height: 1600, alt: { vi: "Khoảnh khắc 12", en: "Moment 12" } },
+     { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShoD9K2ymmes5lsUpV-WnHmUcEYkUTtF7vQQ&s", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 2", en: "Moment 2" } },
+      { src: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 2", en: "Moment 2" } },
+       { src: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 2", en: "Moment 2" } },
+        { src: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 2", en: "Moment 2" } },
+         { src: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 2", en: "Moment 2" } },
   ] satisfies ReadonlyArray<AlbumPhoto>,
 
-  // Wedding film — replace youtubeId with real video before launch.
   weddingVideo: {
     youtubeId: "dQw4w9WgXcQ",
     posterImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&q=80",
   } satisfies WeddingVideo,
-
-  // Gift / Mừng cưới — TBD placeholders. Replace with real accounts before launch.
-  // Account holder MUST be ASCII (no diacritics) for VietQR to scan correctly.
+  
   gift: {
     bride: {
       name: { vi: "Cô dâu", en: "Bride" },
-      bankName: "TBD",
-      bankBin: "970436",
-      accountNumber: "0000000000",
-      accountHolder: "HA PHUONG",
+      bankName: "BIDV",
+      bankBin: "970418",
+      accountNumber: "2225398840",
+      accountHolder: "NGUYEN HA PHUONG",
     },
     groom: {
       name: { vi: "Chú rể", en: "Groom" },
-      bankName: "TBD",
+      bankName: "VCB",
       bankBin: "970436",
-      accountNumber: "0000000000",
-      accountHolder: "HOANG MINH",
+      accountNumber: "1024046233",
+      accountHolder: "NGUYENHOANG MINH",
     },
   } satisfies { bride: BankAccount; groom: BankAccount },
 } as const;

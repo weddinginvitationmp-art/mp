@@ -98,8 +98,15 @@ export function LeaderboardModule() {
           </thead>
           <tbody className="divide-y divide-border-subtle">
             {scores.map((s, i) => (
-              <tr key={s.id} className="hover:bg-surface-muted">
-                <td className="py-2 pr-4 opacity-60">{i + 1}</td>
+              <tr
+                key={s.id}
+                className={`hover:bg-surface-muted ${
+                  i === 0 ? "bg-muted-gold/10" : ""
+                }`}
+              >
+                <td className="py-2 pr-4 opacity-60 font-display">
+                  {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i + 1}
+                </td>
                 <td className="py-2 pr-4 font-medium">{s.guest?.full_name ?? "—"}</td>
                 <td className="py-2 pr-4 font-display text-accent">{s.score}</td>
                 <td className="py-2 pr-4 text-xs opacity-70">{fmt(s.created_at)}</td>

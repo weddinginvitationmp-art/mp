@@ -5,13 +5,23 @@ import { SectionShell } from "@/components/layout/section-shell";
 import { wedding } from "@/config/wedding";
 import { fadeUp, revealViewport } from "@/lib/motion-presets";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
+import { useGuestContext } from "@/hooks/use-guest-context";
 import { InvitationFrame } from "./invitation-frame";
 
 export function Invitation({ index }: { index?: number }) {
   const { t, i18n } = useTranslation();
   const reduced = useReducedMotion();
+  const { guest } = useGuestContext();
   const lang = i18n.language.startsWith("vi") ? "vi" : "en";
   const { invitation } = wedding;
+
+  const isFriend = guest?.relationship
+    ? /bạn|đồng nghiệp|friend|colleague/i.test(guest.relationship)
+    : false;
+
+  const invitationSuffix = isFriend
+    ? (lang === "vi" ? "đến chung vui cùng chúng mình" : "to celebrate our wedding day with us")
+    : t("invitation.toAttend");
 
   return (
     <SectionShell id="invitation" index={index}>
@@ -45,9 +55,29 @@ export function Invitation({ index }: { index?: number }) {
             </div>
 
             {/* Invitation text */}
-            <p className="mt-8 text-sm leading-relaxed opacity-70">
-              {invitation.invitationText[lang]}
-            </p>
+            {guest ? (
+              <div className="mt-8 flex flex-col items-center w-full max-w-sm px-4">
+                <p className="text-[11px] uppercase tracking-[0.35em] text-[#C9A876]/80 font-sans">
+                  {t("invitation.cordially")}
+                </p>
+                <div className="relative my-3 flex items-center justify-center py-2 px-8 w-full">
+                  {/* Left ornament */}
+                  <span className="absolute left-0 text-[#D4AF37]/50 text-xs">✦</span>
+                  <span className="font-sans text-xl font-medium tracking-wide text-champagne bg-gradient-to-r from-[#F7E7CE] via-[#D4AF37] to-[#C9A876] bg-clip-text text-transparent filter drop-shadow-[0_2px_8px_rgba(212,175,55,0.15)] text-center">
+                    {guest.full_name}
+                  </span>
+                  {/* Right ornament */}
+                  <span className="absolute right-0 text-[#D4AF37]/50 text-xs">✦</span>
+                </div>
+                <p className="text-xs leading-relaxed opacity-70 max-w-[260px] tracking-wide text-center">
+                  {invitationSuffix}
+                </p>
+              </div>
+            ) : (
+              <p className="mt-8 text-sm leading-relaxed opacity-70 text-center max-w-md">
+                {invitation.invitationText[lang]}
+              </p>
+            )}
 
             {/* Couple names */}
             <h2 className="mt-4 font-script text-3xl leading-tight sm:text-4xl">

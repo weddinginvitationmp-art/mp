@@ -50,7 +50,12 @@
   "event": {
     "kind": {
       "ceremony": "Ceremony",
-      "reception": "Reception"
+      "reception": "Reception",
+      "an_hoi": "Engagement Ceremony",
+      "tiec_nha_gai": "Wedding Reception (Bride's family)",
+      "vu_quy": "Vu Quy Ceremony",
+      "thanh_hon": "Thanh Hon Ceremony",
+      "tiec_nha_trai": "Wedding Reception (Groom's family)"
     },
     "dressCode": "Dress code",
     "parking": "Parking",
@@ -122,8 +127,8 @@
   "gift": {
     "eyebrow": "Gift",
     "title": "With love",
-    "subtitle": "Your presence is the greatest gift. If you'd like to share more, here are the details.",
-    "scanHint": "Scan QR to transfer",
+    "subtitle": "Your presence is the greatest gift 💛",
+    "scanHint": "Scan QR to send a wedding gift",
     "bank": "Bank",
     "accountNumber": "Account number",
     "accountHolder": "Account holder",
@@ -243,6 +248,9 @@
       "addTitle": "Add guest",
       "editTitle": "Edit guest",
       "exportCsv": "Export CSV",
+      "importCsv": "Import CSV",
+      "importSuccess": "Successfully imported {{count}} guests!",
+      "importFailed": "Import failed: {{error}}",
       "searchPlaceholder": "Search by name or slug…",
       "linkCopied": "Link copied",
       "copyFailed": "Copy failed",
