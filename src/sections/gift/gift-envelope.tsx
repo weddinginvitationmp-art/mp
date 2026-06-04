@@ -16,8 +16,12 @@ export function GiftEnvelope({ onOpen, compact = false }: Props) {
   const handleOpen = useCallback(() => {
     if (state !== "closed") return;
     setState("opening");
-    setTimeout(onOpen, 700);
+
+    // Fire immediately to avoid a perceived click delay.
+    // Animation/decor still runs via local state + framer-motion.
+    onOpen();
   }, [state, onOpen]);
+
 
   const size = compact ? "w-32" : "w-44 sm:w-48";
 
