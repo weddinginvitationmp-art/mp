@@ -4,6 +4,8 @@ import { Button } from "@/components/common/button";
 import { Tab, TabList, Tabs } from "@/components/common/tabs";
 import { showToast } from "@/hooks/use-toast";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { useAdminSession } from "@/admin/use-admin-session";
+
 
 /* eslint-disable @typescript-eslint/no-explicit-any -- joined select not typed */
 
@@ -20,7 +22,9 @@ interface Score {
 
 export function LeaderboardModule() {
   const { t, i18n } = useTranslation();
+  const { user } = useAdminSession();
   const [active, setActive] = useState<Game>("memory");
+
   const [scores, setScores] = useState<Score[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -107,7 +111,12 @@ export function LeaderboardModule() {
                 <td className="py-2 pr-4 opacity-60 font-display">
                   {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i + 1}
                 </td>
-                <td className="py-2 pr-4 font-medium">{s.guest?.full_name ?? "—"}</td>
+                <td className="py-2 pr-4 font-medium">
+                  <span className={user ? (s.guest?.full_name === user.email ? "text-accent" : "") : ""}>
+                    {s.guest?.full_name ?? "—"}
+                  </span>
+                </td>
+
                 <td className="py-2 pr-4 font-display text-accent">{s.score}</td>
                 <td className="py-2 pr-4 text-xs opacity-70">{fmt(s.created_at)}</td>
                 <td className="py-2 pr-4 text-right">

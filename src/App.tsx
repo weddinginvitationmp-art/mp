@@ -4,9 +4,10 @@ import { OpeningOverlay } from "@/components/opening/opening-overlay";
 import { GuestProvider } from "@/contexts/guest-context";
 import { useDocumentMeta } from "@/hooks/use-document-meta";
 import { Hero } from "@/sections/hero";
-
+import { GoldenDustParticles } from "@/components/floating/golden-dust-particles";
 
 // Admin console — separate chunk; only loaded when visiting /admin*
+
 
 const AdminApp = lazy(() => import("@/admin"));
 
@@ -43,10 +44,12 @@ export function App() {
           onComplete={() => setOpened(true)}
         />
       )}
+      <GoldenDustParticles />
       <AppShell />
     </GuestProvider>
   );
 }
+
 
 function AppShell() {
   useDocumentMeta();
