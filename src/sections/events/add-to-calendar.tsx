@@ -3,7 +3,7 @@ import type { WeddingEvent } from "@/config/wedding";
 import { wedding } from "@/config/wedding";
 import {
   buildGoogleCalendarUrl,
-  buildOutlookCalendarUrl,
+
   downloadIcs,
   type CalendarEventSpec,
 } from "@/lib/calendar";

@@ -85,7 +85,14 @@ export function ConfettiCelebration({
         rot: rand(0, Math.PI * 2),
         vr: rand(-0.18, 0.18),
         size: rand(4, 9),
-        hue: colors[Math.floor(rand(0, colors.length))] + rand(-6, 6),
+        // Index có thể ra ngoài biên do `rand`.
+        // Force-safe by clamping index so TS không còn suy luận undefined.
+        hue: (() => {
+          const len = colors.length;
+          if (len <= 0) return 45;
+          const idx = Math.max(0, Math.min(len - 1, Math.floor(rand(0, len))));
+          return colors[idx] ?? colors[0] ?? 45;
+        })() + rand(-6, 6),
         life: 0,
         maxLife: rand(2200, 3200),
       });
@@ -97,8 +104,10 @@ export function ConfettiCelebration({
       const w = canvas.width;
       const h = canvas.height;
 
+      // `dpr` is a number captured from the enclosing scope; make TS/std logic unambiguous.
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
+
 
       const elapsed = now - start;
       for (const p of pieces) {

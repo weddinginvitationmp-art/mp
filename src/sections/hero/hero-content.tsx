@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { wedding } from "@/config/wedding";
 import { fadeUp, staggerParent } from "@/lib/motion-presets";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
-import { useGuestContext } from "@/hooks/use-guest-context";
+
 
 /**
  * Hero foreground composition: eyebrow → bride → ampersand → groom → divider → date · city.
@@ -13,7 +13,7 @@ import { useGuestContext } from "@/hooks/use-guest-context";
 export function HeroContent() {
   const { t, i18n } = useTranslation();
   const reduced = useReducedMotion();
-  const { guest } = useGuestContext();
+
   const lang = i18n.language.startsWith("vi") ? "vi" : "en";
   const variants = reduced ? undefined : staggerParent;
   const childVariants = reduced ? undefined : fadeUp;

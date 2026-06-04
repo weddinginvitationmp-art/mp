@@ -203,9 +203,11 @@ function parseCSV(text: string) {
   if (lines.length === 0) return [];
 
   let delimiter = ",";
-  if (lines[0].includes(";")) {
+  const firstLine = lines[0];
+  if (firstLine && firstLine.includes(";")) {
     delimiter = ";";
   }
+
 
   const parseLine = (line: string) => {
     const result: string[] = [];
@@ -231,11 +233,11 @@ function parseCSV(text: string) {
     return result;
   };
 
-  const headers = parseLine(lines[0]);
+  const headers = parseLine(lines[0] ?? "");
   const rows: Record<string, string>[] = [];
 
   for (let i = 1; i < lines.length; i++) {
-    const line = lines[i].trim();
+    const line = (lines[i] ?? "").trim();
     if (!line) continue;
     const values = parseLine(line);
     const row: Record<string, string> = {};

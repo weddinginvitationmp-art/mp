@@ -66,12 +66,13 @@ export function SoundWaveVisualizer({ audioEl, enabled }: Props) {
       const w = canvas.width;
       const h = canvas.height;
 
+      // `dpr`, `w`, `h` are guaranteed numbers after resize; keep TS happy.
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
 
-
       const bars = 48;
-      const step = Math.floor(bufferLen / bars);
+      const step = Math.max(1, Math.floor(bufferLen / bars));
+
       const baseY = (canvas.clientHeight || 120) - 10;
 
 
@@ -82,7 +83,9 @@ export function SoundWaveVisualizer({ audioEl, enabled }: Props) {
       for (let i = 0; i < bars; i++) {
         const idx = i * step;
         analyser.getByteFrequencyData(data);
-        const v = data[idx] / 255; // 0..1
+        // `idx` luôn nằm trong phạm vi [0, bufferLen) do step được tính hợp lý
+        // nhưng TS vẫn có thể coi `data[idx]` là possibly-undefined.
+        const v = (data[idx] ?? 0) / 255; // 0..1
         const amp = Math.pow(v, 1.2);
 
         const x = (i / bars) * (canvas.clientWidth || window.innerWidth);
