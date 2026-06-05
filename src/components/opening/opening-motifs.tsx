@@ -34,10 +34,11 @@ export function PhoenixDragon({ delay = 1.0 }: { delay?: number }) {
       transition={{ duration: 1.2, delay, ease: EASE_CINEMATIC }}
       aria-hidden="true"
     >
+      
       {/* Phoenix (left) */}
-      <motion.svg
+      {/* <motion.svg
         viewBox="0 0 64 80"
-        className="h-20 w-16 text-[#D4AF37] sm:h-28 sm:w-20"
+        className="h-20 w-16 text-[#D4AF37] sm:h-28 sm:w-20 ml-5"
         fill="none"
         stroke="currentColor"
         strokeWidth="1"
@@ -57,12 +58,12 @@ export function PhoenixDragon({ delay = 1.0 }: { delay?: number }) {
           animate={{ pathLength: 1 }}
           transition={{ duration: 2, delay: delay + 0.5, ease: EASE_CINEMATIC }}
         />
-      </motion.svg>
+      </motion.svg> */}
 
       {/* Dragon (right) */}
-      <motion.svg
+      {/* <motion.svg
         viewBox="0 0 64 80"
-        className="h-20 w-16 -scale-x-100 text-[#D4AF37] sm:h-28 sm:w-20"
+        className="h-20 w-16 -scale-x-100 text-[#D4AF37] sm:h-28 sm:w-20 mr-5"
         fill="none"
         stroke="currentColor"
         strokeWidth="1"
@@ -82,7 +83,7 @@ export function PhoenixDragon({ delay = 1.0 }: { delay?: number }) {
           animate={{ pathLength: 1 }}
           transition={{ duration: 2, delay: delay + 0.5, ease: EASE_CINEMATIC }}
         />
-      </motion.svg>
+      </motion.svg> */}
     </motion.div>
   );
 }

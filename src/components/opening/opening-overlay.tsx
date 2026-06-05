@@ -147,7 +147,7 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
               {...fadeUp(3.2)}
               animate={phase !== "idle" ? { opacity: 0, scale: 0.8 } : { opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: 0.1 }}
-              className="mt-5 sm:mt-8 rounded-full border border-[#D4AF37]/40 px-6 py-2 font-sans text-xs tracking-[0.2em] uppercase text-[#D4AF37] transition-colors hover:border-[#D4AF37]/70 hover:text-[#F7E7CE]"
+              className="mt-3 sm:mt-8 rounded-full border border-[#D4AF37]/40 px-6 py-2 font-sans text-xs tracking-[0.2em] uppercase text-[#D4AF37] transition-colors hover:border-[#D4AF37]/70 hover:text-[#F7E7CE]"
               onClick={handleOpenCard}
               disabled={phase !== "idle"}
             >

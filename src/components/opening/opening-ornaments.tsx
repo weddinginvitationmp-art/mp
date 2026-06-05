@@ -70,7 +70,7 @@ export function OrnamentalFrame() {
         transition={{ ...TRANSITION, delay: 0.5 }}
       />
       {/* Lotus — 5 petals */}
-      <motion.path
+      {/* <motion.path
         d="M160 210 Q155 195 160 180 Q165 195 160 210
            M160 210 Q148 200 142 185 Q155 198 160 210
            M160 210 Q172 200 178 185 Q165 198 160 210
@@ -81,7 +81,7 @@ export function OrnamentalFrame() {
         opacity={0.6}
         variants={DRAW}
         transition={{ ...TRANSITION, delay: 0.8 }}
-      />
+      /> */}
     </motion.svg>
   );
 }
