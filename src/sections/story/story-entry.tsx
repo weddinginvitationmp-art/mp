@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import type { StoryMilestone } from "@/config/wedding";
-import { formatMonthYear } from "@/lib/format-date";
+import { formatLongDate } from "@/lib/format-date";
 import { fadeUp, revealViewport } from "@/lib/motion-presets";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
@@ -39,10 +39,17 @@ export function StoryEntry({ milestone, side }: Props) {
         aria-hidden="true"
         className="absolute left-5 top-2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-accent ring-4 ring-ivory dark:ring-ink md:left-1/2"
       />
-      <p className="font-display text-sm uppercase tracking-[0.3em] text-accent">
-        {formatMonthYear(milestone.date, lang)}
+      <p className="font-display text-sm uppercase tracking-[0.15em] text-accent">
+        {formatLongDate(milestone.date, lang)}
       </p>
-      <h3 className="mt-2 font-display text-2xl sm:text-3xl">{milestone.title[lang]}</h3>
+      <div className="mt-6 overflow-hidden rounded-3xl border border-accent/10 bg-ivory shadow-soft dark:bg-ink/5 md:mt-8">
+        <img
+          src={milestone.image.src}
+          alt={milestone.image.alt[lang]}
+          className="h-56 w-full object-cover sm:h-72"
+        />
+      </div>
+      <h3 className="mt-6 font-display text-2xl sm:text-3xl md:mt-8">{milestone.title[lang]}</h3>
       <p className="mt-3 text-sm opacity-70 sm:text-base">{milestone.body[lang]}</p>
     </motion.div>
   );

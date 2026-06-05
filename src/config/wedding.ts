@@ -34,6 +34,7 @@ export interface StoryMilestone {
   date: Date;
   title: { vi: string; en: string };
   body: { vi: string; en: string };
+  image: { src: string; alt: { vi: string; en: string } };
 }
 
 export interface BackdropSlide {
@@ -114,13 +115,16 @@ export const wedding = {
   ] satisfies ReadonlyArray<WeddingEvent>,
 
   story: [
-    
   {
     date: new Date("2018-08-30"),
     title: { vi: "Lần đầu gặp gỡ", en: "First Meeting" },
     body: {
       vi: "Mình đã gặp Phương lần đầu trên giảng đường đại học",
       en: "I first met Phuong on the university campus.",
+    },
+    image: {
+      src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=1200&q=80",
+      alt: { vi: "Kỷ niệm gặp gỡ", en: "First meeting moment" },
     },
   },
 
@@ -131,6 +135,10 @@ export const wedding = {
       vi: "Sau một thời gian tìm hiểu, chúng mình quyết định đồng hành cùng nhau. Không có điều gì quá đặc biệt, chỉ là cảm thấy phù hợp và muốn dành nhiều thời gian hơn cho đối phương.",
       en: "After getting to know each other, we decided to start this journey together. Nothing dramatic—just a feeling that we were right for one another.",
     },
+    image: {
+      src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1200&q=80",
+      alt: { vi: "Khoảnh khắc hẹn hò", en: "Dating together" },
+    },
   },
 
   {
@@ -140,6 +148,10 @@ export const wedding = {
       vi: "Chúng mình bước vào cuộc sống của nhau, học cách chia sẻ từ những điều nhỏ nhất trong cuộc sống hằng ngày và dần trở thành một phần quen thuộc của nhau.",
       en: "We moved in together, learning to share everyday moments and becoming an important part of each other's daily life.",
     },
+    image: {
+      src: "https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200&q=80",
+      alt: { vi: "Tổ ấm mới", en: "Building a home" },
+    },
   },
 
   {
@@ -148,6 +160,10 @@ export const wedding = {
     body: {
       vi: "Sau những năm tháng đồng hành, chúng mình quyết định bước sang một chặng đường mới. Một lời hỏi, một lời đồng ý, và một kế hoạch cho tương lai chung.",
       en: "After years of growing together, we decided to take the next step. One question, one answer, and a shared future ahead.",
+    },
+    image: {
+      src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1200&q=80",
+      alt: { vi: "Lời cầu hôn", en: "The proposal" },
     },
   },
 
