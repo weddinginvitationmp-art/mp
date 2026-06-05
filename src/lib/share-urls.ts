@@ -2,7 +2,7 @@ import { wedding } from "@/config/wedding";
 import { buildInviteUrl } from "./og-url";
 import type { ShareTarget } from "./share-tracking";
 
-const COUPLE = `${wedding.bride.name} & ${wedding.groom.name}`;
+const COUPLE = `${wedding.groom.name} & ${wedding.bride.name}`;
 
 function makeMessage(guestName: string | null, lang: "vi" | "en"): string {
   if (lang === "vi") {

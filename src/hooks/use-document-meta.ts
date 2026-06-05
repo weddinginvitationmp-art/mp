@@ -5,7 +5,7 @@ import { useGuestContext } from "@/hooks/use-guest-context";
 import { applyMetaTags } from "@/lib/meta-tags";
 import { buildInviteUrl, buildOgUrl } from "@/lib/og-url";
 
-const COUPLE = `${wedding.bride.name} & ${wedding.groom.name}`;
+const COUPLE = `${wedding.groom.name} & ${wedding.bride.name}`;
 
 /**
  * Keeps document title + OG meta tags in sync with the current guest + language.

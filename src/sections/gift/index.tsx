@@ -12,7 +12,7 @@ import { GiftTabs } from "./gift-tabs";
 export function Gift({ index }: { index?: number }) {
   const { t } = useTranslation();
   const { guest, rsvpStatus } = useGuestContext();
-  const memo = `Mung cuoi ${wedding.bride.name} & ${wedding.groom.name}`;
+  const memo = `Mung cuoi ${wedding.groom.name} & ${wedding.bride.name}`;
   const [envelopeOpen, setEnvelopeOpen] = useState(false);
 
   const hasGuest = !!guest;

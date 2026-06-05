@@ -4,7 +4,7 @@ import { Tab, TabList, TabPanel, Tabs } from "@/components/common/tabs";
 import { wedding } from "@/config/wedding";
 import { GiftCard } from "./gift-card";
 
-const memo = `Mung cuoi ${wedding.bride.name} & ${wedding.groom.name}`;
+const memo = `Mung cuoi ${wedding.groom.name} & ${wedding.bride.name}`;
 
 type TabId = "bride" | "groom";
 

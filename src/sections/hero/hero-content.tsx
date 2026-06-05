@@ -38,7 +38,7 @@ export function HeroContent() {
           className="block text-[clamp(2.75rem,8vw,5.5rem)]"
           variants={childVariants}
         >
-          {wedding.bride.name}
+          {wedding.groom.name}
         </motion.span>
         <motion.span
           className="my-2 block text-[clamp(1.75rem,4vw,2.5rem)] font-medium text-muted-gold"
@@ -51,7 +51,7 @@ export function HeroContent() {
           className="block text-[clamp(2.75rem,8vw,5.5rem)]"
           variants={childVariants}
         >
-          {wedding.groom.name}
+          {wedding.bride.name}
         </motion.span>
       </h1>
 

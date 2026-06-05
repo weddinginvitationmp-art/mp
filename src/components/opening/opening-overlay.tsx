@@ -122,14 +122,14 @@ export function OpeningOverlay({ onComplete }: { onComplete: () => void }) {
               {...fadeUp(1.8)}
               className="font-script text-4xl leading-tight font-light sm:text-5xl"
             >
-              <span className="opening-shimmer">{wedding.bride.name}</span>
+              <span className="opening-shimmer">{wedding.groom.name}</span>
               <motion.span
                 {...fadeUp(2.1)}
                 className="my-0.5 sm:my-1 block font-script text-lg text-[#C9A876]/60"
               >
                 &amp;
               </motion.span>
-              <span className="opening-shimmer">{wedding.groom.name}</span>
+              <span className="opening-shimmer">{wedding.bride.name}</span>
             </motion.h1>
 
             <GoldDivider />

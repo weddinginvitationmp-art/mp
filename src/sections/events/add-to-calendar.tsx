@@ -22,7 +22,7 @@ export function AddToCalendar({ event }: Props) {
   const lang = i18n.language.startsWith("vi") ? "vi" : "en";
 
   const spec: CalendarEventSpec = {
-    title: `${wedding.bride.name} & ${wedding.groom.name} — ${t(`event.kind.${event.kind}`)}`,
+    title: `${wedding.groom.name} & ${wedding.bride.name} — ${t(`event.kind.${event.kind}`)}`,
     description: wedding.hashtag,
     location: `${event.venue[lang]}, ${event.address[lang]}`,
     start: event.start,
