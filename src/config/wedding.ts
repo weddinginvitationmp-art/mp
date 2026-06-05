@@ -219,10 +219,10 @@ export const wedding = {
     },
     groom: {
       name: { vi: "Chú rể", en: "Groom" },
-      bankName: "VCB",
+      bankName: "VIETCOMBANK",
       bankBin: "970436",
       accountNumber: "1024046233",
-      accountHolder: "NGUYENHOANG MINH",
+      accountHolder: "NGUYEN HOANG MINH",
     },
   } satisfies { bride: BankAccount; groom: BankAccount },
 } as const;
