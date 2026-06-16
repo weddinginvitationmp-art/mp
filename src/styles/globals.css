@@ -22,6 +22,7 @@
 
   /* Typography */
   --font-display: "Cormorant Garamond", "Noto Serif Display", serif;
+  --font-playfair: "Playfair Display", "Cormorant Garamond", serif;
   --font-script: "Great Vibes", cursive;
   --font-sans: "Inter", "Be Vietnam Pro", system-ui, sans-serif;
 
@@ -230,4 +231,51 @@ body {
 /* Script font for elegant couple names */
 .font-script {
   font-family: var(--font-script);
+}
+
+.font-playfair {
+  font-family: var(--font-playfair);
+}
+
+@keyframes invitation-orb-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.gallery-swiper .swiper-wrapper {
+  align-items: center;
+}
+
+.gallery-swiper .swiper-slide {
+  height: auto;
+}
+
+.gallery-swiper .swiper-pagination {
+  position: static;
+  margin-top: 1.75rem;
+}
+
+.gallery-swiper .swiper-pagination-bullet {
+  width: 0.7rem;
+  height: 0.7rem;
+  background: #b22234;
+  opacity: 0.22;
+  transition:
+    transform 200ms var(--ease-gentle),
+    opacity 200ms var(--ease-gentle);
+}
+
+.gallery-swiper .swiper-pagination-bullet-active {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* System-aware section background: uses design tokens so light/dark follow the system */
+.section-sys-bg {
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-raised) 100%);
 }

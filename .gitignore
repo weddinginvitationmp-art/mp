@@ -31,3 +31,4 @@ plans/
 .claude/
 
 .vercel
+.node_modules

@@ -14,6 +14,9 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.104.0
         version: 2.104.0
+      '@tailwindcss/oxide-win32-x64-msvc':
+        specifier: 4.2.4
+        version: 4.2.4
       framer-motion:
         specifier: ^12.38.0
         version: 12.38.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -35,6 +38,9 @@ importers:
       react-i18next:
         specifier: ^17.0.4
         version: 17.0.4(i18next@26.0.6(typescript@5.9.3))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.3)
+      swiper:
+        specifier: ^12.2.0
+        version: 12.2.0
       yet-another-react-lightbox:
         specifier: ^3.31.0
         version: 3.31.0(@types/react-dom@18.3.7(@types/react@18.3.28))(@types/react@18.3.28)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -2821,6 +2827,10 @@ packages:
     resolution: {integrity: sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==}
     engines: {node: '>=6'}
 
+  swiper@12.2.0:
+    resolution: {integrity: sha512-K8uXsBZU6ME97Ia3xbBge8IRCnR1lOmIILzvY/jGVic7dSTQ530s3uO8RvXbPUtkkXLWIwmZLRPbtDxRWVAFdg==}
+    engines: {node: '>= 4.7.0'}
+
   synckit@0.11.12:
     resolution: {integrity: sha512-Bh7QjT8/SuKUIfObSXNHNSK6WHo6J1tHCqJsuaFDP7gP0fkzSfTxI8y85JrppZ0h8l0maIgc2tfuZQ6/t3GtnQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -3912,8 +3922,7 @@ snapshots:
   '@tailwindcss/oxide-win32-arm64-msvc@4.2.4':
     optional: true
 
-  '@tailwindcss/oxide-win32-x64-msvc@4.2.4':
-    optional: true
+  '@tailwindcss/oxide-win32-x64-msvc@4.2.4': {}
 
   '@tailwindcss/oxide@4.2.4':
     optionalDependencies:
@@ -5743,6 +5752,8 @@ snapshots:
   string.prototype.codepointat@0.2.1: {}
 
   strip-final-newline@2.0.0: {}
+
+  swiper@12.2.0: {}
 
   synckit@0.11.12:
     dependencies:
