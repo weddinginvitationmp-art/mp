@@ -66,6 +66,7 @@ function AppShell() {
     }
     return "";
   });
+  const showStorySection = typeof window !== "undefined" && new URLSearchParams(window.location.search).get("story") === "show";
   
   const { seatMap, allMaps } = useSeatMap(selectedMapId || undefined);
 
@@ -90,7 +91,7 @@ function AppShell() {
       />
       <Suspense fallback={<SectionSkeleton />}>
         <Invitation index={1} />
-        <Story index={2} />
+        {showStorySection && <Story index={2} />}
 
         {/* <Backdrop index={3} /> */}
         <Album index={3} />

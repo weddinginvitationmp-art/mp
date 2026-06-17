@@ -14,10 +14,12 @@ interface SeatMapDesignerProps {
 }
 
 const GRID_SIZE = 20;
+const CANVAS_WIDTH = 1000;
+const CANVAS_HEIGHT = 640;
 
 function buildSvg(seatMap: SeatMapJson): string {
-  const width = 1000;
-  const height = 640;
+  const width = CANVAS_WIDTH;
+  const height = CANVAS_HEIGHT;
   const background = `#fff`;
   const stage = seatMap.stage
     ? `<rect x="${seatMap.stage.x}" y="${seatMap.stage.y}" width="${seatMap.stage.width}" height="${seatMap.stage.height}" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2" rx="12" />
@@ -83,10 +85,12 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
   const [selectedRegion, setSelectedRegion] = useState<{ kind: "table" | "zone" | "stage"; id?: string } | null>(
     seatMap.tables[0]?.id ? { kind: "table", id: seatMap.tables[0].id } : null,
   );
+  const [canvasScale, setCanvasScale] = useState(1);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [dragging, setDragging] = useState<{ kind: "table" | "zone" | "stage"; id?: string; startX: number; startY: number; startObjX: number; startObjY: number } | null>(null);
   const [resizing, setResizing] = useState<{ kind: "table" | "zone" | "stage"; id?: string; startX: number; startY: number; startWidth: number; startHeight: number } | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const canvasContainerRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -95,6 +99,30 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
     }
   }, [seatMap.tables, selectedTableId]);
 
+  useEffect(() => {
+    const updateCanvasScale = () => {
+      const container = canvasContainerRef.current;
+      if (!container) return;
+      const availableWidth = container.clientWidth;
+      const nextScale = Math.min(1, availableWidth / CANVAS_WIDTH);
+      setCanvasScale(Number.isFinite(nextScale) && nextScale > 0 ? nextScale : 1);
+    };
+
+    updateCanvasScale();
+
+    const observer = typeof ResizeObserver !== "undefined" && canvasContainerRef.current ? new ResizeObserver(updateCanvasScale) : null;
+    if (observer && canvasContainerRef.current) {
+      observer.observe(canvasContainerRef.current);
+    }
+
+    window.addEventListener("resize", updateCanvasScale);
+
+    return () => {
+      window.removeEventListener("resize", updateCanvasScale);
+      observer?.disconnect();
+    };
+  }, []);
+
   const selectedTable = seatMap.tables.find((table) => table.id === selectedTableId) ?? null;
   const assignedGuestIds = useMemo(() => getAssignedGuestIds(seatMap.assignments), [seatMap.assignments]);
   const unassignedGuests = guests.filter((guest) => !assignedGuestIds.includes(guest.id));
@@ -102,6 +130,15 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
 
   const updateMap = (changes: Partial<SeatMapJson>) => {
     onChange({ ...seatMap, ...changes });
+  };
+
+  const getCanvasPoint = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!canvasRef.current) return null;
+    const rect = canvasRef.current.getBoundingClientRect();
+    return {
+      x: (event.clientX - rect.left) / canvasScale,
+      y: (event.clientY - rect.top) / canvasScale,
+    };
   };
 
   const moveTable = (x: number, y: number) => {
@@ -243,10 +280,9 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
 
   const handleCanvasMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!selectedRegion || !canvasRef.current) return;
-
-    const rect = canvasRef.current.getBoundingClientRect();
-    const startX = event.clientX - rect.left;
-    const startY = event.clientY - rect.top;
+    const point = getCanvasPoint(event);
+    if (!point) return;
+    const { x: startX, y: startY } = point;
 
     if (selectedRegion.kind === "table" && selectedTable) {
       setDragging({
@@ -289,9 +325,9 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
   const handleCanvasMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     // Handle resizing
     if (resizing && canvasRef.current) {
-      const rect = canvasRef.current.getBoundingClientRect();
-      const currentX = event.clientX - rect.left;
-      const currentY = event.clientY - rect.top;
+      const point = getCanvasPoint(event);
+      if (!point) return;
+      const { x: currentX, y: currentY } = point;
       const deltaX = currentX - resizing.startX;
       const deltaY = currentY - resizing.startY;
 
@@ -310,10 +346,9 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
 
     // Handle dragging
     if (!dragging || !canvasRef.current) return;
-
-    const rect = canvasRef.current.getBoundingClientRect();
-    const currentX = event.clientX - rect.left;
-    const currentY = event.clientY - rect.top;
+    const point = getCanvasPoint(event);
+    if (!point) return;
+    const { x: currentX, y: currentY } = point;
     const deltaX = currentX - dragging.startX;
     const deltaY = currentY - dragging.startY;
 
@@ -337,10 +372,9 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
   const handleResizeStart = (event: React.MouseEvent<HTMLDivElement>, kind: "table" | "zone" | "stage", id?: string) => {
     event.stopPropagation();
     if (!canvasRef.current) return;
-
-    const rect = canvasRef.current.getBoundingClientRect();
-    const startX = event.clientX - rect.left;
-    const startY = event.clientY - rect.top;
+    const point = getCanvasPoint(event);
+    if (!point) return;
+    const { x: startX, y: startY } = point;
 
     if (kind === "table" && selectedTable) {
       setResizing({ kind: "table", id: selectedTable.id, startX, startY, startWidth: selectedTable.width, startHeight: selectedTable.height });
@@ -361,8 +395,8 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
     const image = new Image();
     image.onload = () => {
       const canvas = document.createElement("canvas");
-      canvas.width = 1000;
-      canvas.height = 640;
+      canvas.width = CANVAS_WIDTH;
+      canvas.height = CANVAS_HEIGHT;
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
       ctx.fillStyle = "#ffffff";
@@ -630,94 +664,100 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
               </div>
             </div>
             <div
-              ref={canvasRef}
-              className="relative h-[520px] overflow-hidden rounded-3xl border border-border-subtle bg-surface bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.08),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(220,38,38,0.08),_transparent_35%)]"
-              onMouseDown={handleCanvasMouseDown}
-              onMouseMove={handleCanvasMouseMove}
-              onMouseUp={handleCanvasMouseUp}
-              onMouseLeave={handleCanvasMouseUp}
-              style={{ cursor: resizing ? "nwse-resize" : dragging ? "grabbing" : "grab" }}
+              ref={canvasContainerRef}
+              className="relative w-full overflow-auto rounded-3xl border border-border-subtle bg-surface bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.08),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(220,38,38,0.08),_transparent_35%)]"
+              style={{ height: `${CANVAS_HEIGHT * canvasScale}px` }}
             >
-              <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.04)_1px,transparent_1px),linear-gradient(180deg,rgba(15,23,42,0.04)_1px,transparent_1px)] bg-[length:20px_20px]" />
-              {seatMap.stage ? (
-                <div
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedTableId(null);
-                    setSelectedRegion({ kind: "stage", id: seatMap.stage?.id });
-                  }}
-                  className={`absolute rounded-3xl border p-2 text-center text-sm ${
-                    selectedRegion?.kind === "stage" ? "border-accent bg-accent/10 text-accent" : "border-blue-400 bg-sky-100/70 text-sky-900"
-                  }`}
-                  style={{ left: seatMap.stage.x, top: seatMap.stage.y, width: seatMap.stage.width, height: seatMap.stage.height }}
-                >
-                  Stage
-                  {selectedRegion?.kind === "stage" && (
-                    <div
-                      onMouseDown={(e) => handleResizeStart(e, "stage")}
-                      className="absolute bottom-0 right-0 h-4 w-4 cursor-nwse-resize rounded-bl-2xl bg-accent/60 hover:bg-accent"
-                      style={{ transform: "translate(2px, 2px)" }}
-                    />
-                  )}
-                </div>
-              ) : null}
-              {seatMap.zones.map((zone) => (
-                <div
-                  key={zone.id}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedTableId(null);
-                    setSelectedRegion({ kind: "zone", id: zone.id });
-                  }}
-                  className={`absolute rounded-3xl border p-2 text-sm ${
-                    selectedRegion?.kind === "zone" && selectedRegion.id === zone.id ? "border-accent bg-accent/10 text-accent" : "border-orange-300 bg-orange-100/70 text-orange-900"
-                  }`}
-                  style={{ left: zone.x, top: zone.y, width: zone.width, height: zone.height }}
-                >
-                  {zone.name}
-                  {selectedRegion?.kind === "zone" && selectedRegion.id === zone.id && (
-                    <div
-                      onMouseDown={(e) => handleResizeStart(e, "zone", zone.id)}
-                      className="absolute bottom-0 right-0 h-4 w-4 cursor-nwse-resize rounded-bl-2xl bg-accent/60 hover:bg-accent"
-                      style={{ transform: "translate(2px, 2px)" }}
-                    />
-                  )}
-                </div>
-              ))}
-              {seatMap.tables.map((table) => {
-                const count = (seatMap.assignments[table.id] ?? []).length;
-                const isActive = table.id === selectedTableId;
-                return (
+              <div
+                ref={canvasRef}
+                className="relative origin-top-left"
+                onMouseDown={handleCanvasMouseDown}
+                onMouseMove={handleCanvasMouseMove}
+                onMouseUp={handleCanvasMouseUp}
+                onMouseLeave={handleCanvasMouseUp}
+                style={{ width: CANVAS_WIDTH, height: CANVAS_HEIGHT, transform: `scale(${canvasScale})`, cursor: resizing ? "nwse-resize" : dragging ? "grabbing" : "grab" }}
+              >
+                <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.04)_1px,transparent_1px),linear-gradient(180deg,rgba(15,23,42,0.04)_1px,transparent_1px)] bg-[length:20px_20px]" />
+                {seatMap.stage ? (
                   <div
-                    key={table.id}
-                    onClick={(event) => {
-                      event.stopPropagation();
-                      setSelectedTableId(table.id);
-                      setSelectedRegion({ kind: "table", id: table.id });
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedTableId(null);
+                      setSelectedRegion({ kind: "stage", id: seatMap.stage?.id });
                     }}
-                    className={`absolute flex flex-col items-center justify-center rounded-3xl border p-2 text-sm text-slate-950 transition cursor-pointer ${
-                      isActive ? "border-accent bg-accent/10 shadow-lg shadow-accent/10" : "border-border-subtle bg-slate-50"
+                    className={`absolute rounded-3xl border p-2 text-center text-sm ${
+                      selectedRegion?.kind === "stage" ? "border-accent bg-accent/10 text-accent" : "border-blue-400 bg-sky-100/70 text-sky-900"
                     }`}
-                    style={{
-                      left: table.x,
-                      top: table.y,
-                      width: table.width,
-                      height: table.height,
-                      borderRadius: table.shape === "round" ? "9999px" : "22px",
-                    }}
+                    style={{ left: seatMap.stage.x, top: seatMap.stage.y, width: seatMap.stage.width, height: seatMap.stage.height }}
                   >
-                    <span className="font-medium">{table.name}</span>
-                    <span className="text-xs opacity-70">{count}/{table.capacity}</span>
-                    {isActive && (
+                    Stage
+                    {selectedRegion?.kind === "stage" && (
                       <div
-                        onMouseDown={(e) => handleResizeStart(e, "table")}
+                        onMouseDown={(e) => handleResizeStart(e, "stage")}
                         className="absolute bottom-0 right-0 h-4 w-4 cursor-nwse-resize rounded-bl-2xl bg-accent/60 hover:bg-accent"
                         style={{ transform: "translate(2px, 2px)" }}
                       />
                     )}
                   </div>
-                );
-              })}
+                ) : null}
+                {seatMap.zones.map((zone) => (
+                  <div
+                    key={zone.id}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedTableId(null);
+                      setSelectedRegion({ kind: "zone", id: zone.id });
+                    }}
+                    className={`absolute rounded-3xl border p-2 text-sm ${
+                      selectedRegion?.kind === "zone" && selectedRegion.id === zone.id ? "border-accent bg-accent/10 text-accent" : "border-orange-300 bg-orange-100/70 text-orange-900"
+                    }`}
+                    style={{ left: zone.x, top: zone.y, width: zone.width, height: zone.height }}
+                  >
+                    {zone.name}
+                    {selectedRegion?.kind === "zone" && selectedRegion.id === zone.id && (
+                      <div
+                        onMouseDown={(e) => handleResizeStart(e, "zone", zone.id)}
+                        className="absolute bottom-0 right-0 h-4 w-4 cursor-nwse-resize rounded-bl-2xl bg-accent/60 hover:bg-accent"
+                        style={{ transform: "translate(2px, 2px)" }}
+                      />
+                    )}
+                  </div>
+                ))}
+                {seatMap.tables.map((table) => {
+                  const count = (seatMap.assignments[table.id] ?? []).length;
+                  const isActive = table.id === selectedTableId;
+                  return (
+                    <div
+                      key={table.id}
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setSelectedTableId(table.id);
+                        setSelectedRegion({ kind: "table", id: table.id });
+                      }}
+                      className={`absolute flex flex-col items-center justify-center rounded-3xl border p-2 text-sm text-slate-950 transition cursor-pointer ${
+                        isActive ? "border-accent bg-accent/10 shadow-lg shadow-accent/10" : "border-border-subtle bg-slate-50"
+                      }`}
+                      style={{
+                        left: table.x,
+                        top: table.y,
+                        width: table.width,
+                        height: table.height,
+                        borderRadius: table.shape === "round" ? "9999px" : "22px",
+                      }}
+                    >
+                      <span className="font-medium">{table.name}</span>
+                      <span className="text-xs opacity-70">{count}/{table.capacity}</span>
+                      {isActive && (
+                        <div
+                          onMouseDown={(e) => handleResizeStart(e, "table")}
+                          className="absolute bottom-0 right-0 h-4 w-4 cursor-nwse-resize rounded-bl-2xl bg-accent/60 hover:bg-accent"
+                          style={{ transform: "translate(2px, 2px)" }}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>

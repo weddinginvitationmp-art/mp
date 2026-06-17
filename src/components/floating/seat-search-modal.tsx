@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/types/database";
 import type { SeatMapWithId } from "@/hooks/use-seat-map";
+import { Tab, TabList, TabPanel, Tabs } from "@/components/common/tabs";
 
 interface SeatSearchModalProps {
   isOpen: boolean;
@@ -17,6 +18,7 @@ export function SeatSearchModal({ isOpen, onClose, seatMap, allMaps, selectedMap
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGuest, setSelectedGuest] = useState<(typeof guests)[0] | null>(null);
   const [loading, setLoading] = useState(true);
+  const [mobileTab, setMobileTab] = useState("search");
 
   useEffect(() => {
     if (!isOpen) return;
@@ -63,6 +65,12 @@ export function SeatSearchModal({ isOpen, onClose, seatMap, allMaps, selectedMap
     }
     return null;
   }, [selectedGuest, seatMap]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setMobileTab("search");
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -120,12 +128,12 @@ export function SeatSearchModal({ isOpen, onClose, seatMap, allMaps, selectedMap
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
-      <div className="relative h-[90vh] w-[95vw] max-w-7xl rounded-3xl bg-white overflow-hidden flex flex-col" onClick={(e) => e.stopPropagation()}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-3 sm:p-4" onClick={onClose}>
+      <div className="relative flex h-[92dvh] w-full max-w-7xl flex-col overflow-hidden rounded-3xl bg-white shadow-2xl sm:h-[90vh] sm:w-[95vw]" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div className="border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-display text-2xl text-gray-900">Tìm kiếm vị trí bàn tiệc</h2>
+        <div className="border-b border-gray-200 px-4 py-4 sm:px-6">
+          <div className="mb-4 flex items-start justify-between gap-3">
+            <h2 className="font-display text-xl text-gray-900 sm:text-2xl">Tìm kiếm vị trí bàn tiệc</h2>
             <button onClick={onClose} className="text-2xl leading-none text-gray-600 hover:text-gray-900">
               ✕
             </button>
@@ -150,80 +158,146 @@ export function SeatSearchModal({ isOpen, onClose, seatMap, allMaps, selectedMap
           )}
         </div>
 
-        {/* Main content grid */}
-        <div className="flex-1 overflow-hidden flex gap-4 p-6">
-          {/* Left: Search */}
-          <div className="w-80 flex flex-col gap-4 border-r border-gray-200 pr-4 overflow-y-auto">
-            <div>
-              <label className="block text-xs uppercase tracking-[0.3em] text-gray-600 mb-2">Nhập tên của bạn</label>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Tìm kiếm..."
-                className="w-full rounded-2xl border border-gray-300 px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-            </div>
+        {/* Main content */}
+        <div className="flex flex-1 flex-col overflow-hidden p-4 sm:p-6">
+          <div className="lg:hidden">
+            <Tabs value={mobileTab} onChange={setMobileTab} label="Seat map tabs" className="space-y-4">
+              <TabList label="Seat map tabs" >
+                <Tab value="search">Nhập tên</Tab>
+                <Tab value="map">Xem map</Tab>
+              </TabList>
 
-            {/* Search results - only show when user types */}
-            {searchQuery.trim().length > 0 && (
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-2">Kết quả ({searchResults.length})</p>
-                <div className="space-y-2">
-                  {loading ? (
-                    <p className="text-sm text-gray-500">Đang tải...</p>
-                  ) : searchResults.length === 0 ? (
-                    <p className="text-sm text-gray-500">Không tìm thấy khách nào</p>
-                  ) : (
-                    searchResults.map((guest) => (
-                      <button
-                        key={guest.id}
-                        onClick={() => setSelectedGuest(guest)}
-                        className={`w-full text-left rounded-2xl px-4 py-3 text-sm transition ${
-                          selectedGuest?.id === guest.id
-                            ? "bg-red-500 text-white"
-                            : "bg-gray-100 text-gray-900 hover:bg-gray-200 border border-gray-300"
-                        }`}
-                      >
-                        <p className="font-medium">{guest.full_name}</p>
-                        <p className="text-xs opacity-70">{guest.relationship ?? "Khách"}</p>
-                      </button>
-                    ))
+              <TabPanel value="search">
+                <div className="space-y-4 overflow-y-auto pb-1">
+                  <div>
+                    <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-gray-600">Nhập tên của bạn</label>
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Tìm kiếm..."
+                      className="w-full rounded-2xl border border-gray-300 px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
+                    />
+                  </div>
+
+                  {searchQuery.trim().length > 0 && (
+                    <div>
+                      <p className="mb-2 text-xs uppercase tracking-[0.3em] text-gray-600">Kết quả ({searchResults.length})</p>
+                      <div className="max-h-[38vh] space-y-2 overflow-y-auto pr-1">
+                        {loading ? (
+                          <p className="text-sm text-gray-500">Đang tải...</p>
+                        ) : searchResults.length === 0 ? (
+                          <p className="text-sm text-gray-500">Không tìm thấy khách nào</p>
+                        ) : (
+                          searchResults.map((guest) => (
+                            <button
+                              key={guest.id}
+                              onClick={() => setSelectedGuest(guest)}
+                              className={`w-full rounded-2xl border px-4 py-3 text-left text-sm transition ${
+                                selectedGuest?.id === guest.id
+                                  ? "border-red-500 bg-red-500 text-white"
+                                  : "border-gray-300 bg-gray-100 text-gray-900 hover:bg-gray-200"
+                              }`}
+                            >
+                              <p className="font-medium">{guest.full_name}</p>
+                              <p className="text-xs opacity-70">{guest.relationship ?? "Khách"}</p>
+                            </button>
+                          ))
+                        )}
+                      </div>
+                    </div>
                   )}
                 </div>
-              </div>
-            )}
+              </TabPanel>
+
+              <TabPanel value="map">
+                <div className="space-y-2">
+                  <p className="text-xs uppercase tracking-[0.3em] text-gray-600">Sơ đồ bàn tiệc</p>
+                  <div className="flex min-h-[48vh] items-center justify-center overflow-hidden rounded-2xl border border-gray-300 bg-white">
+                    {seatMap?.tables ? (
+                      <img
+                        src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(buildSvgMap())}`}
+                        alt="Seat map"
+                        className="h-full max-h-[48vh] w-full max-w-full object-contain p-2 sm:p-4"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-gray-500">Không có sơ đồ</div>
+                    )}
+                  </div>
+                </div>
+              </TabPanel>
+            </Tabs>
           </div>
 
-          {/* Center: SeatMap */}
-          <div className="flex-1 flex flex-col">
-            <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-2">Sơ đồ bàn tiệc</p>
-            <div className="flex-1 rounded-2xl border border-gray-300 flex items-center justify-center bg-white overflow-hidden">
-              {seatMap?.tables ? (
-                <img
-                  src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(buildSvgMap())}`}
-                  alt="Seat map"
-                  className="max-w-full max-h-full object-contain p-4"
-                />
-              ) : (
-                <div className="flex items-center justify-center h-full text-gray-500">Không có sơ đồ</div>
-              )}
+          <div className="hidden flex-1 flex-col gap-4 overflow-hidden lg:flex lg:flex-row">
+            <div className="w-80 flex-none border-r border-gray-200 pr-4">
+              <div className="space-y-4">
+                <div>
+                  <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-gray-600">Nhập tên của bạn</label>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Tìm kiếm..."
+                    className="w-full rounded-2xl border border-gray-300 px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
+                  />
+                </div>
+
+                {searchQuery.trim().length > 0 && (
+                  <div>
+                    <p className="mb-2 text-xs uppercase tracking-[0.3em] text-gray-600">Kết quả ({searchResults.length})</p>
+                    <div className="space-y-2 overflow-y-auto pr-1">
+                      {loading ? (
+                        <p className="text-sm text-gray-500">Đang tải...</p>
+                      ) : searchResults.length === 0 ? (
+                        <p className="text-sm text-gray-500">Không tìm thấy khách nào</p>
+                      ) : (
+                        searchResults.map((guest) => (
+                          <button
+                            key={guest.id}
+                            onClick={() => setSelectedGuest(guest)}
+                            className={`w-full rounded-2xl border px-4 py-3 text-left text-sm transition ${
+                              selectedGuest?.id === guest.id
+                                ? "border-red-500 bg-red-500 text-white"
+                                : "border-gray-300 bg-gray-100 text-gray-900 hover:bg-gray-200"
+                            }`}
+                          >
+                            <p className="font-medium">{guest.full_name}</p>
+                            <p className="text-xs opacity-70">{guest.relationship ?? "Khách"}</p>
+                          </button>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="flex min-h-0 flex-1 flex-col">
+              <p className="mb-2 text-xs uppercase tracking-[0.3em] text-gray-600">Sơ đồ bàn tiệc</p>
+              <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-2xl border border-gray-300 bg-white">
+                {seatMap?.tables ? (
+                  <img
+                    src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(buildSvgMap())}`}
+                    alt="Seat map"
+                    className="h-full max-h-full w-full max-w-full object-contain p-4"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center text-gray-500">Không có sơ đồ</div>
+                )}
+              </div>
             </div>
           </div>
         </div>
 
         {/* Footer: Guest info + assigned table */}
         {selectedGuest && selectedGuestTableAssignment && (
-          <div className="border-t border-gray-200 bg-gray-50 px-6 py-4">
-            <div className="grid grid-cols-3 gap-4">
+          <div className="border-t border-gray-200 bg-gray-50 px-4 py-4 sm:px-6">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-1">Khách</p>
                 <p className="text-sm font-medium text-gray-900">{selectedGuest.full_name}</p>
                 <p className="text-xs text-gray-600">{selectedGuest.relationship ?? "Khách"}</p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-1">Ngôn ngữ</p>
-                <p className="text-sm font-medium text-gray-900">{selectedGuest.language === "vi" ? "Tiếng Việt" : "English"}</p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-1">Vị trí bàn</p>
