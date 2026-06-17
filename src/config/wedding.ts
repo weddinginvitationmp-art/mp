@@ -124,7 +124,7 @@ export const wedding = {
       en: "I first met Phuong on the university campus.",
     },
     image: {
-      src: "../../public/media/university-story.jpg",
+      src: "/media/university-story.jpg",
       alt: { vi: "Kỷ niệm gặp gỡ", en: "First meeting moment" },
     },
   },
@@ -137,7 +137,7 @@ export const wedding = {
       en: "After getting to know each other, we decided to start this journey together. Nothing dramatic—just a feeling that we were right for one another.",
     },
     image: {
-      src: "../../public/media/story-2.jpg",
+      src: "/media/story-2.jpg",
       alt: { vi: "Khoảnh khắc hẹn hò", en: "Dating together" },
     },
   },
@@ -150,7 +150,7 @@ export const wedding = {
       en: "We moved in together, learning to share everyday moments and becoming an important part of each other's daily life.",
     },
     image: {
-      src: "../../public/media/story-1.jpg",
+      src: "/media/story-1.jpg",
       alt: { vi: "Tổ ấm mới", en: "Building a home" },
     },
   },
@@ -163,7 +163,7 @@ export const wedding = {
       en: "After years of growing together, we decided to take the next step. One question, one answer, and a shared future ahead.",
     },
     image: {
-      src: "../../public/media/story-3.jpg",
+      src: "/media/story-3.jpg",
       alt: { vi: "Lời cầu hôn", en: "The proposal" },
     },
   },
@@ -280,7 +280,7 @@ export const wedding = {
 
   weddingVideo: {
     youtubeId: "dQw4w9WgXcQ",
-    posterImage: "../../public/media/story-4.jpg",
+    posterImage: "/media/story-4.jpg",
   } satisfies WeddingVideo,
   
   gift: {
