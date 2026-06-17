@@ -17,16 +17,16 @@ const AdminApp = lazy(() => import("@/admin"));
 // Below-fold sections: lazy-loaded so initial bundle ships only the hero.
 const Invitation = lazy(() => import("@/sections/invitation").then((m) => ({ default: m.Invitation })));
 const Story = lazy(() => import("@/sections/story").then((m) => ({ default: m.Story })));
-const Backdrop = lazy(() =>
-  import("@/sections/backdrop").then((m) => ({ default: m.Backdrop })),
-);
+// const Backdrop = lazy(() =>
+//   import("@/sections/backdrop").then((m) => ({ default: m.Backdrop })),
+// );
 const Album = lazy(() => import("@/sections/album").then((m) => ({ default: m.Album })));
 const Video = lazy(() => import("@/sections/video").then((m) => ({ default: m.Video })));
 const Events = lazy(() => import("@/sections/events").then((m) => ({ default: m.Events })));
 const Rsvp = lazy(() => import("@/sections/rsvp").then((m) => ({ default: m.Rsvp })));
 const Wishes = lazy(() => import("@/sections/wishes").then((m) => ({ default: m.Wishes })));
 const Gift = lazy(() => import("@/sections/gift").then((m) => ({ default: m.Gift })));
-const Games = lazy(() => import("@/sections/games").then((m) => ({ default: m.Games })));
+// const Games = lazy(() => import("@/sections/games").then((m) => ({ default: m.Games })));
 
 const SectionSkeleton = () => <div className="min-h-[60dvh]" aria-hidden="true" />;
 
