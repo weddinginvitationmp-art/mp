@@ -93,6 +93,18 @@ export interface Database {
         Insert: Omit<Database["public"]["Tables"]["guest_shares"]["Row"], "id" | "created_at">;
         Update: Partial<Database["public"]["Tables"]["guest_shares"]["Insert"]>;
       };
+      seat_maps: {
+        Row: {
+          id: string;
+          event_id: string | null;
+          name: string;
+          json_data: Record<string, unknown>;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Omit<Database["public"]["Tables"]["seat_maps"]["Row"], "id" | "created_at" | "updated_at">;
+        Update: Partial<Database["public"]["Tables"]["seat_maps"]["Insert"]>;
+      };
     };
   };
 }

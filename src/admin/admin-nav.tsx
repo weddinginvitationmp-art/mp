@@ -1,13 +1,13 @@
 import { useTranslation } from "react-i18next";
 
-export type AdminModule = "guests" | "rsvp" | "wishes" | "leaderboard";
+export type AdminModule = "guests" | "rsvp" | "wishes" | "leaderboard" | "seating";
 
 interface Props {
   active: AdminModule;
   onChange: (m: AdminModule) => void;
 }
 
-const MODULES: AdminModule[] = ["guests", "rsvp", "wishes", "leaderboard"];
+const MODULES: AdminModule[] = ["guests", "rsvp", "wishes", "leaderboard", "seating"];
 
 export function AdminNav({ active, onChange }: Props) {
   const { t } = useTranslation();

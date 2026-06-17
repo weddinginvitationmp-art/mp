@@ -194,15 +194,80 @@ export const wedding = {
     },
   ] satisfies ReadonlyArray<BackdropSlide>,
 
-  album: [
-    { src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=1200&q=80", width: 1200, height: 1600, alt: { vi: "Khoảnh khắc 1", en: "Moment 1" } },
-    { src: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 2", en: "Moment 2" } },
-     { src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShoD9K2ymmes5lsUpV-WnHmUcEYkUTtF7vQQ&s", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 2", en: "Moment 2" } },
-      { src: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 2", en: "Moment 2" } },
-       { src: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 2", en: "Moment 2" } },
-        { src: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 2", en: "Moment 2" } },
-         { src: "https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=1200&q=80", width: 1200, height: 800, alt: { vi: "Khoảnh khắc 2", en: "Moment 2" } },
-  ] satisfies ReadonlyArray<AlbumPhoto>,
+  album : [
+  {
+    src: "https://drive.google.com/uc?export=view&id=1FsWjndkL-3TtqR1prOJwGP-QvTx9xwL4",
+    width: 1200,
+    height: 1600,
+    alt: { vi: "Ảnh cưới 1", en: "Wedding Photo 1" },
+  },
+  {
+    src: "https://drive.google.com/uc?export=view&id=1x0irydiCp4JOA_E10wy2RJ2tRdvFcsb-",
+    width: 1200,
+    height: 1600,
+    alt: { vi: "Ảnh cưới 2", en: "Wedding Photo 2" },
+  },
+  {
+    src: "https://drive.google.com/uc?export=view&id=1MVTpoOfXEAi7UXwNoz6gkxr1DDIrHOZt",
+    width: 1200,
+    height: 1600,
+    alt: { vi: "Ảnh cưới 3", en: "Wedding Photo 3" },
+  },
+  {
+    src: "https://drive.google.com/uc?export=view&id=1OiepwcIXfHu2iQPYwDcW76pMuyCX1etI",
+    width: 1200,
+    height: 1600,
+    alt: { vi: "Ảnh cưới 4", en: "Wedding Photo 4" },
+  },
+  {
+    src: "https://drive.google.com/uc?export=view&id=1sCDngxKXOrgxXS97-wXGq1F_48MvMnpb",
+    width: 1200,
+    height: 1600,
+    alt: { vi: "Ảnh cưới 5", en: "Wedding Photo 5" },
+  },
+  {
+    src: "https://drive.google.com/uc?export=view&id=1FdTU0RLKEXzofZT_Fg4uc8qoJllt2NNp",
+    width: 1200,
+    height: 1600,
+    alt: { vi: "Ảnh cưới 6", en: "Wedding Photo 6" },
+  },
+  {
+    src: "https://drive.google.com/uc?export=view&id=19mqRW_pd5nofaFfC0y-Ub0VS3XMsOO8_",
+    width: 1200,
+    height: 1600,
+    alt: { vi: "Ảnh cưới 7", en: "Wedding Photo 7" },
+  },
+  {
+    src: "https://drive.google.com/uc?export=view&id=1hVBlJH7xtZCf1Fm972Q2D7XjnjaCZXwJ",
+    width: 1200,
+    height: 1600,
+    alt: { vi: "Ảnh cưới 8", en: "Wedding Photo 8" },
+  },
+  {
+    src: "https://drive.google.com/uc?export=view&id=16NpN16y8jGL5Yr8Hied09wolNGbwXoBp",
+    width: 1200,
+    height: 1600,
+    alt: { vi: "Ảnh cưới 9", en: "Wedding Photo 9" },
+  },
+  {
+    src: "https://drive.google.com/uc?export=view&id=1DYY0o-xNofyXZEVXCzHJ3mlCwXclO09C",
+    width: 1200,
+    height: 1600,
+    alt: { vi: "Ảnh cưới 10", en: "Wedding Photo 10" },
+  },
+  {
+    src: "https://drive.google.com/uc?export=view&id=1Z5mAVVLKSzJsAhcZIKnAlFFwE0ZARYw5",
+    width: 1200,
+    height: 1600,
+    alt: { vi: "Ảnh cưới 11", en: "Wedding Photo 11" },
+  },
+  {
+    src: "https://drive.google.com/uc?export=view&id=1XViA8457g6PSdng65y9F0dGr5af42dNB",
+    width: 1200,
+    height: 1600,
+    alt: { vi: "Ảnh cưới 12", en: "Wedding Photo 12" },
+  },
+] satisfies ReadonlyArray<AlbumPhoto>,
 
   weddingVideo: {
     youtubeId: "dQw4w9WgXcQ",

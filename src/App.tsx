@@ -5,6 +5,9 @@ import { GuestProvider } from "@/contexts/guest-context";
 import { useDocumentMeta } from "@/hooks/use-document-meta";
 import { Hero } from "@/sections/hero";
 import { GoldenDustParticles } from "@/components/floating/golden-dust-particles";
+import { SeatSearchFloating } from "@/components/floating/seat-search-floating";
+import { SeatSearchModal } from "@/components/floating/seat-search-modal";
+import { useSeatMap } from "@/hooks/use-seat-map";
 
 // Admin console — separate chunk; only loaded when visiting /admin*
 
@@ -54,9 +57,16 @@ export function App() {
 
 function AppShell() {
   useDocumentMeta();
+
+
+  const [seatSearchOpen, setSeatSearchOpen] = useState(false);
+  const { seatMap } = useSeatMap();
+
   return (
     <SiteLayout>
       <Hero />
+      <SeatSearchFloating onOpen={() => setSeatSearchOpen(true)} />
+      <SeatSearchModal isOpen={seatSearchOpen} onClose={() => setSeatSearchOpen(false)} seatMap={seatMap} />
       <Suspense fallback={<SectionSkeleton />}>
         <Invitation index={1} />
         <Story index={2} />
