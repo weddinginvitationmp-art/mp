@@ -462,7 +462,7 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
             {!selectedTable ? (
               <p className="text-sm opacity-70">Chọn bàn trên sơ đồ để chỉnh sửa.</p>
             ) : (
-              <div className="space-y-3 rounded-3xl border border-border-subtle bg-white p-3">
+              <div className="space-y-3 rounded-3xl border border-border-subtle bg-surface p-3">
                 <label className="block text-xs uppercase tracking-[0.3em] text-on-surface-muted">Tên bàn</label>
                 <input
                   value={selectedTable.name}
@@ -498,7 +498,7 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
               return (
                 <div className="space-y-3">
                   <p className="text-sm font-medium">Chỉnh sửa vùng</p>
-                  <div className="space-y-2 rounded-3xl border border-border-subtle bg-white p-3">
+                  <div className="space-y-2 rounded-3xl border border-border-subtle bg-surface p-3">
                     <label className="block text-xs uppercase tracking-[0.3em] text-on-surface-muted">Tên vùng</label>
                     <input value={zone.name} onChange={(e) => {
                       const updated = seatMap.zones.map((z) => z.id === zone.id ? { ...z, name: e.target.value } : z);
@@ -556,7 +556,7 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
           {selectedRegion?.kind === "stage" && seatMap.stage ? (
             <div className="space-y-3">
               <p className="text-sm font-medium">Chỉnh sửa sân khấu</p>
-              <div className="space-y-2 rounded-3xl border border-border-subtle bg-white p-3">
+              <div className="space-y-2 rounded-3xl border border-border-subtle bg-surface p-3">
                 <label className="block text-xs uppercase tracking-[0.3em] text-on-surface-muted">Chiều rộng</label>
                 <input type="number" min={20} value={seatMap.stage.width} onChange={(e) => updateMap({ stage: { ...seatMap.stage!, width: Number(e.target.value) || 0 } })} className="w-full rounded-soft border border-border-subtle px-3 py-2 text-sm" />
                 <label className="block text-xs uppercase tracking-[0.3em] text-on-surface-muted">Chiều cao</label>
@@ -569,7 +569,7 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
           <div className="space-y-3">
             <p className="text-sm font-medium">Phân công khách</p>
             <p className="text-xs opacity-70">Chọn bàn, sau đó gán khách cho bàn.</p>
-            <div className="space-y-2 rounded-3xl border border-border-subtle bg-white p-3">
+            <div className="space-y-2 rounded-3xl border border-border-subtle bg-surface p-3">
               {selectedTable ? (
                 <>
                   <p className="text-sm font-medium">Khách đã gán</p>
@@ -598,7 +598,7 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
           </div>
 
           {selectedTable ? (
-            <div className="space-y-3 rounded-3xl border border-border-subtle bg-white p-3">
+            <div className="space-y-3 rounded-3xl border border-border-subtle bg-surface p-3">
               <p className="text-sm font-medium">Khách có sẵn</p>
               <div className="max-h-60 space-y-2 overflow-y-auto pr-1">
                 {unassignedGuests.map((guest) => (
@@ -631,7 +631,7 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
             </div>
             <div
               ref={canvasRef}
-              className="relative h-[520px] overflow-hidden rounded-3xl border border-border-subtle bg-white bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.08),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(220,38,38,0.08),_transparent_35%)]"
+              className="relative h-[520px] overflow-hidden rounded-3xl border border-border-subtle bg-surface bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.08),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(220,38,38,0.08),_transparent_35%)]"
               onMouseDown={handleCanvasMouseDown}
               onMouseMove={handleCanvasMouseMove}
               onMouseUp={handleCanvasMouseUp}

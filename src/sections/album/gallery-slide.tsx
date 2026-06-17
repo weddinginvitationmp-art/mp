@@ -76,6 +76,7 @@ export function GallerySlide({ onSelect, lang, index }: Props) {
                       height={photo.height}
                       loading={index < 2 ? "eager" : "lazy"}
                       decoding="async"
+                      style={{ objectPosition: photo.position ?? "center" }}
                       className="aspect-[4/3] w-full object-cover transition duration-700 ease-out group-hover:scale-[1.02]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 transition duration-500 group-hover:opacity-100" />

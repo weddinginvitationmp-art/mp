@@ -58,27 +58,48 @@ export function App() {
 function AppShell() {
   useDocumentMeta();
 
-
   const [seatSearchOpen, setSeatSearchOpen] = useState(false);
-  const { seatMap } = useSeatMap();
+  const [selectedMapId, setSelectedMapId] = useState<string>(() => {
+    // Load from localStorage if available
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("selectedSeatMapId") || "";
+    }
+    return "";
+  });
+  
+  const { seatMap, allMaps } = useSeatMap(selectedMapId || undefined);
+
+  const handleSelectMap = (mapId: string) => {
+    setSelectedMapId(mapId);
+    if (typeof window !== "undefined") {
+      localStorage.setItem("selectedSeatMapId", mapId);
+    }
+  };
 
   return (
     <SiteLayout>
       <Hero />
       <SeatSearchFloating onOpen={() => setSeatSearchOpen(true)} />
-      <SeatSearchModal isOpen={seatSearchOpen} onClose={() => setSeatSearchOpen(false)} seatMap={seatMap} />
+      <SeatSearchModal 
+        isOpen={seatSearchOpen} 
+        onClose={() => setSeatSearchOpen(false)} 
+        seatMap={seatMap} 
+        allMaps={allMaps}
+        selectedMapId={selectedMapId || undefined}
+        onSelectMap={handleSelectMap}
+      />
       <Suspense fallback={<SectionSkeleton />}>
         <Invitation index={1} />
         <Story index={2} />
 
-        <Backdrop index={3} />
-        <Album index={4} />
-        <Video index={5} />
-        <Events index={6} />
-        <Rsvp index={7} />
-        <Wishes index={8} />
-        <Gift index={9} />
-        <Games index={10} />
+        {/* <Backdrop index={3} /> */}
+        <Album index={3} />
+        <Video index={4} />
+        <Events index={5} />
+        <Rsvp index={6} />
+        <Wishes index={7} />
+        <Gift index={8} />
+        {/* <Games index={9} /> */}
       </Suspense>
     </SiteLayout>
   );

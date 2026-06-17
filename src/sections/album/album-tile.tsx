@@ -26,7 +26,8 @@ export function AlbumTile({ photo, lang, onClick }: Props) {
         height={photo.height}
         loading="lazy"
         decoding="async"
-        className={`w-full transition duration-700 ease-out ${hoverScale}`}
+        style={{ objectPosition: photo.position ?? "center" }}
+        className={`w-full object-cover transition duration-700 ease-out ${hoverScale}`}
       />
     </button>
   );

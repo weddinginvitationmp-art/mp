@@ -54,6 +54,7 @@ export interface AlbumPhoto {
   width: number;
   height: number;
   alt: { vi: string; en: string };
+  position?: string;
 }
 
 export interface WeddingVideo {
@@ -123,7 +124,7 @@ export const wedding = {
       en: "I first met Phuong on the university campus.",
     },
     image: {
-      src: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=1200&q=80",
+      src: "../../public/media/university-story.jpg",
       alt: { vi: "Kỷ niệm gặp gỡ", en: "First meeting moment" },
     },
   },
@@ -136,7 +137,7 @@ export const wedding = {
       en: "After getting to know each other, we decided to start this journey together. Nothing dramatic—just a feeling that we were right for one another.",
     },
     image: {
-      src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1200&q=80",
+      src: "../../public/media/story-2.jpg",
       alt: { vi: "Khoảnh khắc hẹn hò", en: "Dating together" },
     },
   },
@@ -149,7 +150,7 @@ export const wedding = {
       en: "We moved in together, learning to share everyday moments and becoming an important part of each other's daily life.",
     },
     image: {
-      src: "https://images.unsplash.com/photo-1494526585095-c41746248156?w=1200&q=80",
+      src: "../../public/media/story-1.jpg",
       alt: { vi: "Tổ ấm mới", en: "Building a home" },
     },
   },
@@ -162,7 +163,7 @@ export const wedding = {
       en: "After years of growing together, we decided to take the next step. One question, one answer, and a shared future ahead.",
     },
     image: {
-      src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1200&q=80",
+      src: "../../public/media/story-3.jpg",
       alt: { vi: "Lời cầu hôn", en: "The proposal" },
     },
   },
@@ -196,82 +197,90 @@ export const wedding = {
 
   album : [
   {
-    src: "https://drive.google.com/uc?export=view&id=1FsWjndkL-3TtqR1prOJwGP-QvTx9xwL4",
+    src: "https://drive.google.com/thumbnail?id=1FsWjndkL-3TtqR1prOJwGP-QvTx9xwL4&sz=w2000",
     width: 1200,
     height: 1600,
     alt: { vi: "Ảnh cưới 1", en: "Wedding Photo 1" },
+    position: "40% 10%",
   },
   {
-    src: "https://drive.google.com/uc?export=view&id=1x0irydiCp4JOA_E10wy2RJ2tRdvFcsb-",
+    src: "https://drive.google.com/thumbnail?id=1x0irydiCp4JOA_E10wy2RJ2tRdvFcsb-&sz=w2000",
     width: 1200,
     height: 1600,
     alt: { vi: "Ảnh cưới 2", en: "Wedding Photo 2" },
   },
   {
-    src: "https://drive.google.com/uc?export=view&id=1MVTpoOfXEAi7UXwNoz6gkxr1DDIrHOZt",
+    src: "https://drive.google.com/thumbnail?id=1MVTpoOfXEAi7UXwNoz6gkxr1DDIrHOZt&sz=w2000",
     width: 1200,
     height: 1600,
     alt: { vi: "Ảnh cưới 3", en: "Wedding Photo 3" },
+    position: "40% 40%",
   },
   {
-    src: "https://drive.google.com/uc?export=view&id=1OiepwcIXfHu2iQPYwDcW76pMuyCX1etI",
+    src: "https://drive.google.com/thumbnail?id=1OiepwcIXfHu2iQPYwDcW76pMuyCX1etI&sz=w2000",
     width: 1200,
     height: 1600,
     alt: { vi: "Ảnh cưới 4", en: "Wedding Photo 4" },
   },
   {
-    src: "https://drive.google.com/uc?export=view&id=1sCDngxKXOrgxXS97-wXGq1F_48MvMnpb",
+    src: "https://drive.google.com/thumbnail?id=1sCDngxKXOrgxXS97-wXGq1F_48MvMnpb&sz=w2000",
     width: 1200,
     height: 1600,
     alt: { vi: "Ảnh cưới 5", en: "Wedding Photo 5" },
   },
   {
-    src: "https://drive.google.com/uc?export=view&id=1FdTU0RLKEXzofZT_Fg4uc8qoJllt2NNp",
+    src: "https://drive.google.com/thumbnail?id=1FdTU0RLKEXzofZT_Fg4uc8qoJllt2NNp&sz=w2000",
     width: 1200,
     height: 1600,
     alt: { vi: "Ảnh cưới 6", en: "Wedding Photo 6" },
   },
   {
-    src: "https://drive.google.com/uc?export=view&id=19mqRW_pd5nofaFfC0y-Ub0VS3XMsOO8_",
+    src: "https://drive.google.com/thumbnail?id=19mqRW_pd5nofaFfC0y-Ub0VS3XMsOO8_&sz=w2000",
     width: 1200,
     height: 1600,
     alt: { vi: "Ảnh cưới 7", en: "Wedding Photo 7" },
+    position: "40% 30%",
   },
   {
-    src: "https://drive.google.com/uc?export=view&id=1hVBlJH7xtZCf1Fm972Q2D7XjnjaCZXwJ",
+    src: "https://drive.google.com/thumbnail?id=1hVBlJH7xtZCf1Fm972Q2D7XjnjaCZXwJ&sz=w2000",
     width: 1200,
     height: 1600,
     alt: { vi: "Ảnh cưới 8", en: "Wedding Photo 8" },
+    position: "40% 30%",
   },
   {
-    src: "https://drive.google.com/uc?export=view&id=16NpN16y8jGL5Yr8Hied09wolNGbwXoBp",
+    src: "https://drive.google.com/thumbnail?id=16NpN16y8jGL5Yr8Hied09wolNGbwXoBp&sz=w2000",
     width: 1200,
     height: 1600,
     alt: { vi: "Ảnh cưới 9", en: "Wedding Photo 9" },
+    position: "50% 10%",
   },
   {
-    src: "https://drive.google.com/uc?export=view&id=1DYY0o-xNofyXZEVXCzHJ3mlCwXclO09C",
+    src: "https://drive.google.com/thumbnail?id=1DYY0o-xNofyXZEVXCzHJ3mlCwXclO09C&sz=w2000",
     width: 1200,
     height: 1600,
     alt: { vi: "Ảnh cưới 10", en: "Wedding Photo 10" },
+    position: "50% 10%",
   },
   {
-    src: "https://drive.google.com/uc?export=view&id=1Z5mAVVLKSzJsAhcZIKnAlFFwE0ZARYw5",
+    src: "https://drive.google.com/thumbnail?id=1Z5mAVVLKSzJsAhcZIKnAlFFwE0ZARYw5&sz=w2000",
     width: 1200,
     height: 1600,
     alt: { vi: "Ảnh cưới 11", en: "Wedding Photo 11" },
+    position: "50% 10%",
   },
   {
-    src: "https://drive.google.com/uc?export=view&id=1XViA8457g6PSdng65y9F0dGr5af42dNB",
+    src: "https://drive.google.com/thumbnail?id=1XViA8457g6PSdng65y9F0dGr5af42dNB&sz=w2000",
     width: 1200,
     height: 1600,
     alt: { vi: "Ảnh cưới 12", en: "Wedding Photo 12" },
+    position: "50% 10%",
   },
 ] satisfies ReadonlyArray<AlbumPhoto>,
 
   weddingVideo: {
     youtubeId: "dQw4w9WgXcQ",
-    posterImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1920&q=80",
+    posterImage: "../../public/media/story-4.jpg",
   } satisfies WeddingVideo,
   
   gift: {

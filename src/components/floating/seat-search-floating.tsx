@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { IoNotifications } from "react-icons/io5";
 
 interface SeatSearchFloatingProps {
   onOpen: () => void;
@@ -42,9 +43,15 @@ export function SeatSearchFloating({ onOpen }: SeatSearchFloatingProps) {
           <p className="text-sm font-medium">Bạn đã xác nhận tham dự?</p>
           <p className="text-xs opacity-90">Tìm kiếm vị trí bàn tiệc ngay 🍽️</p>
         </div>
-        <div className="absolute -top-2 -right-2 flex items-center justify-center w-6 h-6 bg-red-500 rounded-full text-white text-xs font-bold animate-pulse">
-          !
-        </div>
+        <div
+  className="absolute -top-2 -right-2 flex items-center justify-center w-8 h-8 rounded-full text-white"
+  style={{
+    background: "#B22234",
+    boxShadow: "0 4px 12px rgba(178,34,52,.35)",
+  }}
+>
+  <IoNotifications className="animate-bell text-sm" />
+</div>
       </button>
     </div>
   );

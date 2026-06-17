@@ -279,3 +279,38 @@ body {
 .section-sys-bg {
   background: linear-gradient(180deg, var(--surface) 0%, var(--surface-raised) 100%);
 }
+@keyframes bell {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  10% {
+    transform: rotate(15deg);
+  }
+
+  20% {
+    transform: rotate(-15deg);
+  }
+
+  30% {
+    transform: rotate(12deg);
+  }
+
+  40% {
+    transform: rotate(-12deg);
+  }
+
+  50% {
+    transform: rotate(8deg);
+  }
+
+  60% {
+    transform: rotate(-8deg);
+  }
+}
+
+.animate-bell {
+  transform-origin: top center;
+  animation: bell 1.8s ease-in-out infinite;
+}

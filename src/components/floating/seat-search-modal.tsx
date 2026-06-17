@@ -1,14 +1,18 @@
 import { useEffect, useState, useMemo } from "react";
 import { supabase } from "@/lib/supabase";
 import type { Database } from "@/types/database";
+import type { SeatMapWithId } from "@/hooks/use-seat-map";
 
 interface SeatSearchModalProps {
   isOpen: boolean;
   onClose: () => void;
   seatMap: any; // SeatMapJson from seating
+  allMaps: SeatMapWithId[];
+  selectedMapId?: string;
+  onSelectMap: (mapId: string) => void;
 }
 
-export function SeatSearchModal({ isOpen, onClose, seatMap }: SeatSearchModalProps) {
+export function SeatSearchModal({ isOpen, onClose, seatMap, allMaps, selectedMapId, onSelectMap }: SeatSearchModalProps) {
   const [guests, setGuests] = useState<Database["public"]["Tables"]["guests"]["Row"][]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGuest, setSelectedGuest] = useState<(typeof guests)[0] | null>(null);
@@ -17,23 +21,31 @@ export function SeatSearchModal({ isOpen, onClose, seatMap }: SeatSearchModalPro
   useEffect(() => {
     if (!isOpen) return;
     const fetchGuests = async () => {
-      // Fetch guests with confirmed RSVP status
-      const { data, error } = await supabase
+      // Fetch all guests
+      const { data: allGuests, error: guestError } = await supabase
         .from("guests")
-        .select("*, rsvp:rsvp(status)")
+        .select("*")
         .order("full_name", { ascending: true });
       
-      if (!error && data) {
-        // Filter for confirmed RSVPs only
-        const confirmedGuests = (data as any[]).filter(
-          (g) => g.rsvp && Array.isArray(g.rsvp) && g.rsvp.some((r: any) => r.status === "attending")
-        );
-        setGuests(confirmedGuests);
+      if (guestError || !allGuests) {
+        setLoading(false);
+        return;
       }
+
+      // Filter to only guests who are assigned to a table
+      const assignedGuestIds = new Set(
+        Object.values(seatMap?.assignments || {})
+          .flat()
+          .filter(id => typeof id === 'string')
+      );
+      
+      const assignedGuests = (allGuests as Database["public"]["Tables"]["guests"]["Row"][]).filter(g => assignedGuestIds.has(g.id));
+      
+      setGuests(assignedGuests);
       setLoading(false);
     };
     fetchGuests();
-  }, [isOpen]);
+  }, [isOpen, seatMap]);
 
   const searchResults = useMemo(() => {
     if (!searchQuery.trim()) return guests;
@@ -58,6 +70,23 @@ export function SeatSearchModal({ isOpen, onClose, seatMap }: SeatSearchModalPro
     if (!seatMap?.tables) return "";
     const width = 1000;
     const height = 640;
+
+    // Build stage
+    const stage = seatMap.stage
+      ? `<rect x="${seatMap.stage.x}" y="${seatMap.stage.y}" width="${seatMap.stage.width}" height="${seatMap.stage.height}" fill="#DBEAFE" stroke="#3B82F6" stroke-width="2" rx="12" />
+         <text x="${seatMap.stage.x + seatMap.stage.width / 2}" y="${seatMap.stage.y + seatMap.stage.height / 2 + 6}" text-anchor="middle" font-size="20" font-family="Arial, sans-serif" fill="#1E40AF">Stage</text>`
+      : "";
+
+    // Build zones
+    const zones = seatMap.zones
+      .map(
+        (zone: any) => `
+        <rect x="${zone.x}" y="${zone.y}" width="${zone.width}" height="${zone.height}" fill="${zone.color}" fill-opacity="0.35" stroke="#D97706" stroke-width="2" rx="14" />
+        <text x="${zone.x + 12}" y="${zone.y + 24}" font-size="16" font-family="Arial, sans-serif" fill="#92400E">${zone.name}</text>`,
+      )
+      .join("");
+
+    // Build tables
     const tableShapes = seatMap.tables
       .map((table: any) => {
         const fill = table.shape === "round" ? "#FEE2E2" : "#EDE9FE";
@@ -80,7 +109,12 @@ export function SeatSearchModal({ isOpen, onClose, seatMap }: SeatSearchModalPro
 
     return `<?xml version="1.0" encoding="UTF-8"?>
       <svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
+        <defs>
+          <style>text { font-family: Arial, "Segoe UI", sans-serif; }</style>
+        </defs>
         <rect width="100%" height="100%" fill="#fff" />
+        ${zones}
+        ${stage}
         ${tableShapes}
       </svg>`;
   };
@@ -89,60 +123,82 @@ export function SeatSearchModal({ isOpen, onClose, seatMap }: SeatSearchModalPro
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
       <div className="relative h-[90vh] w-[95vw] max-w-7xl rounded-3xl bg-white overflow-hidden flex flex-col" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-border-subtle px-6 py-4">
-          <h2 className="font-display text-2xl">Tìm kiếm vị trí bàn tiệc</h2>
-          <button onClick={onClose} className="text-2xl leading-none opacity-50 hover:opacity-100">
-            ✕
-          </button>
+        <div className="border-b border-gray-200 px-6 py-4">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-display text-2xl text-gray-900">Tìm kiếm vị trí bàn tiệc</h2>
+            <button onClick={onClose} className="text-2xl leading-none text-gray-600 hover:text-gray-900">
+              ✕
+            </button>
+          </div>
+          
+          {/* Seat map selector dropdown */}
+          {allMaps.length > 1 && (
+            <div>
+              <label className="block text-xs uppercase tracking-[0.3em] text-gray-600 mb-2">Chọn sơ đồ</label>
+              <select
+                value={selectedMapId || ""}
+                onChange={(e) => onSelectMap(e.target.value)}
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
+              >
+                {allMaps.map((map) => (
+                  <option key={map.id} value={map.id}>
+                    {map.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
         </div>
 
         {/* Main content grid */}
         <div className="flex-1 overflow-hidden flex gap-4 p-6">
           {/* Left: Search */}
-          <div className="w-80 flex flex-col gap-4 border-r border-border-subtle pr-4 overflow-y-auto">
+          <div className="w-80 flex flex-col gap-4 border-r border-gray-200 pr-4 overflow-y-auto">
             <div>
-              <label className="block text-xs uppercase tracking-[0.3em] text-on-surface-muted mb-2">Nhập tên của bạn</label>
+              <label className="block text-xs uppercase tracking-[0.3em] text-gray-600 mb-2">Nhập tên của bạn</label>
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Tìm kiếm..."
-                className="w-full rounded-2xl border border-border-subtle px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+                className="w-full rounded-2xl border border-gray-300 px-4 py-3 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-red-500"
               />
             </div>
 
-            {/* Search results */}
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-on-surface-muted mb-2">Kết quả ({searchResults.length})</p>
-              <div className="space-y-2">
-                {loading ? (
-                  <p className="text-sm opacity-60">Đang tải...</p>
-                ) : searchResults.length === 0 ? (
-                  <p className="text-sm opacity-60">Không tìm thấy khách nào</p>
-                ) : (
-                  searchResults.map((guest) => (
-                    <button
-                      key={guest.id}
-                      onClick={() => setSelectedGuest(guest)}
-                      className={`w-full text-left rounded-2xl px-4 py-3 text-sm transition ${
-                        selectedGuest?.id === guest.id
-                          ? "bg-accent text-white"
-                          : "bg-surface hover:bg-surface-muted border border-border-subtle"
-                      }`}
-                    >
-                      <p className="font-medium">{guest.full_name}</p>
-                      <p className="text-xs opacity-70">{guest.relationship ?? "Khách"}</p>
-                    </button>
-                  ))
-                )}
+            {/* Search results - only show when user types */}
+            {searchQuery.trim().length > 0 && (
+              <div>
+                <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-2">Kết quả ({searchResults.length})</p>
+                <div className="space-y-2">
+                  {loading ? (
+                    <p className="text-sm text-gray-500">Đang tải...</p>
+                  ) : searchResults.length === 0 ? (
+                    <p className="text-sm text-gray-500">Không tìm thấy khách nào</p>
+                  ) : (
+                    searchResults.map((guest) => (
+                      <button
+                        key={guest.id}
+                        onClick={() => setSelectedGuest(guest)}
+                        className={`w-full text-left rounded-2xl px-4 py-3 text-sm transition ${
+                          selectedGuest?.id === guest.id
+                            ? "bg-red-500 text-white"
+                            : "bg-gray-100 text-gray-900 hover:bg-gray-200 border border-gray-300"
+                        }`}
+                      >
+                        <p className="font-medium">{guest.full_name}</p>
+                        <p className="text-xs opacity-70">{guest.relationship ?? "Khách"}</p>
+                      </button>
+                    ))
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Center: SeatMap */}
           <div className="flex-1 flex flex-col">
-            <p className="text-xs uppercase tracking-[0.3em] text-on-surface-muted mb-2">Sơ đồ bàn tiệc</p>
-            <div className="flex-1 rounded-2xl border border-border-subtle flex items-center justify-center bg-white overflow-hidden">
+            <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-2">Sơ đồ bàn tiệc</p>
+            <div className="flex-1 rounded-2xl border border-gray-300 flex items-center justify-center bg-white overflow-hidden">
               {seatMap?.tables ? (
                 <img
                   src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(buildSvgMap())}`}
@@ -150,7 +206,7 @@ export function SeatSearchModal({ isOpen, onClose, seatMap }: SeatSearchModalPro
                   className="max-w-full max-h-full object-contain p-4"
                 />
               ) : (
-                <div className="flex items-center justify-center h-full opacity-60">Không có sơ đồ</div>
+                <div className="flex items-center justify-center h-full text-gray-500">Không có sơ đồ</div>
               )}
             </div>
           </div>
@@ -158,20 +214,20 @@ export function SeatSearchModal({ isOpen, onClose, seatMap }: SeatSearchModalPro
 
         {/* Footer: Guest info + assigned table */}
         {selectedGuest && selectedGuestTableAssignment && (
-          <div className="border-t border-border-subtle bg-surface-muted px-6 py-4">
+          <div className="border-t border-gray-200 bg-gray-50 px-6 py-4">
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-on-surface-muted mb-1">Khách</p>
-                <p className="text-sm font-medium">{selectedGuest.full_name}</p>
-                <p className="text-xs opacity-60">{selectedGuest.relationship ?? "Khách"}</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-1">Khách</p>
+                <p className="text-sm font-medium text-gray-900">{selectedGuest.full_name}</p>
+                <p className="text-xs text-gray-600">{selectedGuest.relationship ?? "Khách"}</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-on-surface-muted mb-1">Ngôn ngữ</p>
-                <p className="text-sm font-medium">{selectedGuest.language === "vi" ? "Tiếng Việt" : "English"}</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-1">Ngôn ngữ</p>
+                <p className="text-sm font-medium text-gray-900">{selectedGuest.language === "vi" ? "Tiếng Việt" : "English"}</p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.3em] text-on-surface-muted mb-1">Vị trí bàn</p>
-                <p className="text-sm font-medium text-accent">{selectedGuestTableAssignment.table?.name || "Chưa xác định"}</p>
+                <p className="text-xs uppercase tracking-[0.3em] text-gray-600 mb-1">Vị trí bàn</p>
+                <p className="text-sm font-medium text-red-500">{selectedGuestTableAssignment.table?.name || "Chưa xác định"}</p>
               </div>
             </div>
           </div>
