@@ -7,6 +7,7 @@ import { GuestsModule } from "./guests";
 import { LeaderboardModule } from "./leaderboard";
 import { LoginForm } from "./login-form";
 import { RsvpModule } from "./rsvp";
+import { SeatingModule } from "./seating";
 import { useAdminSession } from "./use-admin-session";
 import { WishesModule } from "./wishes";
 
@@ -54,6 +55,7 @@ export default function AdminApp() {
         {active === "rsvp" && <RsvpModule />}
         {active === "wishes" && <WishesModule />}
         {active === "leaderboard" && <LeaderboardModule />}
+        {active === "seating" && <SeatingModule />}
       </main>
 
       <Toast />
