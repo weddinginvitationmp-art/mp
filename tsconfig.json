@@ -18,7 +18,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
-    "paths": { "@/*": ["src/*"] }
+    "paths": { "@/*": ["src/*"] },
+      "types": ["vite/client", "@types/node", "node"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
