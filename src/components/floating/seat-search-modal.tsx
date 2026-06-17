@@ -17,13 +17,18 @@ export function SeatSearchModal({ isOpen, onClose, seatMap }: SeatSearchModalPro
   useEffect(() => {
     if (!isOpen) return;
     const fetchGuests = async () => {
+      // Fetch guests with confirmed RSVP status
       const { data, error } = await supabase
         .from("guests")
-        .select("*")
-        .eq("rsvp_status", "confirmed")
+        .select("*, rsvp:rsvp(status)")
         .order("full_name", { ascending: true });
+      
       if (!error && data) {
-        setGuests(data);
+        // Filter for confirmed RSVPs only
+        const confirmedGuests = (data as any[]).filter(
+          (g) => g.rsvp && Array.isArray(g.rsvp) && g.rsvp.some((r: any) => r.status === "attending")
+        );
+        setGuests(confirmedGuests);
       }
       setLoading(false);
     };
@@ -137,12 +142,12 @@ export function SeatSearchModal({ isOpen, onClose, seatMap }: SeatSearchModalPro
           {/* Center: SeatMap */}
           <div className="flex-1 flex flex-col">
             <p className="text-xs uppercase tracking-[0.3em] text-on-surface-muted mb-2">Sơ đồ bàn tiệc</p>
-            <div className="flex-1 overflow-auto rounded-2xl border border-border-subtle">
+            <div className="flex-1 rounded-2xl border border-border-subtle flex items-center justify-center bg-white overflow-hidden">
               {seatMap?.tables ? (
                 <img
                   src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(buildSvgMap())}`}
                   alt="Seat map"
-                  className="w-full h-full object-contain"
+                  className="max-w-full max-h-full object-contain p-4"
                 />
               ) : (
                 <div className="flex items-center justify-center h-full opacity-60">Không có sơ đồ</div>
