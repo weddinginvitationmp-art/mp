@@ -41,6 +41,7 @@ export interface Database {
           id: string;
           guest_id: string;
           message: string;
+          is_pinned: boolean;
           created_at: string;
         };
         Insert: Omit<Database["public"]["Tables"]["wishes"]["Row"], "id" | "created_at">;
