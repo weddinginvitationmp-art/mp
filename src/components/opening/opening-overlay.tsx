@@ -200,7 +200,7 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
                 animate={monogramVisible && !opening ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
                 transition={{ duration: 0.28, ease: "easeOut" }}
               >
-                H &amp; R
+                Hoàng Minh 💕 Hà Phương
               </motion.div>
               <motion.div
                 className="opening-symbol select-none text-[#F6E8C3]"
@@ -215,15 +215,15 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
                 囍
               </motion.div>
 
-              <motion.p
+              {/* <motion.p
                 className="opening-hint mt-24 text-center text-[12px] font-medium tracking-[0.28em] text-[#F6E8C3]/78 sm:text-[13px]"
                 initial={false}
-                animate={opening ? { opacity: 0, y: 8 } : hintVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+                animate={opening || !hintVisible ? { opacity: 0, y: 8 } : { opacity: 1, y: 0 }}
                 transition={{ duration: reducedMotion ? 0.2 : 0.45, ease: "easeOut" }}
               >
                 <span className="block">Vuốt để mở thiệp</span>
                 <span className="mt-1 block text-[11px] tracking-[0.22em] text-[#F6E8C3]/64 sm:text-[12px]">Swipe to open</span>
-              </motion.p>
+              </motion.p> */}
             </div>
           </div>
         </motion.div>
