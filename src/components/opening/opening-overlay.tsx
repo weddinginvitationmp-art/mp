@@ -5,7 +5,7 @@ const EASE_CINEMATIC = [0.22, 1, 0.36, 1] as const;
 
 const SYMBOL_DELAY_MS = 300;
 const HINT_DELAY_MS = 2000;
-const OPENING_EXIT_MS = 760;
+const OPENING_EXIT_MS = 2300;
 
 type PointerState = {
   x: number;
@@ -20,6 +20,7 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
   const [monogramVisible, setMonogramVisible] = useState(true);
   const [hintVisible, setHintVisible] = useState(false);
   const [opening, setOpening] = useState(false);
+  const [seamActive, setSeamActive] = useState(false);
   const [panelsOpen, setPanelsOpen] = useState(false);
   const [pulseActive, setPulseActive] = useState(false);
   const pointerStateRef = useRef<PointerState | null>(null);
@@ -42,12 +43,15 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
     setVisible(false);
   }, []);
 
+  const handleExitComplete = useCallback(() => {
+    onOpen();
+  }, [onOpen]);
+
   const triggerOpen = useCallback(() => {
     if (opening) return;
     setOpening(true);
     setHintVisible(false);
     setMonogramVisible(false);
-    onOpen();
 
     if (reducedMotion) {
       openTimerRef.current = window.setTimeout(finishOpening, 180);
@@ -55,9 +59,10 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
     }
 
     setPulseActive(true);
-    window.setTimeout(() => setPanelsOpen(true), 140);
+    window.setTimeout(() => setSeamActive(true), 860);
+    window.setTimeout(() => setPanelsOpen(true), 1260);
     openTimerRef.current = window.setTimeout(finishOpening, OPENING_EXIT_MS);
-  }, [opening, onOpen, reducedMotion, finishOpening]);
+  }, [opening, reducedMotion, finishOpening]);
 
   const handlePointerDown = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (opening) return;
@@ -115,12 +120,12 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
     }
 
     return opening
-      ? { opacity: 1, scale: 1.08 }
+      ? { opacity: 0, scale: 0.88 }
       : { opacity: 1, scale: 1 };
   }, [opening, symbolVisible]);
 
   return (
-    <AnimatePresence onExitComplete={finishOpening}>
+    <AnimatePresence onExitComplete={handleExitComplete}>
       {visible && (
         <motion.div
           key="opening"
@@ -154,22 +159,36 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
           />
 
           {!reducedMotion && (
-            <>
+            <div aria-hidden="true" className="absolute inset-0 z-20 overflow-hidden">
               <motion.div
-                aria-hidden="true"
-                className="opening-panel absolute inset-y-0 left-0  w-1/2 border-r border-white/10 shadow-[8px_0_40px_rgba(95,13,13,0.22)]"
-                initial={false}
-                animate={panelsOpen ? { x: "-104%" } : { x: 0 }}
-                transition={{ duration: 0.72, ease: EASE_CINEMATIC }}
+                className="opening-panel absolute inset-y-0 left-0 w-1/2 origin-right border-r border-white/12 shadow-[10px_0_48px_rgba(72,12,12,0.28)]"
+                initial={{ x: 0 }}
+                animate={panelsOpen ? { x: "-110%", skewY: -2 } : { x: 0, skewY: 0 }}
+                transition={{ duration: 2, ease: EASE_CINEMATIC }}
+                style={{ transformOrigin: "100% 50%" }}
               />
               <motion.div
-                aria-hidden="true"
-                className="opening-panel absolute inset-y-0 right-0 w-1/2 border-l border-white/10 shadow-[-8px_0_40px_rgba(95,13,13,0.22)]"
-                initial={false}
-                animate={panelsOpen ? { x: "104%" } : { x: 0 }}
-                transition={{ duration: 0.72, ease: EASE_CINEMATIC }}
+                className="opening-panel absolute inset-y-0 right-0 w-1/2 origin-left border-l border-white/12 shadow-[-10px_0_48px_rgba(72,12,12,0.28)]"
+                initial={{ x: 0 }}
+                animate={panelsOpen ? { x: "110%", skewY: 2 } : { x: 0, skewY: 0 }}
+                transition={{ duration: 2, ease: EASE_CINEMATIC }}
+                style={{ transformOrigin: "0% 50%" }}
               />
-            </>
+
+              <motion.div
+                className="absolute left-1/2 top-0 z-30 h-full w-[2px] -translate-x-1/2 bg-[#F6E8C3]/80 shadow-[0_0_24px_rgba(246,232,195,0.65)]"
+                initial={{ opacity: 0, scaleY: 1, filter: "drop-shadow(0 0 0 rgba(0,0,0,0))" }}
+                animate={seamActive && !panelsOpen ? { opacity: 1, scaleY: 1, filter: ["drop-shadow(0 0 0 rgba(0,0,0,0))", "drop-shadow(0 0 18px rgba(246,232,195,0.5))", "drop-shadow(0 0 12px rgba(246,232,195,0.4))"] } : panelsOpen ? { opacity: 0, scaleY: 0 } : { opacity: 0, scaleY: 1, filter: "drop-shadow(0 0 0 rgba(0,0,0,0))" }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                style={{ transformOrigin: "50% 50%" }}
+              />
+              <motion.div
+                className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,rgba(246,232,195,0.15)_0%,rgba(246,232,195,0.06)_18%,rgba(0,0,0,0)_58%)]"
+                initial={false}
+                animate={panelsOpen ? { opacity: 0 } : { opacity: 1 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+              />
+            </div>
           )}
 
           <div className="relative z-10 flex h-full w-full items-center justify-center px-6 text-center">
@@ -181,7 +200,7 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
                 animate={monogramVisible && !opening ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
                 transition={{ duration: 0.28, ease: "easeOut" }}
               >
-                Hoàng Minh &amp; Hà Phương
+                H &amp; R
               </motion.div>
               <motion.div
                 className="opening-symbol select-none text-[#F6E8C3]"
@@ -199,8 +218,8 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
               <motion.p
                 className="opening-hint mt-24 text-center text-[12px] font-medium tracking-[0.28em] text-[#F6E8C3]/78 sm:text-[13px]"
                 initial={false}
-                animate={hintVisible && !opening ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
+                animate={opening ? { opacity: 0, y: 8 } : hintVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+                transition={{ duration: reducedMotion ? 0.2 : 0.45, ease: "easeOut" }}
               >
                 <span className="block">Vuốt để mở thiệp</span>
                 <span className="mt-1 block text-[11px] tracking-[0.22em] text-[#F6E8C3]/64 sm:text-[12px]">Swipe to open</span>

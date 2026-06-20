@@ -167,9 +167,20 @@ body {
 }
 
 .opening-panel {
+  position: relative;
   background:
-    linear-gradient(90deg, rgba(143, 29, 29, 0.96), rgba(177, 59, 59, 0.98) 55%, rgba(111, 17, 17, 0.96)),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.12));
+    linear-gradient(90deg, rgba(192, 33, 33, 0.98), rgba(222, 79, 79, 0.96) 50%, rgba(121, 11, 11, 0.98)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.16));
+  will-change: transform;
+  box-shadow: inset -1px 0 0 rgba(255, 255, 255, 0.08), inset 1px 0 0 rgba(0, 0, 0, 0.14);
+}
+
+.opening-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), transparent 16%, transparent 84%, rgba(0, 0, 0, 0.1));
+  pointer-events: none;
 }
 
 .opening-symbol {

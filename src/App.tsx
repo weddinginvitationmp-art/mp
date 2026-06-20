@@ -45,11 +45,7 @@ export function App() {
 
   return (
     <GuestProvider>
-      {!opened && (
-        <OpeningOverlay
-          onOpen={() => setOpened(true)}
-        />
-      )}
+      <OpeningOverlay onOpen={() => setOpened(true)} />
       <GoldenDustParticles />
       <motion.div
         initial={false}

@@ -280,7 +280,7 @@ export const wedding = {
 ] satisfies ReadonlyArray<AlbumPhoto>,
 
   weddingVideo: {
-    youtubeId: "dQw4w9WgXcQ",
+    youtubeId: "6QI3zVwLCWw",
     posterImage: "/media/story-4.jpg",
   } satisfies WeddingVideo,
   
