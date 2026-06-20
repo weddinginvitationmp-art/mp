@@ -1,4 +1,5 @@
 import { lazy, Suspense, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { SiteLayout } from "@/components/layout/site-layout";
 import { OpeningOverlay } from "@/components/opening/opening-overlay";
 import { GuestProvider } from "@/contexts/guest-context";
@@ -32,6 +33,7 @@ const SectionSkeleton = () => <div className="min-h-[60dvh]" aria-hidden="true" 
 
 export function App() {
   const [opened, setOpened] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   if (typeof window !== "undefined" && window.location.pathname.startsWith("/admin")) {
     return (
@@ -45,11 +47,18 @@ export function App() {
     <GuestProvider>
       {!opened && (
         <OpeningOverlay
-          onComplete={() => setOpened(true)}
+          onOpen={() => setOpened(true)}
         />
       )}
       <GoldenDustParticles />
-      <AppShell />
+      <motion.div
+        initial={false}
+        animate={opened ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+        transition={reducedMotion ? { duration: 0.2, ease: "easeOut" } : { duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        style={{ pointerEvents: opened ? "auto" : "none" }}
+      >
+        <AppShell />
+      </motion.div>
     </GuestProvider>
   );
 }

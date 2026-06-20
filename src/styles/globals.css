@@ -145,6 +145,56 @@ body {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
+.opening-screen-vignette {
+  background:
+    radial-gradient(circle at center, rgba(182, 63, 63, 0.08) 0%, rgba(142, 32, 32, 0.28) 45%, rgba(92, 13, 13, 0.72) 100%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.12));
+}
+
+.opening-screen-grain {
+  position: relative;
+  isolation: isolate;
+}
+
+.opening-screen-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' seed='11'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.045;
+  mix-blend-mode: soft-light;
+}
+
+.opening-panel {
+  background:
+    linear-gradient(90deg, rgba(143, 29, 29, 0.96), rgba(177, 59, 59, 0.98) 55%, rgba(111, 17, 17, 0.96)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.12));
+}
+
+.opening-symbol {
+  text-shadow:
+    0 0 1px rgba(255, 242, 213, 0.92),
+    0 0 18px rgba(246, 232, 195, 0.16),
+    0 6px 18px rgba(35, 4, 4, 0.35);
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.22)) drop-shadow(0 12px 24px rgba(0, 0, 0, 0.16));
+}
+
+@keyframes hint-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes hint-shimmer {
+  0%, 72%, 100% { opacity: 0.72; }
+  78% { opacity: 1; }
+  84% { opacity: 0.82; }
+  90% { opacity: 1; }
+}
+
+.opening-hint {
+  animation: hint-float 2s ease-in-out infinite, hint-shimmer 6s ease-in-out infinite;
+}
 .opening-shimmer {
   background: linear-gradient(90deg, #C9A876 0%, #F7E7CE 40%, #D4AF37 60%, #C9A876 100%);
   background-size: 200% auto;
@@ -187,6 +237,12 @@ body {
   }
   .opening-shimmer::after {
     animation: none !important;
+  }
+  .opening-hint {
+    animation: none !important;
+  }
+  .opening-screen-grain::after {
+    opacity: 0.02;
   }
 }
 
