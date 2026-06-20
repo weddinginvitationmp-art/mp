@@ -86,6 +86,7 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
     seatMap.tables[0]?.id ? { kind: "table", id: seatMap.tables[0].id } : null,
   );
   const [canvasScale, setCanvasScale] = useState(1);
+  const [zoomLevel, setZoomLevel] = useState(1);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [dragging, setDragging] = useState<{ kind: "table" | "zone" | "stage"; id?: string; startX: number; startY: number; startObjX: number; startObjY: number } | null>(null);
   const [resizing, setResizing] = useState<{ kind: "table" | "zone" | "stage"; id?: string; startX: number; startY: number; startWidth: number; startHeight: number } | null>(null);
@@ -135,10 +136,19 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
   const getCanvasPoint = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!canvasRef.current) return null;
     const rect = canvasRef.current.getBoundingClientRect();
+    const effectiveScale = canvasScale * zoomLevel;
     return {
-      x: (event.clientX - rect.left) / canvasScale,
-      y: (event.clientY - rect.top) / canvasScale,
+      x: (event.clientX - rect.left) / effectiveScale,
+      y: (event.clientY - rect.top) / effectiveScale,
     };
+  };
+
+  const zoomOut = () => {
+    setZoomLevel((value) => Math.max(0.5, Number((value - 0.2).toFixed(2))));
+  };
+
+  const zoomIn = () => {
+    setZoomLevel((value) => Math.min(2, Number((value + 0.2).toFixed(2))));
   };
 
   const moveTable = (x: number, y: number) => {
@@ -659,8 +669,31 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
                 <h3 className="font-display text-lg">Xem trước sơ đồ</h3>
                 <p className="text-sm opacity-70">Chọn bàn rồi kéo để di chuyển trên sơ đồ.</p>
               </div>
-              <div className="rounded-2xl bg-surface px-3 py-1 text-xs uppercase tracking-[0.3em] text-on-surface-muted">
-                Kéo để di chuyển
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 rounded-2xl bg-surface px-2 py-1">
+                  <button
+                    type="button"
+                    onClick={zoomOut}
+                    className="rounded-lg px-2 py-1 text-xs hover:bg-surface-muted"
+                    aria-label="Zoom out"
+                  >
+                    −
+                  </button>
+                  <span className="min-w-12 text-center text-xs uppercase tracking-[0.2em] text-on-surface-muted">
+                    {Math.round(zoomLevel * 100)}%
+                  </span>
+                  <button
+                    type="button"
+                    onClick={zoomIn}
+                    className="rounded-lg px-2 py-1 text-xs hover:bg-surface-muted"
+                    aria-label="Zoom in"
+                  >
+                    +
+                  </button>
+                </div>
+                <div className="rounded-2xl bg-surface px-3 py-1 text-xs uppercase tracking-[0.3em] text-on-surface-muted">
+                  Kéo để di chuyển
+                </div>
               </div>
             </div>
             <div
@@ -675,7 +708,7 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
                 onMouseMove={handleCanvasMouseMove}
                 onMouseUp={handleCanvasMouseUp}
                 onMouseLeave={handleCanvasMouseUp}
-                style={{ width: CANVAS_WIDTH, height: CANVAS_HEIGHT, transform: `scale(${canvasScale})`, cursor: resizing ? "nwse-resize" : dragging ? "grabbing" : "grab" }}
+                style={{ width: CANVAS_WIDTH, height: CANVAS_HEIGHT, transform: `scale(${canvasScale * zoomLevel})`, cursor: resizing ? "nwse-resize" : dragging ? "grabbing" : "grab" }}
               >
                 <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.04)_1px,transparent_1px),linear-gradient(180deg,rgba(15,23,42,0.04)_1px,transparent_1px)] bg-[length:20px_20px]" />
                 {seatMap.stage ? (

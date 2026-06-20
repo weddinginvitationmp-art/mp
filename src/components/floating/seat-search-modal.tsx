@@ -19,6 +19,10 @@ export function SeatSearchModal({ isOpen, onClose, seatMap, allMaps, selectedMap
   const [selectedGuest, setSelectedGuest] = useState<(typeof guests)[0] | null>(null);
   const [loading, setLoading] = useState(true);
   const [mobileTab, setMobileTab] = useState("search");
+  const [mapZoom, setMapZoom] = useState(1);
+
+  const zoomOut = () => setMapZoom((value) => Math.max(0.5, Number((value - 0.2).toFixed(2))));
+  const zoomIn = () => setMapZoom((value) => Math.min(2, Number((value + 0.2).toFixed(2))));
 
   useEffect(() => {
     if (!isOpen) return;
@@ -212,14 +216,48 @@ export function SeatSearchModal({ isOpen, onClose, seatMap, allMaps, selectedMap
 
               <TabPanel value="map">
                 <div className="space-y-2">
-                  <p className="text-xs uppercase tracking-[0.3em] text-gray-600">Sơ đồ bàn tiệc</p>
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-xs uppercase tracking-[0.3em] text-gray-600">Sơ đồ bàn tiệc</p>
+                    <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-2 py-1 shadow-sm">
+                      <button
+                        type="button"
+                        onClick={zoomOut}
+                        className="rounded-full px-2 py-1 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                        aria-label="Zoom out"
+                      >
+                        −
+                      </button>
+                      <span className="min-w-12 text-center text-xs font-medium text-gray-600">{Math.round(mapZoom * 100)}%</span>
+                      <button
+                        type="button"
+                        onClick={zoomIn}
+                        className="rounded-full px-2 py-1 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                        aria-label="Zoom in"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
                   <div className="flex min-h-[48vh] items-center justify-center overflow-hidden rounded-2xl border border-gray-300 bg-white">
                     {seatMap?.tables ? (
-                      <img
-                        src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(buildSvgMap())}`}
-                        alt="Seat map"
-                        className="h-full max-h-[48vh] w-full max-w-full object-contain p-2 sm:p-4"
-                      />
+                      <div className="flex h-full w-full items-center justify-center overflow-hidden p-2 sm:p-4">
+                        <img
+                          src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(buildSvgMap())}`}
+                          alt="Seat map"
+                          className="max-h-[48vh] max-w-full object-contain transition-transform duration-150"
+                          style={{ transform: `scale(${mapZoom})`, transformOrigin: "center" }}
+                          onWheel={(event) => {
+                            if (event.ctrlKey || event.metaKey) {
+                              event.preventDefault();
+                              if (event.deltaY > 0) {
+                                zoomOut();
+                              } else {
+                                zoomIn();
+                              }
+                            }
+                          }}
+                        />
+                      </div>
                     ) : (
                       <div className="flex h-full items-center justify-center text-gray-500">Không có sơ đồ</div>
                     )}
@@ -274,14 +312,48 @@ export function SeatSearchModal({ isOpen, onClose, seatMap, allMaps, selectedMap
             </div>
 
             <div className="flex min-h-0 flex-1 flex-col">
-              <p className="mb-2 text-xs uppercase tracking-[0.3em] text-gray-600">Sơ đồ bàn tiệc</p>
+              <div className="mb-2 flex items-center justify-between gap-3">
+                <p className="text-xs uppercase tracking-[0.3em] text-gray-600">Sơ đồ bàn tiệc</p>
+                <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-2 py-1 shadow-sm">
+                  <button
+                    type="button"
+                    onClick={zoomOut}
+                    className="rounded-full px-2 py-1 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                    aria-label="Zoom out"
+                  >
+                    −
+                  </button>
+                  <span className="min-w-12 text-center text-xs font-medium text-gray-600">{Math.round(mapZoom * 100)}%</span>
+                  <button
+                    type="button"
+                    onClick={zoomIn}
+                    className="rounded-full px-2 py-1 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                    aria-label="Zoom in"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
               <div className="flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-2xl border border-gray-300 bg-white">
                 {seatMap?.tables ? (
-                  <img
-                    src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(buildSvgMap())}`}
-                    alt="Seat map"
-                    className="h-full max-h-full w-full max-w-full object-contain p-4"
-                  />
+                  <div className="flex h-full w-full items-center justify-center overflow-hidden p-4">
+                    <img
+                      src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(buildSvgMap())}`}
+                      alt="Seat map"
+                      className="max-h-full max-w-full object-contain transition-transform duration-150"
+                      style={{ transform: `scale(${mapZoom})`, transformOrigin: "center" }}
+                      onWheel={(event) => {
+                        if (event.ctrlKey || event.metaKey) {
+                          event.preventDefault();
+                          if (event.deltaY > 0) {
+                            zoomOut();
+                          } else {
+                            zoomIn();
+                          }
+                        }
+                      }}
+                    />
+                  </div>
                 ) : (
                   <div className="flex h-full items-center justify-center text-gray-500">Không có sơ đồ</div>
                 )}
