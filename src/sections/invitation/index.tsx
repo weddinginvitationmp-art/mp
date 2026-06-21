@@ -81,9 +81,9 @@ export function Invitation({ index }: { index?: number }) {
 
             {/* Couple names */}
             <h2 className="mt-4 font-script text-3xl leading-tight sm:text-4xl">
-              <span className="text-[#D4AF37]/70">{wedding.groom.name}</span>
-              <span className="mx-2 text-lg text-[#D4AF37]/60">&amp;</span>
-              <span className="text-[#D4AF37]/70">{wedding.bride.name}</span>
+              <span className="block sm:inline text-[#D4AF37]/70 whitespace-nowrap">{wedding.groom.name}</span>
+              <span className="mx-2 block sm:inline text-lg text-[#D4AF37]/60 whitespace-nowrap">&amp;</span>
+              <span className="block sm:inline text-[#D4AF37]/70 whitespace-nowrap">{wedding.bride.name}</span>
             </h2>
 
             {/* Gold divider */}

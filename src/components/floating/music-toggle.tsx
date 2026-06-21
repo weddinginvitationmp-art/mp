@@ -19,7 +19,7 @@ export function MusicToggle() {
 
   return (
     <>
-      <SoundWaveVisualizer audioEl={audioEl} enabled={playing} />
+      {/* <SoundWaveVisualizer audioEl={audioEl} enabled={playing} /> */}
       <FabButton
         aria-label={t(playing ? "floating.musicPause" : "floating.musicPlay")}
         aria-pressed={playing}
