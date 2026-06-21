@@ -1,0 +1,144 @@
+.opening-background {
+  background:
+    linear-gradient(
+      90deg,
+      #b63a3a 0%,
+      #a92626 25%,
+      #921717 50%,
+      #a92626 75%,
+      #b63a3a 100%
+    );
+}
+
+.opening-screen-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at center,
+      transparent 20%,
+      rgba(0, 0, 0, 0.18) 100%
+    );
+}
+
+.opening-screen-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image:
+    radial-gradient(#ffffff 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+.gold-particle {
+  position: absolute;
+  border-radius: 999px;
+  background: #d7a14f;
+  box-shadow:
+    0 0 8px rgba(215, 161, 79, 0.8),
+    0 0 16px rgba(215, 161, 79, 0.4);
+}
+
+.opening-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  z-index: 10;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04),
+      rgba(0, 0, 0, 0.08)
+    );
+}
+
+.left-panel {
+  left: 0;
+
+  border-right: 1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    10px 0 40px rgba(60,0,0,.22);
+}
+
+.right-panel {
+  right: 0;
+
+  border-left: 1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    -10px 0 40px rgba(60,0,0,.22);
+}
+
+.opening-seam {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  transform: translateX(-50%);
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      rgba(246,232,195,.8),
+      transparent
+    );
+
+  box-shadow:
+    0 0 10px rgba(246,232,195,.4);
+}
+
+.opening-couple {
+  font-size: 11px;
+  letter-spacing: 0.7em;
+  color: rgba(246,232,195,.78);
+  font-weight: 300;
+}
+
+.opening-symbol {
+  font-size: clamp(8rem, 18vw, 12rem);
+  color: #f6e8c3;
+  line-height: 1;
+
+  text-shadow:
+    0 0 10px rgba(246,232,195,.25),
+    0 0 25px rgba(246,232,195,.2),
+    0 0 45px rgba(246,232,195,.1);
+
+  animation: symbolGlow 4s ease-in-out infinite;
+}
+
+.opening-hint {
+  color: rgba(246,232,195,.78);
+  letter-spacing: 0.25em;
+
+  animation: hintFloat 2.5s ease-in-out infinite;
+}
+
+@keyframes hintFloat {
+  0% { transform: translateY(0px);}
+  50% { transform: translateY(-4px);}
+  100% { transform: translateY(0px);}
+}
+
+@keyframes symbolGlow {
+  0% {
+    text-shadow:
+      0 0 10px rgba(246,232,195,.25);
+  }
+
+  50% {
+    text-shadow:
+      0 0 20px rgba(246,232,195,.45),
+      0 0 50px rgba(246,232,195,.2);
+  }
+
+  100% {
+    text-shadow:
+      0 0 10px rgba(246,232,195,.25);
+  }
+}

@@ -1,12 +1,12 @@
-
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import "../styles/opening-overlay.css";
 
 const EASE_CINEMATIC = [0.22, 1, 0.36, 1] as const;
 
 const SYMBOL_DELAY_MS = 300;
 const HINT_DELAY_MS = 2000;
-const OPENING_EXIT_MS = 760;
+const OPENING_EXIT_MS = 900;
 
 type PointerState = {
   x: number;
@@ -34,6 +34,19 @@ export function OpeningOverlay({
   const pointerStateRef = useRef<PointerState | null>(null);
   const openTimerRef = useRef<number | null>(null);
 
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 24 }).map((_, index) => ({
+        id: index,
+        size: 2 + Math.random() * 5,
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        duration: 4 + Math.random() * 6,
+        delay: Math.random() * 4,
+      })),
+    []
+  );
+
   useEffect(() => {
     const symbolTimer = window.setTimeout(
       () => setSymbolVisible(true),
@@ -46,11 +59,11 @@ export function OpeningOverlay({
     );
 
     return () => {
-      window.clearTimeout(symbolTimer);
-      window.clearTimeout(hintTimer);
+      clearTimeout(symbolTimer);
+      clearTimeout(hintTimer);
 
       if (openTimerRef.current) {
-        window.clearTimeout(openTimerRef.current);
+        clearTimeout(openTimerRef.current);
       }
     };
   }, []);
@@ -58,10 +71,6 @@ export function OpeningOverlay({
   const finishOpening = useCallback(() => {
     setVisible(false);
   }, []);
-
-  const handleExitComplete = useCallback(() => {
-    onOpen();
-  }, [onOpen]);
 
   const triggerOpen = useCallback(() => {
     if (opening) return;
@@ -73,292 +82,208 @@ export function OpeningOverlay({
     setMonogramVisible(false);
 
     if (reducedMotion) {
-      openTimerRef.current = window.setTimeout(finishOpening, 180);
+      finishOpening();
+      onOpen();
       return;
     }
 
     setPulseActive(true);
 
-    window.setTimeout(() => {
+    setTimeout(() => {
       setPanelsOpen(true);
-    }, 140);
+    }, 120);
 
-    openTimerRef.current = window.setTimeout(
-      finishOpening,
-      OPENING_EXIT_MS
-    );
-  }, [opening, onOpenMusic, reducedMotion, finishOpening]);
+    openTimerRef.current = window.setTimeout(() => {
+      finishOpening();
+      onOpen();
+    }, OPENING_EXIT_MS);
+  }, [opening, reducedMotion, finishOpening, onOpen, onOpenMusic]);
 
-  const handlePointerDown = useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (opening) return;
+  const handlePointerDown = (
+    event: React.PointerEvent<HTMLDivElement>
+  ) => {
+    if (opening) return;
 
-      pointerStateRef.current = {
-        x: event.clientX,
-        y: event.clientY,
-        time: performance.now(),
-      };
-    },
-    [opening]
-  );
+    pointerStateRef.current = {
+      x: event.clientX,
+      y: event.clientY,
+      time: performance.now(),
+    };
+  };
 
-  const handlePointerMove = useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (opening) return;
+  const handlePointerMove = (
+    event: React.PointerEvent<HTMLDivElement>
+  ) => {
+    if (opening) return;
 
-      const start = pointerStateRef.current;
-      if (!start) return;
+    const start = pointerStateRef.current;
+    if (!start) return;
 
-      const deltaX = event.clientX - start.x;
-      const deltaY = event.clientY - start.y;
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
 
-      const distance = Math.hypot(deltaX, deltaY);
+    if (Math.hypot(dx, dy) > 14) {
+      triggerOpen();
+    }
+  };
 
-      if (distance > 14) {
-        triggerOpen();
-      }
-    },
-    [opening, triggerOpen]
-  );
+  const handlePointerUp = (
+    event: React.PointerEvent<HTMLDivElement>
+  ) => {
+    if (opening) return;
 
-  const handlePointerUp = useCallback(
-    (event: React.PointerEvent<HTMLDivElement>) => {
-      if (opening) return;
+    const start = pointerStateRef.current;
+    pointerStateRef.current = null;
 
-      const start = pointerStateRef.current;
-      pointerStateRef.current = null;
-
-      if (!start) {
-        triggerOpen();
-        return;
-      }
-
-      const deltaX = event.clientX - start.x;
-      const deltaY = event.clientY - start.y;
-
-      const distance = Math.hypot(deltaX, deltaY);
-      const elapsed = performance.now() - start.time;
-
-      if (distance <= 14 && elapsed < 500) {
-        triggerOpen();
-        return;
-      }
-
-      if (deltaY < -24 || Math.abs(deltaX) > 24) {
-        triggerOpen();
-      }
-    },
-    [opening, triggerOpen]
-  );
-
-  const handleWheel = useCallback(
-    (event: React.WheelEvent<HTMLDivElement>) => {
-      if (opening) return;
-
-      if (event.deltaY > 0) {
-        event.preventDefault();
-        triggerOpen();
-      }
-    },
-    [opening, triggerOpen]
-  );
-
-  const symbolStyle = useMemo(() => {
-    if (!symbolVisible) {
-      return {
-        opacity: 0,
-        scale: 0.95,
-      };
+    if (!start) {
+      triggerOpen();
+      return;
     }
 
-    return opening
-      ? {
-          opacity: 1,
-          scale: 1.06,
-        }
-      : {
-          opacity: 1,
-          scale: 1,
-        };
-  }, [opening, symbolVisible]);
+    const dx = event.clientX - start.x;
+    const dy = event.clientY - start.y;
+
+    if (
+      Math.hypot(dx, dy) < 14 ||
+      dy < -24 ||
+      Math.abs(dx) > 24
+    ) {
+      triggerOpen();
+    }
+  };
 
   return (
-    <AnimatePresence onExitComplete={handleExitComplete}>
+    <AnimatePresence>
       {visible && (
         <motion.div
-          key="opening"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Wedding invitation opening screen"
-          className="fixed inset-0 overflow-hidden"
+          className="fixed inset-0 overflow-hidden opening-background"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{
-            duration: reducedMotion ? 0.2 : 0.55,
+            duration: 0.5,
             ease: EASE_CINEMATIC,
           }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
-          onPointerCancel={() => (pointerStateRef.current = null)}
-          onWheel={handleWheel}
           style={{
             touchAction: "none",
-            background:
-              "linear-gradient(90deg,#b42f2f 0%,#aa2323 35%,#981818 50%,#aa2323 65%,#b42f2f 100%)",
           }}
         >
-          {/* Gold particles */}
-          {[...Array(18)].map((_, i) => (
+          <div className="opening-screen-vignette" />
+          <div className="opening-screen-grain" />
+
+          {particles.map((p) => (
             <motion.div
-              key={i}
-              className="absolute rounded-full bg-[#D79A4A]"
+              key={p.id}
+              className="gold-particle"
               style={{
-                width: Math.random() * 5 + 2,
-                height: Math.random() * 5 + 2,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                width: p.size,
+                height: p.size,
+                left: `${p.left}%`,
+                top: `${p.top}%`,
               }}
               animate={{
+                y: [0, -10, 0],
                 opacity: [0.2, 0.8, 0.2],
-                y: [-8, 8, -8],
+                scale: [1, 1.2, 1],
               }}
               transition={{
-                duration: 4 + Math.random() * 4,
+                duration: p.duration,
+                delay: p.delay,
                 repeat: Infinity,
               }}
             />
           ))}
 
           <motion.div
-            aria-hidden="true"
             className="absolute inset-0"
-            initial={false}
             animate={
-              pulseActive && !reducedMotion
+              pulseActive
                 ? {
-                    opacity: [0, 0.95, 0],
-                    scale: [0.94, 1, 1.28],
+                    opacity: [0, 1, 0],
+                    scale: [0.9, 1, 1.3],
                   }
-                : {
-                    opacity: 0,
-                  }
+                : {}
             }
-            transition={{
-              duration: 0.6,
-              ease: "easeOut",
-            }}
+            transition={{ duration: 0.6 }}
             style={{
               background:
-                "radial-gradient(circle at center, rgba(246,232,195,0.25) 0%, rgba(246,232,195,0.08) 24%, rgba(246,232,195,0) 70%)",
+                "radial-gradient(circle,rgba(246,232,195,.35),transparent 70%)",
             }}
           />
+
+          <div className="opening-seam" />
 
           {!reducedMotion && (
             <>
               <motion.div
-                aria-hidden="true"
-                className="absolute inset-y-0 left-0 w-1/2 border-r border-white/10 shadow-[8px_0_40px_rgba(95,13,13,0.22)]"
-                initial={false}
-                animate={
-                  panelsOpen
-                    ? {
-                        x: "-104%",
-                      }
-                    : {
-                        x: 0,
-                      }
-                }
+                className="opening-panel left-panel"
+                animate={panelsOpen ? { x: "-104%" } : { x: 0 }}
                 transition={{
-                  duration: 0.72,
+                  duration: 0.75,
                   ease: EASE_CINEMATIC,
                 }}
               />
 
               <motion.div
-                aria-hidden="true"
-                className="absolute inset-y-0 right-0 w-1/2 border-l border-white/10 shadow-[-8px_0_40px_rgba(95,13,13,0.22)]"
-                initial={false}
-                animate={
-                  panelsOpen
-                    ? {
-                        x: "104%",
-                      }
-                    : {
-                        x: 0,
-                      }
-                }
+                className="opening-panel right-panel"
+                animate={panelsOpen ? { x: "104%" } : { x: 0 }}
                 transition={{
-                  duration: 0.72,
+                  duration: 0.75,
                   ease: EASE_CINEMATIC,
                 }}
               />
             </>
           )}
 
-          <div className="relative z-10 flex h-full w-full items-center justify-center px-6 text-center">
-            <div className="flex flex-col items-center">
+          <div className="relative z-20 flex h-full items-center justify-center">
+            <div className="text-center">
               <motion.div
-                aria-hidden="true"
-                className="mb-6 text-[11px] font-semibold tracking-[0.55em] text-[#F6E8C3]/72 sm:text-xs"
-                initial={false}
+                className="mb-6 opening-couple"
                 animate={
-                  monogramVisible && !opening
+                  monogramVisible
                     ? { opacity: 1, y: 0 }
                     : { opacity: 0, y: -8 }
                 }
-                transition={{
-                  duration: 0.28,
-                  ease: "easeOut",
-                }}
               >
-                Hoàng Minh &amp; Hà Phương
+                HOÀNG MINH & HÀ PHƯƠNG
               </motion.div>
 
               <motion.div
-                className="select-none text-[#F6E8C3]"
-                initial={false}
-                animate={symbolStyle}
+                className="opening-symbol"
+                animate={
+                  symbolVisible
+                    ? {
+                        opacity: 1,
+                        scale: opening ? 1.05 : 1,
+                      }
+                    : {
+                        opacity: 0,
+                        scale: 0.9,
+                      }
+                }
                 transition={{
-                  duration: reducedMotion
-                    ? 0.2
-                    : opening
-                    ? 0.2
-                    : 0.8,
-                  ease: "easeOut",
-                }}
-                style={{
-                  fontSize: "clamp(7.5rem,18vw,12rem)",
-                  lineHeight: 1,
-                  textShadow:
-                    "0 0 12px rgba(246,232,195,0.25),0 0 28px rgba(246,232,195,0.15)",
+                  duration: 0.8,
                 }}
               >
                 囍
               </motion.div>
 
-              <motion.p
-                className="mt-24 text-center text-[12px] font-medium tracking-[0.28em] text-[#F6E8C3]/78 sm:text-[13px]"
-                initial={false}
+              <motion.div
+                className="opening-hint mt-20"
                 animate={
                   hintVisible && !opening
                     ? { opacity: 1, y: 0 }
                     : { opacity: 0, y: 8 }
                 }
-                transition={{
-                  duration: 0.45,
-                  ease: "easeOut",
-                }}
               >
-                <span className="block">
-                  Vuốt để mở thiệp
-                </span>
-
-                <span className="mt-1 block text-[11px] tracking-[0.22em] text-[#F6E8C3]/64 sm:text-[12px]">
+                <div>Vuốt để mở thiệp</div>
+                <div className="text-xs mt-2">
                   Swipe to open
-                </span>
-              </motion.p>
+                </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>
@@ -366,4 +291,3 @@ export function OpeningOverlay({
     </AnimatePresence>
   );
 }
-
