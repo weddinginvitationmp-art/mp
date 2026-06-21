@@ -2,13 +2,13 @@ import { useTranslation } from "react-i18next";
 import { useBackgroundMusic } from "@/hooks/use-background-music";
 // import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { FabButton } from "./fab-button";
-import { SoundWaveVisualizer } from "./sound-wave-visualizer";
+// import { SoundWaveVisualizer } from "./sound-wave-visualizer";
 
 
 export function MusicToggle() {
   const { t } = useTranslation();
   // const reduced = useReducedMotion();
-  const { playing, toggle, audioEl } = useBackgroundMusic();
+  const { playing, toggle } = useBackgroundMusic();
 
 
 
