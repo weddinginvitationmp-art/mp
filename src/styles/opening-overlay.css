@@ -52,6 +52,19 @@
       rgba(255, 255, 255, 0.04),
       rgba(0, 0, 0, 0.08)
     );
+
+    background:
+radial-gradient(
+ circle at center,
+ rgba(255,255,255,.08),
+ transparent 50%
+),
+linear-gradient(
+ 90deg,
+ #cf5050,
+ #ba2f2f,
+ #cf5050
+);
 }
 
 .left-panel {
@@ -142,3 +155,64 @@
       0 0 10px rgba(246,232,195,.25);
   }
 }
+
+.opening-screen-grain::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    radial-gradient(
+      rgba(255,255,255,.08) 0.7px,
+      transparent 0.7px
+    );
+
+  background-size: 4px 4px;
+
+  opacity: .25;
+}
+.opening-screen-grain::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.03),
+      transparent
+    );
+
+  mix-blend-mode: soft-light;
+}
+.opening-screen-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(
+      rgba(255,255,255,0.06) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      rgba(255,255,255,0.03) 0.5px,
+      transparent 0.5px
+    );
+
+  background-size:
+    5px 5px,
+    9px 9px;
+
+  background-position:
+    0 0,
+    2px 2px;
+
+  opacity: 0.3;
+
+  mix-blend-mode: soft-light;
+}
+

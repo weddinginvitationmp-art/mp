@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import "../styles/opening-overlay.css";
-
+import "../../.../../styles/opening-overlay.css";
 const EASE_CINEMATIC = [0.22, 1, 0.36, 1] as const;
 
 const SYMBOL_DELAY_MS = 300;
@@ -214,7 +213,39 @@ export function OpeningOverlay({
             }}
           />
 
-          <div className="opening-seam" />
+          <motion.div
+  className="
+    absolute
+    left-1/2
+    top-0
+    h-full
+    w-[3px]
+    -translate-x-1/2
+    rounded-full
+  "
+  initial={false}
+  animate={
+    opening
+      ? {
+          opacity: [0.8, 1, 0],
+          scaleX: [1, 2.5, 6],
+        }
+      : {
+          opacity: 0.7,
+          scaleX: 1,
+        }
+  }
+  transition={{
+    duration: 0.55,
+    ease: EASE_CINEMATIC,
+  }}
+  style={{
+    background:
+      "linear-gradient(to bottom, transparent, #F6E8C3, transparent)",
+    boxShadow:
+      "0 0 12px rgba(246,232,195,.8),0 0 24px rgba(246,232,195,.4)"
+  }}
+/>
 
           {!reducedMotion && (
             <>
