@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { MusicToggle } from "./music-toggle";
 import { QuickNavToggle } from "./quick-nav-toggle";
 import { RsvpCtaPill } from "./rsvp-cta-pill";
-import { ShareFab } from "./share-fab";
 
 /**
  * Bottom-right FAB cluster:
@@ -45,9 +44,9 @@ export function FloatingDock() {
       <div className="pointer-events-auto">
         <RsvpCtaPill />
       </div>
-      <div className="pointer-events-auto">
+      {/* <div className="pointer-events-auto">
         <ShareFab />
-      </div>
+      </div> */}
       <div className="pointer-events-auto">
         <MusicToggle />
       </div>

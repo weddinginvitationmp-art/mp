@@ -10,6 +10,57 @@ function clamp(n: number, a: number, b: number) {
   return Math.max(a, Math.min(b, n));
 }
 
+type AudioGraph = {
+  audioCtx: AudioContext;
+  source: MediaElementAudioSourceNode;
+  analyser: AnalyserNode;
+  refCount: number;
+};
+
+const audioGraphs = new WeakMap<HTMLAudioElement, AudioGraph>();
+
+const getAudioGraph = (audioEl: HTMLAudioElement): AudioGraph | null => {
+  const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+  if (!AudioCtx) return null;
+
+  const existing = audioGraphs.get(audioEl);
+  if (existing) {
+    existing.refCount += 1;
+    return existing;
+  }
+
+  const audioCtx = new AudioCtx();
+  const source = audioCtx.createMediaElementSource(audioEl);
+  const analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 1024;
+  analyser.smoothingTimeConstant = 0.8;
+  source.connect(analyser);
+  analyser.connect(audioCtx.destination);
+  audioCtx.resume().catch(() => {
+    // AudioContext may be suspended until a user gesture occurs.
+  });
+
+  const graph: AudioGraph = {
+    audioCtx,
+    source,
+    analyser,
+    refCount: 1,
+  };
+
+  audioGraphs.set(audioEl, graph);
+  return graph;
+};
+
+const releaseAudioGraph = (audioEl: HTMLAudioElement) => {
+  const graph = audioGraphs.get(audioEl);
+  if (!graph) return;
+  graph.refCount -= 1;
+  if (graph.refCount > 0) return;
+  // Keep the audio graph alive for the lifetime of the document.
+  // createMediaElementSource() can only be called once per element,
+  // so do not close and recreate the graph after toggle cycles.
+};
+
 /**
  * Sound Wave Visualizer (bouncing bars)
  * Uses WebAudio analyser from the provided HTMLAudioElement.
@@ -26,27 +77,17 @@ export function SoundWaveVisualizer({ audioEl, enabled }: Props) {
     if (!ctx) return;
 
     if (!enabled || !audioEl || reduced) {
-      // clear when disabled
       const { width, height } = canvas;
       if (width && height) ctx.clearRect(0, 0, width, height);
       return;
     }
 
-    const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
-    if (!AudioCtx) return;
+    const graph = getAudioGraph(audioEl);
+    if (!graph) return;
 
-    const audioCtx: AudioContext = new AudioCtx();
-    const source = audioCtx.createMediaElementSource(audioEl);
-    const analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 1024;
-    analyser.smoothingTimeConstant = 0.8;
-
-    source.connect(analyser);
-    analyser.connect(audioCtx.destination);
-
+    const { analyser } = graph;
     const bufferLen = analyser.frequencyBinCount;
     const data = new Uint8Array(bufferLen);
-
     const dpr = Math.min(2, window.devicePixelRatio || 1);
 
     const resize = () => {
@@ -66,26 +107,19 @@ export function SoundWaveVisualizer({ audioEl, enabled }: Props) {
       const w = canvas.width;
       const h = canvas.height;
 
-      // `dpr`, `w`, `h` are guaranteed numbers after resize; keep TS happy.
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
 
       const bars = 48;
       const step = Math.max(1, Math.floor(bufferLen / bars));
-
       const baseY = (canvas.clientHeight || 120) - 10;
 
-
-      // subtle glow
       ctx.globalCompositeOperation = "lighter";
-
 
       for (let i = 0; i < bars; i++) {
         const idx = i * step;
         analyser.getByteFrequencyData(data);
-        // `idx` luôn nằm trong phạm vi [0, bufferLen) do step được tính hợp lý
-        // nhưng TS vẫn có thể coi `data[idx]` là possibly-undefined.
-        const v = (data[idx] ?? 0) / 255; // 0..1
+        const v = (data[idx] ?? 0) / 255;
         const amp = Math.pow(v, 1.2);
 
         const x = (i / bars) * (canvas.clientWidth || window.innerWidth);
@@ -94,14 +128,12 @@ export function SoundWaveVisualizer({ audioEl, enabled }: Props) {
 
         const y = baseY - height;
         const hue = 45 + amp * 20;
-
         const pulse = 0.6 + 0.4 * Math.sin(t * 0.01 + i * 0.35);
         const alpha = 0.15 + 0.35 * amp;
 
         ctx.fillStyle = `hsla(${hue}, 90%, 60%, ${alpha})`;
         ctx.fillRect(x, y, barW, height * pulse);
 
-        // inner bright
         ctx.fillStyle = `rgba(243, 215, 120, ${alpha * 0.85})`;
         ctx.fillRect(x, y + 2, barW * 0.65, height * 0.35);
       }
@@ -110,19 +142,12 @@ export function SoundWaveVisualizer({ audioEl, enabled }: Props) {
       rafRef.current = requestAnimationFrame(draw);
     };
 
-
     rafRef.current = requestAnimationFrame(draw);
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       ro.disconnect();
-      try {
-        source.disconnect();
-        analyser.disconnect();
-        audioCtx.close();
-      } catch {
-        // ignore
-      }
+      releaseAudioGraph(audioEl);
     };
   }, [audioEl, enabled, reduced]);
 

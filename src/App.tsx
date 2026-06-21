@@ -4,6 +4,7 @@ import { SiteLayout } from "@/components/layout/site-layout";
 import { OpeningOverlay } from "@/components/opening/opening-overlay";
 import { GuestProvider } from "@/contexts/guest-context";
 import { useDocumentMeta } from "@/hooks/use-document-meta";
+import { playBackgroundMusic } from "@/hooks/use-background-music";
 import { Hero } from "@/sections/hero";
 import { GoldenDustParticles } from "@/components/floating/golden-dust-particles";
 import { SeatSearchFloating } from "@/components/floating/seat-search-floating";
@@ -45,7 +46,7 @@ export function App() {
 
   return (
     <GuestProvider>
-      <OpeningOverlay onOpen={() => setOpened(true)} />
+      <OpeningOverlay onOpen={() => setOpened(true)} onOpenMusic={() => playBackgroundMusic()} />
       <GoldenDustParticles />
       <motion.div
         initial={false}

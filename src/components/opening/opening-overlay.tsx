@@ -13,7 +13,7 @@ type PointerState = {
   time: number;
 };
 
-export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
+export function OpeningOverlay({ onOpen, onOpenMusic }: { onOpen: () => void; onOpenMusic?: () => void }) {
   const reducedMotion = useReducedMotion();
   const [visible, setVisible] = useState(true);
   const [symbolVisible, setSymbolVisible] = useState(false);
@@ -49,6 +49,7 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
 
   const triggerOpen = useCallback(() => {
     if (opening) return;
+    onOpenMusic?.();
     setOpening(true);
     setHintVisible(false);
     setMonogramVisible(false);
@@ -62,7 +63,7 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
     window.setTimeout(() => setSeamActive(true), 860);
     window.setTimeout(() => setPanelsOpen(true), 1260);
     openTimerRef.current = window.setTimeout(finishOpening, OPENING_EXIT_MS);
-  }, [opening, reducedMotion, finishOpening]);
+  }, [opening, onOpenMusic, reducedMotion, finishOpening]);
 
   const handlePointerDown = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (opening) return;
@@ -177,8 +178,8 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
 
               <motion.div
                 className="absolute left-1/2 top-0 z-30 h-full w-[2px] -translate-x-1/2 bg-[#F6E8C3]/80 shadow-[0_0_24px_rgba(246,232,195,0.65)]"
-                initial={{ opacity: 0, scaleY: 1, filter: "drop-shadow(0 0 0 rgba(0,0,0,0))" }}
-                animate={seamActive && !panelsOpen ? { opacity: 1, scaleY: 1, filter: ["drop-shadow(0 0 0 rgba(0,0,0,0))", "drop-shadow(0 0 18px rgba(246,232,195,0.5))", "drop-shadow(0 0 12px rgba(246,232,195,0.4))"] } : panelsOpen ? { opacity: 0, scaleY: 0 } : { opacity: 0, scaleY: 1, filter: "drop-shadow(0 0 0 rgba(0,0,0,0))" }}
+                initial={{ opacity: 0, filter: "drop-shadow(0 0 0 rgba(0,0,0,0))" }}
+                animate={seamActive && !panelsOpen ? { opacity: 1, filter: ["drop-shadow(0 0 0 rgba(0,0,0,0))", "drop-shadow(0 0 18px rgba(246,232,195,0.5))", "drop-shadow(0 0 12px rgba(246,232,195,0.4))"] } : { opacity: 0, filter: "drop-shadow(0 0 0 rgba(0,0,0,0))" }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
                 style={{ transformOrigin: "50% 50%" }}
               />
@@ -215,7 +216,7 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
                 囍
               </motion.div>
 
-              {/* <motion.p
+              <motion.p
                 className="opening-hint mt-24 text-center text-[12px] font-medium tracking-[0.28em] text-[#F6E8C3]/78 sm:text-[13px]"
                 initial={false}
                 animate={opening || !hintVisible ? { opacity: 0, y: 8 } : { opacity: 1, y: 0 }}
@@ -223,7 +224,7 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
               >
                 <span className="block">Vuốt để mở thiệp</span>
                 <span className="mt-1 block text-[11px] tracking-[0.22em] text-[#F6E8C3]/64 sm:text-[12px]">Swipe to open</span>
-              </motion.p> */}
+              </motion.p> 
             </div>
           </div>
         </motion.div>
@@ -231,4 +232,5 @@ export function OpeningOverlay({ onOpen }: { onOpen: () => void }) {
     </AnimatePresence>
   );
 }
+
 

@@ -9,7 +9,7 @@ import { AddToCalendar } from "./add-to-calendar";
 
 function CeremonyIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4AF37]" aria-hidden="true">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4AF37]" aria-hidden="true">
       <path d="M12 2C9.5 5 7 7.5 7 10.5a5 5 0 0010 0C17 7.5 14.5 5 12 2z" />
       <path d="M12 15.5v6M9 21.5h6" />
     </svg>
@@ -18,7 +18,7 @@ function CeremonyIcon() {
 
 function ReceptionIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4AF37]" aria-hidden="true">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#D4AF37]" aria-hidden="true">
       <path d="M8 22h8M12 17v5M5 3l7 14L19 3" />
       <path d="M5 3h14" />
     </svg>
@@ -35,104 +35,155 @@ export function EventCard({ event }: Props) {
   const reduced = useReducedMotion();
   const lang = i18n.language.startsWith("vi") ? "vi" : "en";
 
-  return (
+    return (
     <motion.article
-      className="relative flex flex-col overflow-hidden rounded-soft border border-border-subtle border-t-2 border-t-[#D4AF37] bg-surface-muted p-6 sm:p-8 backdrop-blur-md dark:bg-surface/30"
+      className="group relative flex flex-col overflow-hidden rounded-soft border border-border-subtle bg-surface-muted p-6 sm:p-8 backdrop-blur-md dark:bg-surface/30 transition-all duration-300 hover:border-[#D4AF37]/40 hover:shadow-lg hover:shadow-[#D4AF37]/10"
       initial={reduced ? undefined : "hidden"}
       whileInView={reduced ? undefined : "show"}
       viewport={revealViewport}
       variants={reduced ? undefined : fadeUp}
+      whileHover={reduced ? undefined : { y: -4, transition: { duration: 0.2 } }}
     >
-      {/* Decorative lotus corner */}
-      <svg className="absolute right-3 top-3 h-8 w-8 text-[#D4AF37]/15" viewBox="0 0 32 32" aria-hidden="true">
-        <path d="M16 4c2 4 6 7 6 12a6 6 0 01-12 0c0-5 4-8 6-12z" fill="currentColor" />
-        <path d="M16 4c-1 3-2 5-1 8 1-3 2-5 1-8z" fill="currentColor" opacity="0.5" />
-      </svg>
+      {/* Gradient border top indicator */}
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+      {/* Decorative corner element */}
+      <div className="absolute right-0 top-0 h-24 w-24 rounded-full bg-[#D4AF37]/5 blur-2xl group-hover:bg-[#D4AF37]/10 transition-colors duration-300" />
 
       {/* Kind label with icon */}
-      <div className="flex items-center gap-2">
-        {["ceremony", "an_hoi", "vu_quy", "thanh_hon"].includes(event.kind) ? <CeremonyIcon /> : <ReceptionIcon />}
-        <p className="text-[11px] uppercase tracking-[0.4em] text-accent">
-          {t(`event.kind.${event.kind}`)}
-        </p>
+      <div className="relative flex items-center gap-3">
+        <div className="p-2 rounded-lg bg-[#D4AF37]/8 group-hover:bg-[#D4AF37]/12 transition-colors duration-300">
+          {["ceremony", "an_hoi", "vu_quy", "thanh_hon"].includes(event.kind) ? <CeremonyIcon /> : <ReceptionIcon />}
+        </div>
+        <div className="flex flex-col gap-1">
+          <p className="text-[10px] uppercase tracking-[0.5em] text-[#D4AF37] font-semibold">
+            {t(`event.kind.${event.kind}`)}
+          </p>
+          <div className="h-px w-12 bg-gradient-to-r from-[#D4AF37] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </div>
       </div>
 
-      {/* Time */}
-      <p className="mt-4 font-display text-3xl tabular-nums sm:text-4xl">
-        {formatTimeRange(event.start, event.end, lang)}
-      </p>
-      <p className="mt-2 text-sm opacity-80">{formatLongDate(event.start, lang)}</p>
+      {/* Time display - enhanced */}
+      <div className="mt-5 relative">
+        <p className="text-xs uppercase tracking-widest text-[#D4AF37]/70 mb-1">
+          {t("event.time")}
+        </p>
+        <div className="inline-block">
+          <p className="font-display text-4xl sm:text-5xl tabular-nums bg-[#D4AF37] bg-clip-text text-transparent group-hover:via-[#D4AF37] transition-all duration-300">
+            {formatTimeRange(event.start, event.end, lang)}
+          </p>
+        </div>
+      </div>
 
-      {/* Gold dot divider */}
-      <div className="my-5 flex items-center gap-2">
-        <div className="h-px flex-1 bg-[#D4AF37]/20" />
-        <div className="h-1.5 w-1.5 rounded-full bg-[#D4AF37]/50" />
-        <div className="h-px flex-1 bg-[#D4AF37]/20" />
+      {/* Date */}
+      <p className="mt-2 text-sm opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+        {formatLongDate(event.start, lang)}
+      </p>
+
+      {/* Enhanced divider */}
+      <div className="my-6 relative">
+        <div className="absolute inset-0 h-px bg-gradient-to-r from-transparent via-[#D4AF37]/20 to-transparent" />
+        <div className="relative flex justify-center">
+          <div className="h-2 w-2 rounded-full bg-[#D4AF37] group-hover:h-2.5 group-hover:w-2.5 transition-all duration-300" />
+        </div>
       </div>
 
       {/* Venue details */}
-      <div>
-        <p className="font-display text-xl">{event.venue[lang]}</p>
-        <p className="mt-1 text-sm opacity-70">{event.address[lang]}</p>
+      <div className="relative space-y-3">
+        <div>
+          <p className="font-display text-lg sm:text-xl group-hover:text-[#D4AF37] transition-colors duration-300">
+            {event.venue[lang]}
+          </p>
+          <p className="mt-1 text-sm opacity-70 group-hover:opacity-90 transition-opacity duration-300">
+            {event.address[lang]}
+          </p>
+        </div>
+
         {event.venueDetail && (
-          <p className="mt-1 text-xs opacity-60">{event.venueDetail}</p>
-        )}
-        {event.dressCode && (
-          <p className="mt-2 text-xs">
-            <span className="opacity-60">{t("event.dressCode")}: </span>
-            <span className="font-medium">{event.dressCode}</span>
+          <p className="text-xs opacity-60 group-hover:opacity-80 transition-opacity duration-300">
+            {event.venueDetail}
           </p>
         )}
-        {event.parkingNote && (
-          <p className="mt-1 text-xs opacity-60">{event.parkingNote}</p>
+
+        {event.dressCode && (
+          <div className="pt-2 border-t border-[#D4AF37]/10 group-hover:border-[#D4AF37]/30 transition-colors duration-300">
+            <p className="text-xs">
+              <span className="opacity-60 group-hover:opacity-80 transition-opacity duration-300">{t("event.dressCode")}: </span>
+              <span className="font-medium text-[#D4AF37]/90 group-hover:text-[#D4AF37] transition-colors duration-300">{event.dressCode}</span>
+            </p>
+          </div>
         )}
+
+        {event.parkingNote && (
+          <p className="text-xs opacity-60 group-hover:opacity-80 transition-opacity duration-300 italic">
+            ??? {event.parkingNote}
+          </p>
+        )}
+
         {event.note && (
-          <p className="mt-2 text-xs italic opacity-60">{event.note}</p>
+          <p className="text-xs italic opacity-60 group-hover:opacity-80 transition-opacity duration-300 pt-2 border-t border-[#D4AF37]/10">
+            {event.note}
+          </p>
         )}
       </div>
 
-      {/* Timeline */}
+      {/* Timeline - enhanced */}
       {event.timeline && event.timeline.length > 0 && (
-        <div className="mt-4 space-y-2 border-t border-border-subtle pt-4">
+        <div className="mt-5 space-y-3 border-t border-[#D4AF37]/10 group-hover:border-[#D4AF37]/20 pt-5 transition-colors duration-300">
           {event.timeline.map((item, i) => (
-            <div key={i} className="flex items-start gap-3 text-sm">
-              <span className="min-w-[3rem] text-xs opacity-60 tabular-nums">{item.time}</span>
-              <span className="opacity-80">{item.label[lang]}</span>
-            </div>
+            <motion.div
+              key={i}
+              className="flex items-start gap-3 text-sm group/timeline"
+              initial={reduced ? undefined : { opacity: 0, x: -10 }}
+              whileInView={reduced ? undefined : { opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.05 }}
+              viewport={revealViewport}
+            >
+              <span className="min-w-[4rem] text-xs opacity-60 group-hover/timeline:opacity-100 group-hover/timeline:text-[#D4AF37] transition-all duration-300 tabular-nums font-semibold">
+                {item.time}
+              </span>
+              <span className="opacity-80 group-hover/timeline:opacity-100 transition-opacity duration-300">
+                {item.label[lang]}
+              </span>
+            </motion.div>
           ))}
         </div>
       )}
 
       {/* Map button and inline iframe */}
-      <div className="mt-5 flex flex-col gap-2">
+      <div className="mt-6 flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-2">
-          <button
+          <motion.button
             type="button"
             onClick={() => setShowMap(!showMap)}
-            className="rounded-pill border border-border-subtle px-3 py-1.5 text-[11px] uppercase tracking-widest transition hover:bg-surface-muted min-h-[32px] inline-flex items-center cursor-pointer font-sans"
+            className="rounded-lg border border-[#D4AF37]/30 px-4 py-2 text-xs uppercase tracking-wider bg-[#D4AF37]/5 hover:bg-[#D4AF37]/15 text-[#D4AF37] transition-all duration-300 font-semibold hover:shadow-lg hover:shadow-[#D4AF37]/20"
+            whileHover={reduced ? undefined : { scale: 1.05 }}
+            whileTap={reduced ? undefined : { scale: 0.95 }}
           >
             {showMap
-              ? (lang === "vi" ? "Ẩn bản đồ ▴" : "Hide Map ▴")
-              : (lang === "vi" ? "Xem bản đồ ▾" : "View Map ▾")}
-          </button>
-          <a
+              ? (lang === "vi" ? "Ẩn bản đồ" : "Hide Map")
+              : (lang === "vi" ? "Xem bản đồ" : "View Map")}
+          </motion.button>
+          <motion.a
             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(event.mapQuery)}`}
             target="_blank"
             rel="noreferrer"
-            className="rounded-pill border border-border-subtle px-3 py-1.5 text-[11px] uppercase tracking-widest transition hover:bg-surface-muted min-h-[32px] inline-flex items-center cursor-pointer font-sans"
+            className="rounded-lg border border-[#D4AF37]/30 px-4 py-2 text-xs uppercase tracking-wider bg-[#D4AF37]/5 hover:bg-[#D4AF37]/15 text-[#D4AF37] transition-all duration-300 font-semibold hover:shadow-lg hover:shadow-[#D4AF37]/20"
+            whileHover={reduced ? undefined : { scale: 1.05 }}
+            whileTap={reduced ? undefined : { scale: 0.95 }}
           >
-            {t("events.openInMaps")}
-          </a>
+            {t("events.openInMaps")} ?
+          </motion.a>
         </div>
 
         <AnimatePresence>
           {showMap && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 220 }}
+              animate={{ opacity: 1, height: 280 }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden rounded-soft ring-1 ring-accent/20 w-full mt-2"
+              transition={{ duration: 0.4 }}
+              className="overflow-hidden rounded-lg ring-2 ring-[#D4AF37]/20 w-full"
             >
               <iframe
                 src={`https://www.google.com/maps?q=${encodeURIComponent(event.mapQuery)}&output=embed`}
@@ -150,3 +201,4 @@ export function EventCard({ event }: Props) {
     </motion.article>
   );
 }
+
