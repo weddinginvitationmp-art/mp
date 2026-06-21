@@ -44,7 +44,7 @@ export function ConfirmStep({ form, onEdit }: Props) {
               <button
                 type="button"
                 onClick={() => onEdit(step)}
-                className="text-[10px] uppercase tracking-widest text-accent underline-offset-4 hover:underline"
+                className="text-[10px] uppercase tracking-widest text-slate-500 underline-offset-4 hover:underline"
               >
                 {t("rsvp.buttons.edit")}
               </button>

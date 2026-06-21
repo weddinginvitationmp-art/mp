@@ -26,7 +26,7 @@ export function SectionHeading({ eyebrowKey, titleKey, subtitleKey, index }: Pro
   const eyebrow = (
     <>
       {indexLabel && (
-        <span aria-hidden="true" className="text-accent">
+        <span aria-hidden="true" className="text-slate-500">
           {indexLabel}
         </span>
       )}

@@ -63,7 +63,7 @@ export function BouquetGame({ onClose, onSubmit }: Props) {
         <div>
           <div className="mb-2 flex items-center justify-between text-xs uppercase tracking-widest opacity-80">
             <span>⏱ {seconds}s</span>
-            <span>{t("games.scoreLabel")}: <span className="text-accent">{score}</span></span>
+            <span>{t("games.scoreLabel")}: <span className="text-slate-500">{score}</span></span>
           </div>
           <div
             ref={boardRef}
@@ -83,7 +83,7 @@ export function BouquetGame({ onClose, onSubmit }: Props) {
           role="status"
           className="mt-4 rounded-soft border border-muted-gold/30 bg-accent/10 p-3 text-center text-sm"
         >
-          <p className="font-display text-lg text-accent">{t("games.complete")}</p>
+          <p className="font-display text-lg text-slate-500">{t("games.complete")}</p>
           <p className="mt-1 opacity-80">
             {t("games.bouquet.summary", { caught, golden, missed })}
           </p>

@@ -27,7 +27,7 @@ export function LoginForm() {
         className="glass w-full max-w-sm rounded-soft p-6 space-y-4"
       >
         <header className="text-center">
-          <p className="text-xs uppercase tracking-[0.4em] text-accent">{t("admin.login.eyebrow")}</p>
+          <p className="text-xs uppercase tracking-[0.4em] text-slate-500">{t("admin.login.eyebrow")}</p>
           <h1 className="mt-2 font-display text-2xl text-on-surface">{t("admin.login.title")}</h1>
         </header>
 

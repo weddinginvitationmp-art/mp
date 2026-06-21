@@ -37,7 +37,7 @@ export default function AdminApp() {
     <div className="min-h-dvh bg-surface text-on-surface">
       <header className="sticky top-0 z-20 glass">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center gap-3 px-4 py-3">
-          <p className="font-display text-sm text-accent">{t("admin.header.title")}</p>
+          <p className="font-display text-sm text-slate-500">{t("admin.header.title")}</p>
           <span className="text-xs opacity-60 truncate max-w-[180px]">{user.email}</span>
           <div className="ml-auto">
             <Button size="sm" variant="ghost" onClick={() => void signOut()}>

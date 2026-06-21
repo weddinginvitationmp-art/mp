@@ -91,7 +91,7 @@ export function QuizGame({ onClose, onSubmit }: Props) {
           role="status"
           className="rounded-soft border border-muted-gold/30 bg-accent/10 p-4 text-center"
         >
-          <p className="font-display text-xl text-accent">{t("games.complete")}</p>
+          <p className="font-display text-xl text-slate-500">{t("games.complete")}</p>
           <p className="mt-2 text-sm opacity-80">
             {t("games.quiz.resultLine", { correct: correctCount, total })}
           </p>

@@ -29,7 +29,7 @@ export function LeaderboardRowItem({ row, rank, isMe }: Props) {
             : "border-border-subtle"
       }`}
     >
-      <span className="w-8 text-center font-display text-base text-accent">
+      <span className="w-8 text-center font-display text-base text-slate-500">
         {medal ?? rank}
       </span>
       <span className="flex-1 truncate">{row.guest_name}</span>

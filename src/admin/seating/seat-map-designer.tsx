@@ -719,7 +719,7 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
                       setSelectedRegion({ kind: "stage", id: seatMap.stage?.id });
                     }}
                     className={`absolute rounded-3xl border p-2 text-center text-sm ${
-                      selectedRegion?.kind === "stage" ? "border-accent bg-accent/10 text-accent" : "border-blue-400 bg-sky-100/70 text-sky-900"
+                      selectedRegion?.kind === "stage" ? "border-accent bg-accent/10 text-slate-500" : "border-blue-400 bg-sky-100/70 text-sky-900"
                     }`}
                     style={{ left: seatMap.stage.x, top: seatMap.stage.y, width: seatMap.stage.width, height: seatMap.stage.height }}
                   >
@@ -742,7 +742,7 @@ export function SeatMapDesigner({ seatMap, guests, onChange, onSave, onClose, on
                       setSelectedRegion({ kind: "zone", id: zone.id });
                     }}
                     className={`absolute rounded-3xl border p-2 text-sm ${
-                      selectedRegion?.kind === "zone" && selectedRegion.id === zone.id ? "border-accent bg-accent/10 text-accent" : "border-orange-300 bg-orange-100/70 text-orange-900"
+                      selectedRegion?.kind === "zone" && selectedRegion.id === zone.id ? "border-accent bg-accent/10 text-slate-500" : "border-orange-300 bg-orange-100/70 text-orange-900"
                     }`}
                     style={{ left: zone.x, top: zone.y, width: zone.width, height: zone.height }}
                   >

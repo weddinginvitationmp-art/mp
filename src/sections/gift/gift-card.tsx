@@ -32,7 +32,7 @@ export function GiftCard({ account, memo, compact = false }: Props) {
   return (
     <>
       <article className={`flex flex-col items-center rounded-soft border text-center backdrop-blur-md ${compact ? "border-border-subtle/50 bg-surface-muted/50 p-4" : "border-border-subtle bg-surface-muted p-6"}`}>
-        <p className="text-[11px] uppercase tracking-[0.4em] text-accent">
+        <p className="text-[11px] uppercase tracking-[0.4em] text-slate-500">
           {account.name[lang]}
         </p>
 

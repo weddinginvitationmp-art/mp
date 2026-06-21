@@ -112,12 +112,12 @@ export function LeaderboardModule() {
                   {i === 0 ? "🥇" : i === 1 ? "🥈" : i === 2 ? "🥉" : i + 1}
                 </td>
                 <td className="py-2 pr-4 font-medium">
-                  <span className={user ? (s.guest?.full_name === user.email ? "text-accent" : "") : ""}>
+                  <span className={user ? (s.guest?.full_name === user.email ? "text-slate-500" : "") : ""}>
                     {s.guest?.full_name ?? "—"}
                   </span>
                 </td>
 
-                <td className="py-2 pr-4 font-display text-accent">{s.score}</td>
+                <td className="py-2 pr-4 font-display text-slate-500">{s.score}</td>
                 <td className="py-2 pr-4 text-xs opacity-70">{fmt(s.created_at)}</td>
                 <td className="py-2 pr-4 text-right">
                   <Button size="sm" variant="ghost" onClick={() => void handleDelete(s)}>

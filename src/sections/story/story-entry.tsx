@@ -39,7 +39,7 @@ export function StoryEntry({ milestone, side }: Props) {
         aria-hidden="true"
         className="absolute left-5 top-2 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-accent ring-4 ring-ivory dark:ring-ink md:left-1/2"
       />
-      <p className="font-display text-sm uppercase tracking-[0.15em] text-accent">
+      <p className="font-display text-sm uppercase tracking-[0.15em] text-slate-500">
         {formatLongDate(milestone.date, lang)}
       </p>
       <div className="mt-6 overflow-hidden rounded-3xl border border-accent/10 bg-ivory shadow-soft dark:bg-ink/5 md:mt-8">

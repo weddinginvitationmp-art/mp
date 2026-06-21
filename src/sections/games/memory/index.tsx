@@ -78,7 +78,7 @@ export function MemoryGame({ onClose, onSubmit }: Props) {
           role="status"
           className="mt-4 rounded-soft border border-muted-gold/30 bg-accent/10 p-3 text-center text-sm"
         >
-          <p className="font-display text-lg text-accent">{t("games.complete")}</p>
+          <p className="font-display text-lg text-slate-500">{t("games.complete")}</p>
           <p className="mt-1 opacity-80">
             {t("games.scoreLabel")}: <span className="font-display text-on-surface">{score}</span>
           </p>

@@ -14,7 +14,7 @@ export function RsvpSuccess({ attending, onEdit }: Props) {
       <button
         type="button"
         onClick={onEdit}
-        className="mt-6 text-xs uppercase tracking-[0.3em] text-accent underline-offset-4 hover:underline"
+        className="mt-6 text-xs uppercase tracking-[0.3em] text-slate-500 underline-offset-4 hover:underline"
       >
         {t("rsvp.buttons.editResponse")}
       </button>

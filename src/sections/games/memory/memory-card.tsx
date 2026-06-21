@@ -32,7 +32,7 @@ export function MemoryCardTile({ card, flipped, matched, disabled, onFlip }: Pro
       >
         {/* Back */}
         <div
-          className="absolute inset-0 flex items-center justify-center rounded-soft bg-surface-muted text-accent/40 font-display text-xl"
+          className="absolute inset-0 flex items-center justify-center rounded-soft bg-surface-muted text-slate-500/40 font-display text-xl"
           style={reduced ? undefined : { backfaceVisibility: "hidden" }}
         >
           {reduced && showFace ? card.glyph : "♦"}
@@ -41,7 +41,7 @@ export function MemoryCardTile({ card, flipped, matched, disabled, onFlip }: Pro
         {!reduced && (
           <div
             className={`absolute inset-0 flex items-center justify-center rounded-soft font-display text-3xl ${
-              matched ? "bg-accent/15 text-accent" : "bg-surface-muted text-on-surface"
+              matched ? "bg-accent/15 text-slate-500" : "bg-surface-muted text-on-surface"
             }`}
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
           >

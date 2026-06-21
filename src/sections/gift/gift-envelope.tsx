@@ -115,7 +115,7 @@ export function GiftEnvelope({ onOpen, compact = false }: Props) {
           </motion.button>
 
           <motion.p
-            className="text-xs uppercase tracking-[0.3em] text-accent"
+            className="text-xs uppercase tracking-[0.3em] text-slate-500"
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >

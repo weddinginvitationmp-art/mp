@@ -36,19 +36,19 @@ export function Invitation({ index }: { index?: number }) {
         <InvitationFrame>
           <div className="flex flex-col items-center text-center">
             {/* Double happiness */}
-            <span className="text-3xl text-[#D4AF37]/60 select-none" aria-hidden="true">囍</span>
+            <span className="text-3xl text-[#D4AF37]/70 select-none" aria-hidden="true">囍</span>
 
             {/* Parents */}
             <div className="mt-6 grid w-full grid-cols-1 gap-6 sm:grid-cols-2">
               {/* Groom family */}
               <div>
-                <p className="text-[10px] uppercase tracking-[0.4em] text-accent">{t("invitation.groomFamily")}</p>
+                <p className="text-[10px] uppercase tracking-[0.4em] text-slate-500">{t("invitation.groomFamily")}</p>
                 <p className="mt-2 text-sm opacity-80">{invitation.groomParents.father}</p>
                 <p className="text-sm opacity-80">{invitation.groomParents.mother}</p>
               </div>
               {/* Bride family */}
               <div>
-                <p className="text-[10px] uppercase tracking-[0.4em] text-accent">{t("invitation.brideFamily")}</p>
+                <p className="text-[10px] uppercase tracking-[0.4em] text-slate-500">{t("invitation.brideFamily")}</p>
                 <p className="mt-2 text-sm opacity-80">{invitation.brideParents.father}</p>
                 <p className="text-sm opacity-80">{invitation.brideParents.mother}</p>
               </div>
@@ -62,8 +62,8 @@ export function Invitation({ index }: { index?: number }) {
                 </p>
                 <div className="relative my-3 flex items-center justify-center py-2 px-8 w-full">
                   {/* Left ornament */}
-                  <span className="absolute left-0 text-[#D4AF37]/50 text-xs">✦</span>
-                  <span className="font-sans text-xl font-medium tracking-wide text-champagne bg-gradient-to-r from-[#F7E7CE] via-[#D4AF37] to-[#C9A876] bg-clip-text text-transparent filter drop-shadow-[0_2px_8px_rgba(212,175,55,0.15)] text-center">
+                  <span className="absolute left-0 text-[#D4AF37]/80 text-xs">✦</span>
+                  <span className="font-sans text-xl font-medium tracking-wide text-champagne bg-[#C9A876] bg-clip-text text-transparent filter drop-shadow-[0_2px_8px_rgba(212,175,55,0.15)] text-center">
                     {guest.full_name}
                   </span>
                   {/* Right ornament */}
@@ -81,9 +81,9 @@ export function Invitation({ index }: { index?: number }) {
 
             {/* Couple names */}
             <h2 className="mt-4 font-script text-3xl leading-tight sm:text-4xl">
-              <span className="opening-shimmer">{wedding.groom.name}</span>
+              <span className="text-[#D4AF37]/70">{wedding.groom.name}</span>
               <span className="mx-2 text-lg text-[#D4AF37]/60">&amp;</span>
-              <span className="opening-shimmer">{wedding.bride.name}</span>
+              <span className="text-[#D4AF37]/70">{wedding.bride.name}</span>
             </h2>
 
             {/* Gold divider */}

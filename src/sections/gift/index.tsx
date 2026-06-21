@@ -39,7 +39,7 @@ export function Gift({ index }: { index?: number }) {
             onClick={() =>
               document.getElementById("rsvp")?.scrollIntoView({ behavior: "smooth" })
             }
-            className="rounded-full border border-accent px-6 py-2.5 text-xs uppercase tracking-[0.2em] text-accent transition-colors hover:bg-accent hover:text-on-accent"
+            className="rounded-full border border-accent px-6 py-2.5 text-xs uppercase tracking-[0.2em] text-slate-500 transition-colors hover:bg-accent hover:text-on-accent"
           >
             {t("gift.ctaRsvp")}
           </button>
@@ -59,7 +59,7 @@ export function Gift({ index }: { index?: number }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <p className="mb-8 text-center text-xs uppercase tracking-[0.3em] text-accent">
+          <p className="mb-8 text-center text-xs uppercase tracking-[0.3em] text-slate-500">
             {showCompact ? t("gift.promptNotAttending") : t("gift.scanHint")}
           </p>
 

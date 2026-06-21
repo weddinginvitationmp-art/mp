@@ -70,7 +70,7 @@ export function QuickNavToggle() {
                     role="menuitem"
                     onClick={() => jumpTo(s.id)}
                     className={`flex w-full items-center gap-2 rounded px-3 py-2 text-left text-xs uppercase tracking-widest transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-muted-gold/40 ${
-                      isActive ? "text-accent" : "text-on-surface hover:bg-surface-muted"
+                      isActive ? "text-slate-500" : "text-on-surface hover:bg-surface-muted"
                     }`}
                   >
                     <span
