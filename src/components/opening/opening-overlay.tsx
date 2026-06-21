@@ -1,3 +1,4 @@
+
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
@@ -5,7 +6,7 @@ const EASE_CINEMATIC = [0.22, 1, 0.36, 1] as const;
 
 const SYMBOL_DELAY_MS = 300;
 const HINT_DELAY_MS = 2000;
-const OPENING_EXIT_MS = 2300;
+const OPENING_EXIT_MS = 760;
 
 type PointerState = {
   x: number;
@@ -13,26 +14,41 @@ type PointerState = {
   time: number;
 };
 
-export function OpeningOverlay({ onOpen, onOpenMusic }: { onOpen: () => void; onOpenMusic?: () => void }) {
+export function OpeningOverlay({
+  onOpen,
+  onOpenMusic,
+}: {
+  onOpen: () => void;
+  onOpenMusic?: () => void;
+}) {
   const reducedMotion = useReducedMotion();
+
   const [visible, setVisible] = useState(true);
   const [symbolVisible, setSymbolVisible] = useState(false);
   const [monogramVisible, setMonogramVisible] = useState(true);
   const [hintVisible, setHintVisible] = useState(false);
   const [opening, setOpening] = useState(false);
-  const [seamActive, setSeamActive] = useState(false);
   const [panelsOpen, setPanelsOpen] = useState(false);
   const [pulseActive, setPulseActive] = useState(false);
+
   const pointerStateRef = useRef<PointerState | null>(null);
   const openTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const symbolTimer = window.setTimeout(() => setSymbolVisible(true), SYMBOL_DELAY_MS);
-    const hintTimer = window.setTimeout(() => setHintVisible(true), HINT_DELAY_MS);
+    const symbolTimer = window.setTimeout(
+      () => setSymbolVisible(true),
+      SYMBOL_DELAY_MS
+    );
+
+    const hintTimer = window.setTimeout(
+      () => setHintVisible(true),
+      HINT_DELAY_MS
+    );
 
     return () => {
       window.clearTimeout(symbolTimer);
       window.clearTimeout(hintTimer);
+
       if (openTimerRef.current) {
         window.clearTimeout(openTimerRef.current);
       }
@@ -49,7 +65,9 @@ export function OpeningOverlay({ onOpen, onOpenMusic }: { onOpen: () => void; on
 
   const triggerOpen = useCallback(() => {
     if (opening) return;
+
     onOpenMusic?.();
+
     setOpening(true);
     setHintVisible(false);
     setMonogramVisible(false);
@@ -60,69 +78,108 @@ export function OpeningOverlay({ onOpen, onOpenMusic }: { onOpen: () => void; on
     }
 
     setPulseActive(true);
-    window.setTimeout(() => setSeamActive(true), 860);
-    window.setTimeout(() => setPanelsOpen(true), 1260);
-    openTimerRef.current = window.setTimeout(finishOpening, OPENING_EXIT_MS);
+
+    window.setTimeout(() => {
+      setPanelsOpen(true);
+    }, 140);
+
+    openTimerRef.current = window.setTimeout(
+      finishOpening,
+      OPENING_EXIT_MS
+    );
   }, [opening, onOpenMusic, reducedMotion, finishOpening]);
 
-  const handlePointerDown = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (opening) return;
-    pointerStateRef.current = { x: event.clientX, y: event.clientY, time: performance.now() };
-  }, [opening]);
+  const handlePointerDown = useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (opening) return;
 
-  const handlePointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (opening) return;
-    const start = pointerStateRef.current;
-    if (!start) return;
+      pointerStateRef.current = {
+        x: event.clientX,
+        y: event.clientY,
+        time: performance.now(),
+      };
+    },
+    [opening]
+  );
 
-    const deltaX = event.clientX - start.x;
-    const deltaY = event.clientY - start.y;
-    const distance = Math.hypot(deltaX, deltaY);
-    if (distance > 14) {
-      triggerOpen();
-    }
-  }, [opening, triggerOpen]);
+  const handlePointerMove = useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (opening) return;
 
-  const handlePointerUp = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
-    if (opening) return;
-    const start = pointerStateRef.current;
-    pointerStateRef.current = null;
-    if (!start) {
-      triggerOpen();
-      return;
-    }
+      const start = pointerStateRef.current;
+      if (!start) return;
 
-    const deltaX = event.clientX - start.x;
-    const deltaY = event.clientY - start.y;
-    const distance = Math.hypot(deltaX, deltaY);
-    const elapsed = performance.now() - start.time;
+      const deltaX = event.clientX - start.x;
+      const deltaY = event.clientY - start.y;
 
-    if (distance <= 14 && elapsed < 500) {
-      triggerOpen();
-      return;
-    }
+      const distance = Math.hypot(deltaX, deltaY);
 
-    if (deltaY < -24 || Math.abs(deltaX) > 24) {
-      triggerOpen();
-    }
-  }, [opening, triggerOpen]);
+      if (distance > 14) {
+        triggerOpen();
+      }
+    },
+    [opening, triggerOpen]
+  );
 
-  const handleWheel = useCallback((event: React.WheelEvent<HTMLDivElement>) => {
-    if (opening) return;
-    if (event.deltaY > 0) {
-      event.preventDefault();
-      triggerOpen();
-    }
-  }, [opening, triggerOpen]);
+  const handlePointerUp = useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      if (opening) return;
+
+      const start = pointerStateRef.current;
+      pointerStateRef.current = null;
+
+      if (!start) {
+        triggerOpen();
+        return;
+      }
+
+      const deltaX = event.clientX - start.x;
+      const deltaY = event.clientY - start.y;
+
+      const distance = Math.hypot(deltaX, deltaY);
+      const elapsed = performance.now() - start.time;
+
+      if (distance <= 14 && elapsed < 500) {
+        triggerOpen();
+        return;
+      }
+
+      if (deltaY < -24 || Math.abs(deltaX) > 24) {
+        triggerOpen();
+      }
+    },
+    [opening, triggerOpen]
+  );
+
+  const handleWheel = useCallback(
+    (event: React.WheelEvent<HTMLDivElement>) => {
+      if (opening) return;
+
+      if (event.deltaY > 0) {
+        event.preventDefault();
+        triggerOpen();
+      }
+    },
+    [opening, triggerOpen]
+  );
 
   const symbolStyle = useMemo(() => {
     if (!symbolVisible) {
-      return { opacity: 0, scale: 0.95 };
+      return {
+        opacity: 0,
+        scale: 0.95,
+      };
     }
 
     return opening
-      ? { opacity: 0, scale: 0.88 }
-      : { opacity: 1, scale: 1 };
+      ? {
+          opacity: 1,
+          scale: 1.06,
+        }
+      : {
+          opacity: 1,
+          scale: 1,
+        };
   }, [opening, symbolVisible]);
 
   return (
@@ -133,63 +190,111 @@ export function OpeningOverlay({ onOpen, onOpenMusic }: { onOpen: () => void; on
           role="dialog"
           aria-modal="true"
           aria-label="Wedding invitation opening screen"
-          className="fixed inset-0 overflow-hidden bg-[#B13B3B]"
+          className="fixed inset-0 overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: reducedMotion ? 0.2 : 0.55, ease: EASE_CINEMATIC }}
+          transition={{
+            duration: reducedMotion ? 0.2 : 0.55,
+            ease: EASE_CINEMATIC,
+          }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
           onPointerCancel={() => (pointerStateRef.current = null)}
           onWheel={handleWheel}
-          style={{ touchAction: "none" }}
+          style={{
+            touchAction: "none",
+            background:
+              "linear-gradient(90deg,#b42f2f 0%,#aa2323 35%,#981818 50%,#aa2323 65%,#b42f2f 100%)",
+          }}
         >
-          <div className="opening-screen-vignette absolute inset-0" />
-          <div className="opening-screen-grain pointer-events-none absolute inset-0" />
+          {/* Gold particles */}
+          {[...Array(18)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full bg-[#D79A4A]"
+              style={{
+                width: Math.random() * 5 + 2,
+                height: Math.random() * 5 + 2,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                opacity: [0.2, 0.8, 0.2],
+                y: [-8, 8, -8],
+              }}
+              transition={{
+                duration: 4 + Math.random() * 4,
+                repeat: Infinity,
+              }}
+            />
+          ))}
 
           <motion.div
             aria-hidden="true"
             className="absolute inset-0"
             initial={false}
-            animate={pulseActive && !reducedMotion ? { opacity: [0, 0.95, 0], scale: [0.94, 1, 1.28] } : { opacity: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            animate={
+              pulseActive && !reducedMotion
+                ? {
+                    opacity: [0, 0.95, 0],
+                    scale: [0.94, 1, 1.28],
+                  }
+                : {
+                    opacity: 0,
+                  }
+            }
+            transition={{
+              duration: 0.6,
+              ease: "easeOut",
+            }}
             style={{
-              background: "radial-gradient(circle at center, rgba(246,232,195,0.42) 0%, rgba(246,232,195,0.14) 24%, rgba(246,232,195,0) 70%)",
+              background:
+                "radial-gradient(circle at center, rgba(246,232,195,0.25) 0%, rgba(246,232,195,0.08) 24%, rgba(246,232,195,0) 70%)",
             }}
           />
 
           {!reducedMotion && (
-            <div aria-hidden="true" className="absolute inset-0 z-20 overflow-hidden">
+            <>
               <motion.div
-                className="opening-panel absolute inset-y-0 left-0 w-1/2 origin-right border-r border-white/12 shadow-[10px_0_48px_rgba(72,12,12,0.28)]"
-                initial={{ x: 0 }}
-                animate={panelsOpen ? { x: "-110%", skewY: -2 } : { x: 0, skewY: 0 }}
-                transition={{ duration: 2, ease: EASE_CINEMATIC }}
-                style={{ transformOrigin: "100% 50%" }}
-              />
-              <motion.div
-                className="opening-panel absolute inset-y-0 right-0 w-1/2 origin-left border-l border-white/12 shadow-[-10px_0_48px_rgba(72,12,12,0.28)]"
-                initial={{ x: 0 }}
-                animate={panelsOpen ? { x: "110%", skewY: 2 } : { x: 0, skewY: 0 }}
-                transition={{ duration: 2, ease: EASE_CINEMATIC }}
-                style={{ transformOrigin: "0% 50%" }}
+                aria-hidden="true"
+                className="absolute inset-y-0 left-0 w-1/2 border-r border-white/10 shadow-[8px_0_40px_rgba(95,13,13,0.22)]"
+                initial={false}
+                animate={
+                  panelsOpen
+                    ? {
+                        x: "-104%",
+                      }
+                    : {
+                        x: 0,
+                      }
+                }
+                transition={{
+                  duration: 0.72,
+                  ease: EASE_CINEMATIC,
+                }}
               />
 
               <motion.div
-                className="absolute left-1/2 top-0 z-30 h-full w-[2px] -translate-x-1/2 bg-[#F6E8C3]/80 shadow-[0_0_24px_rgba(246,232,195,0.65)]"
-                initial={{ opacity: 0, filter: "drop-shadow(0 0 0 rgba(0,0,0,0))" }}
-                animate={seamActive && !panelsOpen ? { opacity: 1, filter: ["drop-shadow(0 0 0 rgba(0,0,0,0))", "drop-shadow(0 0 18px rgba(246,232,195,0.5))", "drop-shadow(0 0 12px rgba(246,232,195,0.4))"] } : { opacity: 0, filter: "drop-shadow(0 0 0 rgba(0,0,0,0))" }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-                style={{ transformOrigin: "50% 50%" }}
-              />
-              <motion.div
-                className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,rgba(246,232,195,0.15)_0%,rgba(246,232,195,0.06)_18%,rgba(0,0,0,0)_58%)]"
+                aria-hidden="true"
+                className="absolute inset-y-0 right-0 w-1/2 border-l border-white/10 shadow-[-8px_0_40px_rgba(95,13,13,0.22)]"
                 initial={false}
-                animate={panelsOpen ? { opacity: 0 } : { opacity: 1 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
+                animate={
+                  panelsOpen
+                    ? {
+                        x: "104%",
+                      }
+                    : {
+                        x: 0,
+                      }
+                }
+                transition={{
+                  duration: 0.72,
+                  ease: EASE_CINEMATIC,
+                }}
               />
-            </div>
+            </>
           )}
 
           <div className="relative z-10 flex h-full w-full items-center justify-center px-6 text-center">
@@ -198,33 +303,62 @@ export function OpeningOverlay({ onOpen, onOpenMusic }: { onOpen: () => void; on
                 aria-hidden="true"
                 className="mb-6 text-[11px] font-semibold tracking-[0.55em] text-[#F6E8C3]/72 sm:text-xs"
                 initial={false}
-                animate={monogramVisible && !opening ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
-                transition={{ duration: 0.28, ease: "easeOut" }}
+                animate={
+                  monogramVisible && !opening
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: -8 }
+                }
+                transition={{
+                  duration: 0.28,
+                  ease: "easeOut",
+                }}
               >
-                Hoàng Minh 💕 Hà Phương
+                Hoàng Minh &amp; Hà Phương
               </motion.div>
+
               <motion.div
-                className="opening-symbol select-none text-[#F6E8C3]"
+                className="select-none text-[#F6E8C3]"
                 initial={false}
                 animate={symbolStyle}
-                transition={{ duration: reducedMotion ? 0.2 : opening ? 0.2 : 0.8, ease: "easeOut" }}
+                transition={{
+                  duration: reducedMotion
+                    ? 0.2
+                    : opening
+                    ? 0.2
+                    : 0.8,
+                  ease: "easeOut",
+                }}
                 style={{
-                  fontSize: "clamp(7.5rem, 18vw, 12rem)",
+                  fontSize: "clamp(7.5rem,18vw,12rem)",
                   lineHeight: 1,
+                  textShadow:
+                    "0 0 12px rgba(246,232,195,0.25),0 0 28px rgba(246,232,195,0.15)",
                 }}
               >
                 囍
               </motion.div>
 
               <motion.p
-                className="opening-hint mt-24 text-center text-[12px] font-medium tracking-[0.28em] text-[#F6E8C3]/78 sm:text-[13px]"
+                className="mt-24 text-center text-[12px] font-medium tracking-[0.28em] text-[#F6E8C3]/78 sm:text-[13px]"
                 initial={false}
-                animate={opening || !hintVisible ? { opacity: 0, y: 8 } : { opacity: 1, y: 0 }}
-                transition={{ duration: reducedMotion ? 0.2 : 0.45, ease: "easeOut" }}
+                animate={
+                  hintVisible && !opening
+                    ? { opacity: 1, y: 0 }
+                    : { opacity: 0, y: 8 }
+                }
+                transition={{
+                  duration: 0.45,
+                  ease: "easeOut",
+                }}
               >
-                <span className="block">Vuốt để mở thiệp</span>
-                <span className="mt-1 block text-[11px] tracking-[0.22em] text-[#F6E8C3]/64 sm:text-[12px]">Swipe to open</span>
-              </motion.p> 
+                <span className="block">
+                  Vuốt để mở thiệp
+                </span>
+
+                <span className="mt-1 block text-[11px] tracking-[0.22em] text-[#F6E8C3]/64 sm:text-[12px]">
+                  Swipe to open
+                </span>
+              </motion.p>
             </div>
           </div>
         </motion.div>
@@ -232,5 +366,4 @@ export function OpeningOverlay({ onOpen, onOpenMusic }: { onOpen: () => void; on
     </AnimatePresence>
   );
 }
-
 
