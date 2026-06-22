@@ -16,11 +16,24 @@ export function Invitation({ index }: { index?: number }) {
   const { invitation } = wedding;
 
   const isFriend = guest?.relationship
-    ? /bạn|đồng nghiệp|friend|colleague/i.test(guest.relationship)
+    ? /bạn|đồng nghiệp|friend|colleague|Bạn bè|Em|Anh chị|Chị em/i.test(guest.relationship)
     : false;
 
+  let relationshipText = "chúng mình"; // Default to a neutral term
+
+  if (guest?.relationship) {
+    if (/bạn|friend/i.test(guest.relationship)) {
+      relationshipText = "chúng mình"; // Neutral and inclusive
+    } else if (/Anh|Chị|Brother|Sister/i.test(guest.relationship)) {
+      relationshipText = "chúng em"; // Neutral and inclusive
+    } else if (/Em|Younger/i.test(guest.relationship)) {
+      relationshipText = "anh chị"; // Neutral and inclusive
+    }
+  }
+  const customInvitationText = `đến chung vui cùng ${relationshipText}`;
+
   const invitationSuffix = isFriend
-    ? (lang === "vi" ? "đến chung vui cùng chúng mình" : "to celebrate our wedding day with us")
+    ? (lang === "vi" ? customInvitationText : "to celebrate our wedding day with us")
     : t("invitation.toAttend");
 
   return (
