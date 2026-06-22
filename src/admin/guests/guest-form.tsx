@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/common/button";
 import type { Database } from "@/types/database";
+import { RiDropdownList } from "react-icons/ri";
 
 type Guest = Database["public"]["Tables"]["guests"]["Row"];
 type GuestInsert = Database["public"]["Tables"]["guests"]["Insert"];
@@ -84,7 +85,22 @@ export function GuestForm({ initial, onSubmit, onCancel }: Props) {
         <input type="email" className={inputCls} value={email ?? ""} onChange={(e) => setEmail(e.target.value)} />
       </Field>
       <Field label={t("admin.guests.form.relationship")}>
-        <input className={inputCls} value={relationship ?? ""} onChange={(e) => setRelationship(e.target.value)} />
+        <RiDropdownList className="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-muted" />
+        <select
+          className={inputCls + " appearance-none pr-8"}
+          value={relationship ?? ""}
+          onChange={(e) => setRelationship(e.target.value)}
+        >
+          {/* bạn|đồng nghiệp|Bạn bè|Em|Anh chị|Chị em|Người thân */}
+          <option value="">-- {t("admin.guests.form.relationshipSelect")} --</option>
+          <option value="đồng nghiệp">{t("admin.guests.form.relationshipColleague")}</option>
+          <option value="Bạn bè">{t("admin.guests.form.relationshipFriends")}</option>
+          <option value="Em">{t("admin.guests.form.relationshipYounger")}</option>
+          <option value="Anh chị">{t("admin.guests.form.relationshipOlder")}</option>
+          <option value="Chị em">{t("admin.guests.form.relationshipSiblings")}</option>
+          <option value="Người thân">{t("admin.guests.form.relationshipFamily")}</option>
+       
+        </select>
       </Field>
       <Field label={t("admin.guests.form.language")}>
         <select
